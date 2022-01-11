@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./lms/Dashboard";
 import Homelist from "./Homelist";
 import Login from "./auth/Login";
+import Test2 from "./Test2";
 function App() {
   // const [cool,setCool] = useState(false)
   return (
@@ -15,6 +16,9 @@ function App() {
           </Route>
           <Route path={`/login`}>
             <Login />
+          </Route>
+          <Route path={`/test`}>
+            <Test2 />
           </Route>
 
           <Route path={`/`}>

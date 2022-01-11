@@ -1,3 +1,14 @@
-.App{
-    margin: auto;
+.App {
+  min-height: 100vh;
+  display: grid;
+}
+.error-msg {
+  color: #c90e0e;
+  transition: 0.3s;
+  visibility: visible;
+  opacity: 100;
+}
+.hide {
+  visibility: hidden;
+  opacity: 0;
 }

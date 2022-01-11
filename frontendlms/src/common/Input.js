@@ -1,8 +1,36 @@
-export const Input = ({ label, type, id, placeholder }) => {
+export const Input = ({
+  label,
+  type,
+  id,
+  placeholder,
+  name,
+  register,
+  required,
+  minLength,
+  maxLength,
+  validate,
+  pattern,
+  error,
+}) => {
   return (
-    <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
-      <label for="name">{label}</label>
-      <input id={id} type={type} placeholder={placeholder} />
+    <div className="col-lg-8 offset-lg-2 col-md-12 mb-4">
+      <label htmlFor={id}>{label}</label>
+      <input
+        id={id}
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        {...register(name, {
+          required,
+          minLength,
+          maxLength,
+          validate,
+          pattern,
+        })}
+      />
+
+      {/* className={error ? "error-msg" : "hide"} */}
+      {error && <p className={"error-msg"}>{error?.message}</p>}
     </div>
   );
 };
@@ -14,12 +42,14 @@ export const courseList = [
 ];
 export const Select = ({ label }) => {
   return (
-    <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
-      <label for="subject">{label}</label>
+    <div className="col-lg-8 offset-lg-2 col-md-12 mb-4">
+      <label htmlFor="subject">{label}</label>
 
-      <select id="subject" class="es-add-select">
+      <select id="subject" className="es-add-select">
         {courseList.map((item) => (
-          <option key={item.courseCode} value={item.courseCode}>{item.courseName}</option>
+          <option key={item.courseCode} value={item.courseCode}>
+            {item.courseName}
+          </option>
         ))}
       </select>
     </div>
