@@ -12,7 +12,7 @@ export default function Profile() {
       >
         <img
           className="u-avatar--xs img-fluid rounded-circle mr-2 bg-gradient"
-          src="assets/img/avatars/img1.png"
+          src="/assets/img/avatars/img1.png"
           alt="User Profile"
         />
         {/* <span className="d-none d-sm-inline-block text-danger">

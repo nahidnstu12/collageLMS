@@ -385,24 +385,28 @@ export default function Sidebar() {
                     </a>
                   </li>
                   <li className="u-sidebar-nav-menu__item">
-                    <a
-                      className="u-sidebar-nav-menu__link"
-                      href="students-all.html"
-                    >
-                      <span className="u-sidebar-nav-menu__item-title">
-                        All Student
-                      </span>
-                    </a>
+                    <Link to={"/student"}>
+                      <a
+                        className="u-sidebar-nav-menu__link"
+                        href="students-all.html"
+                      >
+                        <span className="u-sidebar-nav-menu__item-title">
+                          All Student
+                        </span>
+                      </a>
+                    </Link>
                   </li>
                   <li className="u-sidebar-nav-menu__item">
-                    <a
-                      className="u-sidebar-nav-menu__link"
-                      href="students-add.html"
-                    >
-                      <span className="u-sidebar-nav-menu__item-title">
-                        Add Student
-                      </span>
-                    </a>
+                    <Link to={"/student/add"}>
+                      <a
+                        className="u-sidebar-nav-menu__link"
+                        href="students-add.html"
+                      >
+                        <span className="u-sidebar-nav-menu__item-title">
+                          Add Student
+                        </span>
+                      </a>
+                    </Link>
                   </li>
                 </ul>
               </li>

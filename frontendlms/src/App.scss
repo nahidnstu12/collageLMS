@@ -14,6 +14,52 @@
 }
 
 // student
-.max-container{
+.max-container {
   max-width: 1020px;
+}
+
+.custom-file-label {
+  width: 93%;
+  border: 1px solid #fa5d4e;
+  border-radius: 12px;
+  color: #fa5d4e;
+  font-size: 18px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 50px;
+  line-height: 46px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-left: 1rem;
+
+  &::after {
+    top: 3px;
+    right: 10px;
+    border-radius: 10px;
+    text-align: center;
+    background: #fa5d4e;
+    color: #fff;
+    line-height: 1.2;
+    height: 40px;
+  }
+}
+.es-add-select {
+  width: 100%;
+  border: 1px solid #fa5d4e;
+  border-radius: 12px;
+  color: #fa5d4e;
+  font-size: 18px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 50px;
+  line-height: 46px;
+  padding-top: 0;
+  padding-bottom: 0;
+  &::selection {
+    border: 1px solid #fa5d4e;
+  }
+ 
+  option:checked {
+    font-weight: bold;
+  }
 }
