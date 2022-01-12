@@ -1,64 +1,69 @@
 import Button from "../common/Button";
-import {Input,Select} from "../common/Input";
+import { Input } from "../common/Input";
 import "./login.scss";
+import { useForm } from "react-hook-form";
 
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: "all" });
+
+  const handleSignIn = async (formdata) => {
+    const cred = {
+      username: formdata.email,
+      password: formdata.password,
+    };
+    console.log(cred);
+  };
   return (
-    <section class="es-form-area section-center">
-      <div class="card">
-        <header class="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
-          <h2 class="text-white m-auto  mb-0">Login</h2>
+    <section className="es-form-area section-center">
+      <div className="card">
+        <header className="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
+          <h2 className="text-white m-auto  mb-0">Login</h2>
         </header>
-        <div class="card-body">
-          <form action="" class="es-form es-add-form">
-            <div class="row">
+        <div className="card-body">
+          <form
+            onSubmit={handleSubmit(handleSignIn)}
+            className="es-form es-add-form"
+          >
+            <div className="row">
               <Input
-                id={"name"}
+                id={"email"}
+                name={"email"}
                 type={"email"}
-                placeholder={"User's Mail"}
-                label={"Teacher's Email"}
+                placeholder={"eg. xyz@teacher.nstu.bd"}
+                label={"User's Email"}
+                register={register}
+                required="Input field can not be empty"
+                // pattern={{
+                //   value: /@\(teacher|student)\.nstu\.edu\.bd/,
+                //   message: "Must be login with edu mail",
+                // }}
+                
+                error={errors.email}
               />
               <Input
-                id={"name"}
-                type={"text"}
-                placeholder={"Hasnat Riaz"}
-                label={"Teacher's Name"}
+                id={"password"}
+                name={"password"}
+                type={"password"}
+                placeholder={"User's Password"}
+                label={"Password"}
+                register={register}
+                required="Input field can not be empty"
+                maxLength={{
+                  value: 10,
+                  message: "Password will be less than 10 character",
+                }}
+                minLength={{
+                  value: 4,
+                  message: "Password will be more than 4 character",
+                }}
+                error={errors.password}
               />
-              <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
-                <label for="description">Description</label>
-                <input id="description" type="text" placeholder="Alexander" />
-              </div>
-              <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
-                <label for="email">Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="example@gmail.com"
-                />
-              </div>
-              <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
-                <label for="phone">Phone</label>
-                <input id="phone" type="tel" placeholder="+99123456780" />
-              </div>
-              {/* <div class="col-lg-8 offset-lg-2 col-md-12 mb-4">
-                <label for="subject">Subject</label>
-                <select id="subject" class="es-add-select">
-                  <option data-display="Physics">Physics</option>
-                  <option value="1">Chemistry</option>
-                  <option value="2">Biology</option>
-                  <option value="3">Zoology</option>
-                </select>
-              </div> */}
-              <Select label={"Courses"} />
-              {/* <div class="col-lg-4 offset-lg-4 col-md-12 text-center">
-                <a
-                  href=""
-                  class="btn btn-danger btn-block bg-gradient border-0 text-white"
-                >
-                  Login
-                </a>
-              </div> */}
-              <Button label={"Login"}/>
+
+              <Button label={"Login"} />
             </div>
           </form>
         </div>
