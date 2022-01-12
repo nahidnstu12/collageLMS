@@ -6,6 +6,7 @@ import Homelist from "./Homelist";
 import Login from "./auth/Login";
 import Test2 from "./Test2";
 import Layout from "./lms/layout/Layout";
+import Student from "./lms/student/Student";
 function App() {
   // const [cool,setCool] = useState(false)
   return (
@@ -18,6 +19,9 @@ function App() {
             </Route>
             <Route path={`/login`}>
               <Login />
+            </Route>
+            <Route path={`/student`}>
+              <Student />
             </Route>
             <Route path={`/test`}>
               <Test2 />
