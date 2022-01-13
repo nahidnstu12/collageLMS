@@ -1,11 +1,10 @@
 import { useMemo } from "react";
-import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import Table from "../../common/Table";
 import { studentColumns } from "../../store/columnlevel";
 import STUDENT_DATA from "../../store/STUDENT_MOCK_DATA.json"
-import AddStudent from "./AddStudent";
 
-export default function Student() {
+export default function StudentList() {
     const data = useMemo(() => STUDENT_DATA, []);
     const columns = useMemo(()=> studentColumns, [])
     let { path, url } = useRouteMatch();
