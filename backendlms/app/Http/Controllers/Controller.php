@@ -11,7 +11,7 @@ use Illuminate\Routing\Controller as BaseController;
 /**
      * @OA\Info(
      *      version="1.0.0",
-     *      title="MVE SERVER API DOCUMENTATION",
+     *      title="Student Information API DOCUMENTATION",
      *      description="Implementation of Swagger with in Laravel",
      *      @OA\Contact(
      *          email="rubel162765@gmail.com"

@@ -55,7 +55,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('email/verification-notification',[EmailVerificationController::class,'sendVerificationEmail']);
     Route::post('verify-email/{id}/{hash}',[EmailVerificationController::class,'verify'])->name('verification.verify');
 
-    //seller verify
+    //student verify
 
     Route::get('profile',[AuthController::class,'profile'])->middleware(['verified']);
     Route::post('student-profile',function(){return "hello student";})->middleware(['verified','permission:verified_seller']);

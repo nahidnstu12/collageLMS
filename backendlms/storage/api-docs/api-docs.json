@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "MVE SERVER API DOCUMENTATION",
+        "title": "Student Information API DOCUMENTATION",
         "description": "Implementation of Swagger with in Laravel",
         "contact": {
             "email": "rubel162765@gmail.com"
@@ -19,13 +19,13 @@
         }
     ],
     "paths": {
-        "/customer-register": {
+        "/student-register": {
             "post": {
                 "tags": [
-                    "Customer Register"
+                    "student Register"
                 ],
                 "summary": "Register",
-                "operationId": "customerRegister",
+                "operationId": "studentRegister",
                 "parameters": [
                     {
                         "name": "full_name",
@@ -89,80 +89,10 @@
                 }
             }
         },
-        "/merchant-register": {
+        "/super-admin-login": {
             "post": {
                 "tags": [
-                    "merchant Register"
-                ],
-                "summary": "Register",
-                "operationId": "merchantRegister",
-                "parameters": [
-                    {
-                        "name": "full_name",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "email",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "phone",
-                        "in": "query",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "password",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "password_confirmation",
-                        "in": "query",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "404": {
-                        "description": "not found"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                }
-            }
-        },
-        "/admin-login": {
-            "post": {
-                "tags": [
-                    "Admin Login"
+                    "Super Admin Login"
                 ],
                 "summary": "Login",
                 "operationId": "login",
@@ -206,10 +136,10 @@
                 }
             }
         },
-        "/merchant-login": {
+        "/teacher-login": {
             "post": {
                 "tags": [
-                    "Merchant Login"
+                    "teacher Login"
                 ],
                 "summary": "Login",
                 "operationId": "login",
@@ -253,10 +183,10 @@
                 }
             }
         },
-        "/customer-login": {
+        "/student-login": {
             "post": {
                 "tags": [
-                    "Customer Login"
+                    "student Login"
                 ],
                 "summary": "Login",
                 "operationId": "login",
@@ -468,6 +398,88 @@
                         "name": "email",
                         "in": "query",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/teachers": {
+            "get": {
+                "tags": [
+                    "Teacher List"
+                ],
+                "summary": "Get teacher list",
+                "description": "Returns all teacher",
+                "operationId": "getUserList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Teacher Create"
+                ],
+                "summary": "create",
+                "operationId": "teacherRegister",
+                "parameters": [
+                    {
+                        "name": "full_name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "role",
+                        "in": "query",
                         "schema": {
                             "type": "string"
                         }
