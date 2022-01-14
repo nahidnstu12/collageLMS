@@ -2,20 +2,39 @@ import Button from "../common/Button";
 import { Input } from "../common/Input";
 import "./login.scss";
 import { useForm } from "react-hook-form";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import AuthConsumer from "../hooks/useAuth";
 
 export default function Login() {
+  const location = useLocation();
+  const history = useHistory();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "all" });
+  // const authed = useAuth()
+  // const { login } = useAuth();
+  const { authed,login } = AuthConsumer();
+  console.log({ authed });
 
-  const handleSignIn = async (formdata) => {
+  const handleSignIn = async(formdata) => {
     const cred = {
       username: formdata.email,
       password: formdata.password,
     };
     console.log(cred);
+    // redirect private route
+    login().then(() => {
+      const { from } = location.state || { from: { pathname: "/dashboard" } };
+      history.replace(from);
+     
+    });
+
+    //  if (login) {
+    //    const { from } = location.state || { from: { pathname: "/" } };
+    //    history.replace(from);
+    //  }
   };
   return (
     <section className="es-form-area section-center">
@@ -41,7 +60,7 @@ export default function Login() {
                 //   value: /@\(teacher|student)\.nstu\.edu\.bd/,
                 //   message: "Must be login with edu mail",
                 // }}
-                
+
                 error={errors.email}
               />
               <Input
@@ -64,6 +83,9 @@ export default function Login() {
               />
 
               <Button label={"Login"} />
+              <Link to={"/forget-pass"} className="forget-pass">
+                <span>Forget password</span>
+              </Link>
             </div>
           </form>
         </div>

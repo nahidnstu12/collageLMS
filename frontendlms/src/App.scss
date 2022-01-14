@@ -58,8 +58,29 @@
   &::selection {
     border: 1px solid #fa5d4e;
   }
- 
+
   option:checked {
     font-weight: bold;
+  }
+}
+
+// sidebar css
+
+.menu-item.active{
+    background: #fff;
+    // border-radius: 5px;
+    color: #fa5d4e;
+}
+.u-sidebar-nav-menu--second-level{
+  display: block;
+}
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-in;
+  padding-top: 0;
+  margin-bottom: -13px;
+  &.active{
+     max-height: 200px;
   }
 }

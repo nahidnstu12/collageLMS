@@ -20,52 +20,78 @@ import TeacherList from "./lms/teacher/TeacherList";
 import StudentList from "./lms/student/StudentList";
 import ForgetPass from "./auth/ForgetPass";
 import StudentDetails from "./lms/student/StudentDetails";
+import PrivateRoute from "./hooks/PrivateRoute";
+
 function App() {
-  // const [cool,setCool] = useState(false)
   return (
     <div className="App">
       <Router>
+        {/* auth */}
+
+        <Route path={`/login`} exact component={Login} />
+
+        <Route path={`/forget-pass`} exact component={ForgetPass} />
+
         <Layout>
           <Switch>
             {/* dashboard */}
-            <Route path={`/dashboard`} exact>
+            <PrivateRoute path={`/dashboard`} exact>
               <Dashboard />
-            </Route>
-            {/* auth */}
-            <Route path={`/login`} exact>
-              <Login />
-            </Route>
-            <Route path={`/forget-pass`} exact component={ForgetPass} />
+            </PrivateRoute>
 
             {/* attendance */}
-            <Route
+            <PrivateRoute
               path={`/attendance/lists`}
               exact
               component={AttendanceList}
             />
-            <Route
+            <PrivateRoute
               path={`/attendance/reports`}
               exact
               component={AttendanceReport}
             />
 
             {/* routine */}
-            <Route path={`/routine`} exact component={FullRoutine} />
-            <Route path={`/routine/todays`} exact component={Todays} />
+            <PrivateRoute
+              path={`/routine/full`}
+              exact
+              component={FullRoutine}
+            />
+            <PrivateRoute path={`/routine/todays`} exact component={Todays} />
             {/* marks */}
-            <Route path={`/marks`} exact component={MarkSheet} />
-            <Route path={`/marks/add`} exact component={AddMarks} />
+            <PrivateRoute path={`/marks`} exact component={MarkSheet} />
+            <PrivateRoute path={`/marks/add`} exact component={AddMarks} />
             {/* teacher */}
-            <Route path={`/teacher/lists`} exact component={TeacherList} />
-            <Route path={`/teacher/:id`} exact component={TeacherDetails} />
-            <Route path={`/teacher/add`} exact component={AddTeacher} />
+            <PrivateRoute
+              path={`/teacher/lists`}
+              exact
+              component={TeacherList}
+            />
+            <PrivateRoute
+              path={`/teacher/:id`}
+              exact
+              component={TeacherDetails}
+            />
+            <PrivateRoute path={`/teacher/add`} exact component={AddTeacher} />
             {/* student */}
-            <Route path={`/student/lists`} exact component={StudentList} />
-            <Route path={`/student/:id`} exact component={StudentDetails} />
-            <Route path={`/student/add`} exact component={AddStudent} />
+            <PrivateRoute
+              path={`/student/lists`}
+              exact
+              component={StudentList}
+            />
+            <PrivateRoute
+              path={`/student/:id`}
+              exact
+              component={StudentDetails}
+            />
+            <PrivateRoute path={`/student/add`} exact component={AddStudent} />
             {/* profile */}
-            <Route path={`/my-profile`} exact component={MyProfile} />
-            <Route path={`/my-profile/edit`} exact component={EditProfile} />
+            <PrivateRoute path={`/my-profile`} exact component={MyProfile} />
+            <PrivateRoute
+              path={`/my-profile/edit`}
+              exact
+              component={EditProfile}
+            />
 
             <Route path={`/`}>
               <Homelist />

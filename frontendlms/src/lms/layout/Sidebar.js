@@ -1,85 +1,71 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-const MainBar = ({ navigateTo, label, icon, dataTarget, options }) => {
-  return (
-    <li className="u-sidebar-nav-menu__item">
-      <NavLink
-        to={navigateTo || "#"}
-        // className="u-sidebar-nav-menu__link"
-        className="u-sidebar-nav-menu__link"
-        data-target={`#${dataTarget}`}
-        href="#!"
-        // activeClassName="active"
-      >
-        <i className={"fas u-sidebar-nav-menu__item-icon " + icon}></i>
-        <span className="u-sidebar-nav-menu__item-title">{label}</span>
-      </NavLink>
-      {options && (
-        <ul
-          id={dataTarget}
-          className="u-sidebar-nav-menu u-sidebar-nav-menu--second-level"
-          style={{ display: "none" }}
-        >
-          {options?.map((item) => (
-            <li className="u-sidebar-nav-menu__item" key={item.to}>
-              <NavLink to={item.to || "#"} className="u-sidebar-nav-menu__link">
-                <span className="u-sidebar-nav-menu__item-title">
-                  {item.label}
-                </span>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      )}
-    </li>
-  );
-};
-const SingleBar = ({ navigateTo, label, icon }) => {
-  return (
-    <li className="u-sidebar-nav-menu__item">
-      <NavLink to={navigateTo} className="u-sidebar-nav-menu__link">
-        <i className={"fas u-sidebar-nav-menu__item-icon " + icon}></i>
-        <span className="u-sidebar-nav-menu__item-title">{label}</span>
-      </NavLink>
-    </li>
-  );
-};
-const optionsLists = {
-  attendance: [
-    {
-      label: " Attendances List",
-      to: "/attendance/lists",
-    },
-    {
-      label: " Attendances Reports",
-      to: "/attendance/reports",
-    },
-  ],
-  routine: [
-    { label: " Full Routine", to: "/routine" },
-    { label: " todays", to: "/routine/todays" },
-  ],
-  marks: [
-    { label: " Marks", to: "/marks" },
-    { label: " Add Marks", to: "/marks/add" },
-  ],
-  student: [
-    { label: " Student Lists", to: "/student/lists" },
-    { label: " Student details", to: "/student/:id" },
-    { label: " Student Add", to: "/student/add" },
-  ],
-  teacher: [
-    { label: " Teacher Lists", to: "/teacher/lists" },
-    { label: " Teacher Details", to: "/teacher/:id" },
-    { label: " Teacher Add", to: "/teacher/add" },
-  ],
-  profile: [
-    { label: " My Profile", to: "/my-profile" },
-    { label: " Edit Profile", to: "/my-profile/edit" },
-  ],
-};
-export default function Sidebar() {
-  const [active, setActive] = useState("Dashboard");
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import MenuItem from "./MenuItem";
+
+export const menuItems = [
+  {
+    name: "Dashboard",
+    exact: true,
+    to: "/dashboard",
+    iconClassName: "fa-tachometer-alt",
+  },
+  {
+    name: "Attendances",
+    exact: true,
+    to: `#`,
+    iconClassName: "fa-user-check",
+    subMenus: [
+      { label: "Attendances List", to: "/attendance/lists" },
+      { label: "Attendances Reports", to: "/attendance/reports" },
+    ],
+  },
+  {
+    name: "Routine",
+    exact: true,
+    to: `#`,
+    iconClassName: "fa-stopwatch",
+    subMenus: [
+      { label: " Full Routine", to: "/routine/full" },
+      { label: " todays", to: "/routine/todays" },
+    ],
+  },
+];
+
+export default function Sidebar(props) {
+  const [inactive, setInactive] = useState(false);
+  useEffect(() => {
+    if (inactive) {
+      removeActiveClassFromSubMenu();
+    }
+
+    // props.onCollapse(inactive);
+  }, [inactive]);
+
+  
+  const removeActiveClassFromSubMenu = () => {
+    document.querySelectorAll(".sub-menu").forEach((el) => {
+      el.classList.remove("active");
+    });
+  };
+
+  // 
+   useEffect(() => {
+     let menuItems = document.querySelectorAll(".menu-item");
+     menuItems.forEach((el) => {
+       el.addEventListener("click", (e) => {
+         const next = el.nextElementSibling;
+         removeActiveClassFromSubMenu();
+         menuItems.forEach((el) => el.classList.remove("active"));
+         el.classList.toggle("active");
+        //  console.log(next);
+        //  console.log(el);
+         if (next !== null) {
+           next.classList.toggle("active");
+         }
+       });
+     });
+   }, []);
+
   return (
     <aside id="sidebar" className="u-sidebar">
       <div className="u-sidebar-inner bg-gradient bdrs-30">
@@ -96,96 +82,24 @@ export default function Sidebar() {
 
         <nav className="u-sidebar-nav">
           <ul className="u-sidebar-nav-menu u-sidebar-nav-menu--top-level">
-            <SingleBar
-              navigateTo={"/dashboard"}
-              label={"Dashboard"}
-              icon={"fa-tachometer-alt"}
-            />
-            <MainBar
-              navigateTo={"/attendance"}
-              label={"Attendances"}
-              icon={"fa-user-check"}
-              dataTarget={"attendances"}
-              options={optionsLists.attendance}
-            />
-
-            <MainBar
-              navigateTo={"/routine"}
-              label={"My Routines"}
-              icon={"fa-stopwatch"}
-              dataTarget={"subMenu1"}
-              options={optionsLists.routine}
-            />
-
-            <MainBar
-              navigateTo={"/marks"}
-              label={"Marks"}
-              icon={"fa-clipboard"}
-              dataTarget={"marks"}
-              options={optionsLists.marks}
-            />
-            <MainBar
-              navigateTo={"/student"}
-              label={"Students"}
-              icon={"fa-user-graduate"}
-              dataTarget={"students"}
-              options={optionsLists.student}
-            />
-
-            <MainBar
-              navigateTo={"/profile-me"}
-              label={"My Profile"}
-              icon={"fa-user"}
-              dataTarget={"profile"}
-              options={optionsLists.profile}
-            />
-
-            {/* <li className="u-sidebar-nav-menu__item">
-              <a
-                className="u-sidebar-nav-menu__link"
-                href="#!"
-                data-target="#homework"
-              >
-                <i className="fas fa-home u-sidebar-nav-menu__item-icon"></i>
-                <span className="u-sidebar-nav-menu__item-title">Homework</span>
-                <i className="fa fa-angle-right u-sidebar-nav-menu__item-arrow"></i>
-                <span className="u-sidebar-nav-menu__indicator"></span>
-              </a>
-
-              <ul
-                id="homework"
-                className="u-sidebar-nav-menu u-sidebar-nav-menu--second-level"
-                style={{ display: "none" }}
-              >
-                <li className="u-sidebar-nav-menu__item">
-                  <a
-                    className="u-sidebar-nav-menu__link"
-                    href="homework-blank.html"
-                  >
-                    <span className="u-sidebar-nav-menu__item-title">
-                      Homework Blank
-                    </span>
-                  </a>
-                </li>
-                <li className="u-sidebar-nav-menu__item">
-                  <a className="u-sidebar-nav-menu__link" href="homework.html">
-                    <span className="u-sidebar-nav-menu__item-title">
-                      Homework
-                    </span>
-                  </a>
-                </li>
-                <li className="u-sidebar-nav-menu__item">
-                  <a
-                    className="u-sidebar-nav-menu__link"
-                    href="homework-add-new.html"
-                  >
-                    <span className="u-sidebar-nav-menu__item-title">
-                      Add New Homework
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </li> */}
+            {menuItems.map((menuItem, index) => (
+              
+              <MenuItem
+                key={index}
+                name={menuItem.name}
+                exact={`${menuItem.exact}`}
+                to={menuItem.to}
+                subMenus={menuItem.subMenus || []}
+                iconClassName={menuItem.iconClassName}
+                onClick={(e) => {
+                  // console.log("click")
+                  if (inactive) {
+                    setInactive(false);
+                  
+                  }
+                }}
+              />
+            ))}
           </ul>
         </nav>
       </div>

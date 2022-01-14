@@ -1,8 +1,17 @@
+import { useLocation } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 export default function Layout({ children }) {
-  return (
+  const { pathname } = useLocation();
+  
+  const publicRoute = ["/forget-pass", "/login"];
+  const routing = publicRoute.find((p) => p === pathname);
+  // const routing = undefined;
+  // console.log({ pathname,  routing });
+  return routing  ? (
+    <></>
+  ) : (
     <div>
       <Header />
       <main className="u-main" role="main">
