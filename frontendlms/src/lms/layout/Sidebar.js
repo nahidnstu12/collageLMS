@@ -29,6 +29,48 @@ export const menuItems = [
       { label: " todays", to: "/routine/todays" },
     ],
   },
+  {
+    name: "Marks",
+    exact: true,
+    to: `#`,
+    iconClassName: "fa-clipboard",
+    subMenus: [
+      { label: "MarkSheet", to: "/marks" },
+      { label: " Add Marks", to: "/marks/add" },
+    ],
+  },
+  {
+    name: "Students",
+    exact: true,
+    to: `#`,
+    iconClassName: "fa-user-graduate",
+    subMenus: [
+      { label: " Student Lists", to: "/student/lists" },
+      { label: " Student details", to: "/student/:id" },
+      { label: " Student Add", to: "/student/add" },
+    ],
+  },
+  {
+    name: "Teacher",
+    exact: true,
+    to: `#`,
+    iconClassName: "fa-stopwatch",
+    subMenus: [
+      { label: " Teacher Lists", to: "/teacher/lists" },
+      { label: " Teacher Details", to: "/teacher/:id" },
+      { label: " Teacher Add", to: "/teacher/add" },
+    ],
+  },
+  {
+    name: "Profile",
+    exact: true,
+    to: `#`,
+    iconClassName: "fa-user",
+    subMenus: [
+      { label: " My Profile", to: "/my-profile" },
+      { label: " Edit Profile", to: "/my-profile/edit" },
+    ],
+  },
 ];
 
 export default function Sidebar(props) {

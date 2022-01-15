@@ -1,3 +1,4 @@
+$theme-color: #fa5d4e;
 .App {
   min-height: 100vh;
   display: grid;
@@ -20,9 +21,9 @@
 
 .custom-file-label {
   width: 93%;
-  border: 1px solid #fa5d4e;
+  border: 1px solid $theme-color;
   border-radius: 12px;
-  color: #fa5d4e;
+  color: $theme-color;
   font-size: 18px;
   padding-left: 20px;
   padding-right: 20px;
@@ -37,7 +38,7 @@
     right: 10px;
     border-radius: 10px;
     text-align: center;
-    background: #fa5d4e;
+    background: $theme-color;
     color: #fff;
     line-height: 1.2;
     height: 40px;
@@ -45,9 +46,9 @@
 }
 .es-add-select {
   width: 100%;
-  border: 1px solid #fa5d4e;
+  border: 1px solid $theme-color;
   border-radius: 12px;
-  color: #fa5d4e;
+  color: $theme-color;
   font-size: 18px;
   padding-left: 20px;
   padding-right: 20px;
@@ -56,22 +57,50 @@
   padding-top: 0;
   padding-bottom: 0;
   &::selection {
-    border: 1px solid #fa5d4e;
+    border: 1px solid $theme-color;
   }
 
   option:checked {
     font-weight: bold;
   }
 }
+// breadcrums
+.breadcumb-area {
+  margin-top: 0;
+}
 
+// profile
+.user-image-wrap {
+  min-width: 220px;
+  min-height: 220px;
+  max-width: 250px;
+  max-height: 250px;
+  box-shadow: 0 0.1rem 1rem $theme-color;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border: 2px solid $theme-color;
+    margin: 0;
+    object-fit: cover;
+  }
+}
+.additonal-info {
+  color: #446f9a;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1.3rem 0;
+  border-bottom: 1px solid $theme-color;
+  padding-bottom: 4px;
+}
 // sidebar css
 
-.menu-item.active{
-    background: #fff;
-    // border-radius: 5px;
-    color: #fa5d4e;
+.menu-item.active {
+  background: #fff;
+  // border-radius: 5px;
+  color: $theme-color;
 }
-.u-sidebar-nav-menu--second-level{
+.u-sidebar-nav-menu--second-level {
   display: block;
 }
 .sub-menu {
@@ -80,7 +109,7 @@
   transition: max-height 0.2s ease-in;
   padding-top: 0;
   margin-bottom: -13px;
-  &.active{
-     max-height: 200px;
+  &.active {
+    max-height: 200px;
   }
 }
