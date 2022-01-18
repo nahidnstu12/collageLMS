@@ -79,12 +79,9 @@ function App() {
               exact
               component={StudentList}
             />
-            <PrivateRoute
-              path={`/student/:id`}
-              exact
-              component={StudentDetails}
-            />
             <PrivateRoute path={`/student/add`} exact component={AddStudent} />
+            <PrivateRoute path={`/student/:id`} component={StudentDetails} />
+
             {/* profile */}
             <PrivateRoute path={`/my-profile`} exact component={MyProfile} />
             <PrivateRoute

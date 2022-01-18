@@ -1,0 +1,4 @@
+ [{ courseCode: "CSTE3201", courseTeacher: "Pathan", time: "A" },{ courseCode: "CSTE3201", courseTeacher: "Hasnat", time: "B" },{ courseCode: "CSTE3201", courseTeacher: "Hasnat", time: "C" },{ courseCode: "CSTE3201", courseTeacher: "Pathan", time: "D" },{ courseCode: "CSTE3201", courseTeacher: "Hasnat", time: "E" },{ courseCode: "CSTE3201", courseTeacher: "Pathan", time: "F" }]
+
+
+ { courseCode: "CSTE2201", courseTeacher: "Pathan", time: "A", dept: "cste" }

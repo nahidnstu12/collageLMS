@@ -1,15 +1,19 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
 import Table from "../../common/Table";
 import { studentColumns } from "../../store/columnlevel";
-import STUDENT_DATA from "../../store/STUDENT_MOCK_DATA.json"
+import STUDENT_DATA from "../../store/STUDENT_MOCK_DATA.json";
 
 export default function StudentList() {
-    const data = useMemo(() => STUDENT_DATA, []);
-    const columns = useMemo(()=> studentColumns, [])
-    let { path, url } = useRouteMatch();
-    console.log({path})
-    
+  const data = useMemo(() => STUDENT_DATA, []);
+  const columns = useMemo(() => studentColumns, []);
+  let { path, url } = useRouteMatch();
+  console.log({ path });
+
+  useEffect(() => {
+    // document.querySelector(".es-form select").niceSelect();
+  }, []);
+
   return (
     <>
       <section className="breadcumb-area card bg-gradient mb-5">
@@ -35,7 +39,7 @@ export default function StudentList() {
               </a>
             </Link>
           </header>
-          
+
           <div className="card-body">
             <form action="#" className="es-form">
               <div className="row align-items-center">

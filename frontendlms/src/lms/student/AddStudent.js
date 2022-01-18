@@ -1,8 +1,10 @@
 import { Input, InputFile, Select } from "../../common/Input";
 import { useForm } from "react-hook-form";
 import { batchLists, sessionLists } from "../../store/data";
+import { useState } from "react";
 
 export default function AddStudent() {
+  const [placeholdar,setPlaceholder]=useState("Image File")
   const {
     register,
     handleSubmit,
@@ -13,6 +15,14 @@ export default function AddStudent() {
     const image = formdata.image[0].name;
     console.log(image);
   };
+  console.log(placeholdar)
+  const onChangeHandler=(e)=>{
+    e.preventDeafault();
+    // setPlaceholder(e.target)
+    console.log(e.target)
+    console.log("object")
+
+  }
   return (
     <section className="es-form-area">
       <div className="card">
@@ -95,11 +105,13 @@ export default function AddStudent() {
                 id={"customFile"}
                 name={"image"}
                 type={"file"}
-                placeholder={"eg. Student's Image"}
+                placeholder={placeholdar}
                 label={"Student's Image"}
                 register={register}
+                value={placeholdar}
                 required="Input field can not be empty"
                 error={errors.image}
+                onChange={e=>setPlaceholder(e.target.value)}
               />
 
               <div className="col-lg-4 offset-lg-4 col-md-12 text-center">
