@@ -10,6 +10,17 @@ export const menuItems = [
     iconClassName: "fa-tachometer-alt",
   },
   {
+    name: "Courses",
+    exact: true,
+    to: `#`,
+    iconClassName: "fa-book",
+    subMenus: [
+      { label: " Courses Lists", to: "/course/lists" },
+      { label: " Courses details", to: "/course/:id" },
+      { label: " Courses Add", to: "/course/add" },
+    ],
+  },
+  {
     name: "Attendances",
     exact: true,
     to: `#`,
@@ -54,7 +65,7 @@ export const menuItems = [
     name: "Teacher",
     exact: true,
     to: `#`,
-    iconClassName: "fa-stopwatch",
+    iconClassName: "fa-chalkboard-teacher",
     subMenus: [
       { label: " Teacher Lists", to: "/teacher/lists" },
       { label: " Teacher Details", to: "/teacher/:id" },
@@ -83,30 +94,29 @@ export default function Sidebar(props) {
     // props.onCollapse(inactive);
   }, [inactive]);
 
-  
   const removeActiveClassFromSubMenu = () => {
     document.querySelectorAll(".sub-menu").forEach((el) => {
       el.classList.remove("active");
     });
   };
 
-  // 
-   useEffect(() => {
-     let menuItems = document.querySelectorAll(".menu-item");
-     menuItems.forEach((el) => {
-       el.addEventListener("click", (e) => {
-         const next = el.nextElementSibling;
-         removeActiveClassFromSubMenu();
-         menuItems.forEach((el) => el.classList.remove("active"));
-         el.classList.toggle("active");
+  //
+  useEffect(() => {
+    let menuItems = document.querySelectorAll(".menu-item");
+    menuItems.forEach((el) => {
+      el.addEventListener("click", (e) => {
+        const next = el.nextElementSibling;
+        removeActiveClassFromSubMenu();
+        menuItems.forEach((el) => el.classList.remove("active"));
+        el.classList.toggle("active");
         //  console.log(next);
         //  console.log(el);
-         if (next !== null) {
-           next.classList.toggle("active");
-         }
-       });
-     });
-   }, []);
+        if (next !== null) {
+          next.classList.toggle("active");
+        }
+      });
+    });
+  }, []);
 
   return (
     <aside id="sidebar" className="u-sidebar">
@@ -125,7 +135,6 @@ export default function Sidebar(props) {
         <nav className="u-sidebar-nav">
           <ul className="u-sidebar-nav-menu u-sidebar-nav-menu--top-level">
             {menuItems.map((menuItem, index) => (
-              
               <MenuItem
                 key={index}
                 name={menuItem.name}
@@ -137,7 +146,6 @@ export default function Sidebar(props) {
                   // console.log("click")
                   if (inactive) {
                     setInactive(false);
-                  
                   }
                 }}
               />

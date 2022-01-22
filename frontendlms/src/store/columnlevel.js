@@ -32,6 +32,189 @@ export const studentColumns = [
     accessor: "address",
   },
 ];
+
+// teacher
+export const teacherColumns = [
+  {
+    Header: "TID",
+    accessor: "tid",
+  },
+  {
+    Header: "Name",
+    accessor: "name",
+  },
+  {
+    Header: "Email",
+    accessor: "email",
+  },
+  {
+    Header: "Phone",
+    accessor: "phone",
+  },
+  {
+    Header: "Designation",
+    accessor: "designation",
+  },
+];
+
+export const teacherData = [
+  {
+    tid: "123-000",
+    name: "Asadun Nabi",
+    designation: "Professior",
+    email: "asadun@teacher.com",
+    phone: "0173425632",
+  },
+  {
+    tid: "123-001",
+    name: "Humuyun Kabir",
+    designation: "Professior",
+    email: "hk@teacher.com",
+    phone: "0173425632",
+  },
+  {
+    tid: "123-002",
+    name: "Jabed Hossen",
+    designation: "Professior",
+    email: "jabed@teacher.com",
+    phone: "0173425632",
+  },
+  {
+    tid: "123-003",
+    name: "Hasnar Riaz",
+    designation: "Assistant Professior",
+    email: "asadun@teacher.com",
+    phone: "0173425632",
+  },
+  {
+    tid: "123-004",
+    name: "Nazai Mazadi",
+    designation: "Assistant Professior",
+    email: "asadun@teacher.com",
+    phone: "0173425632",
+  },
+  {
+    tid: "123-005",
+    name: "Ratna Dip Kuri",
+    designation: "Lecturer",
+    email: "kuri@teacher.com",
+    phone: "0173425632",
+  },
+  {
+    tid: "123-006",
+    name: "Akaas Pathan",
+    designation: "Lecturer",
+    email: "asadun@teacher.com",
+    phone: "0173425632",
+  },
+  {
+    tid: "123-007",
+    name: "Nadia Akter",
+    designation: "Professior",
+    email: "asadun@teacher.com",
+    phone: "0173425632",
+  },
+  {
+    tid: "123-008",
+    name: "Abul Kalam Azad",
+    designation: "Professior",
+    email: "asadun@teacher.com",
+    phone: "0173425632",
+  },
+  {
+    tid: "123-008",
+    name: "Mohammad Rana",
+    designation: "Assitant Professior",
+    email: "rana@teacher.com",
+    phone: "0173425632",
+  },
+];
+// course data
+export const courseColumns = [
+  {
+    Header: "Course Id",
+    accessor: "courseId",
+  },
+  {
+    Header: "Course Title",
+    accessor: "courseTitle",
+  },
+  {
+    Header: "Credit Hour",
+    accessor: "creditHour",
+  },
+  {
+    Header: "Year-Term",
+    accessor: "yt",
+  },
+  
+];
+export const courseData = [
+  {
+    courseId: "CSTE1101",
+    courseTitle: "Computer Fundamentals",
+    creditHour: "3",
+    courseDescription:
+      "Computer fundamental Computer fundamental Computer fundamental Computer fundamental",
+    yt: "1-1",
+  },
+  {
+    courseId: "CSTE1103",
+    courseTitle: "Programming Fundamentals",
+    creditHour: "3",
+    courseDescription:
+      "Computer fundamental Computer fundamental Computer fundamental Computer fundamental",
+    yt: "1-1",
+  },
+  {
+    courseId: "CSTE2101",
+    courseTitle: "Semiconductors",
+    creditHour: "3",
+    courseDescription:
+      "Computer fundamental Computer fundamental Computer fundamental Computer fundamental",
+    yt: "2-1",
+  },
+  {
+    courseId: "CSTE2103",
+    courseTitle: "Electronic Circuits",
+    creditHour: "3",
+    courseDescription:
+      "Computer fundamental Computer fundamental Computer fundamental Computer fundamental",
+    yt: "2-1",
+  },
+  {
+    courseId: "CSTE3101",
+    courseTitle: "Data Structure and Algorithm",
+    creditHour: "3",
+    courseDescription:
+      "Computer fundamental Computer fundamental Computer fundamental Computer fundamental",
+    yt: "3-1",
+  },
+  {
+    courseId: "CSTE3105",
+    courseTitle: "Compiler Construction",
+    creditHour: "3",
+    courseDescription:
+      "Computer fundamental Computer fundamental Computer fundamental Computer fundamental",
+    yt: "3-1",
+  },
+  {
+    courseId: "CSTE4101",
+    courseTitle: "Image Processing",
+    creditHour: "3",
+    courseDescription:
+      "Computer fundamental Computer fundamental Computer fundamental Computer fundamental",
+    yt: "4-1",
+  },
+  {
+    courseId: "CSTE4105",
+    courseTitle: "Artificial Intelligent",
+    creditHour: "3",
+    courseDescription:
+      "Computer fundamental Computer fundamental Computer fundamental Computer fundamental",
+    yt: "4-1",
+  },
+];
 export const fullRoutine = [
   { courseCode: "CSTE3201", courseTeacher: "Pathan", time: "A", day: "sunday" },
   { courseCode: "CSTE3201", courseTeacher: "Hasnat", time: "B", day: "sunday" },
@@ -166,13 +349,6 @@ export const fullRoutine = [
   },
 ];
 
-const r = [
-  {
-    day: "sunday",
-    a: [{ courseCode: "CSTE3209", courseTeacher: "Kuri" }],
-    b: [{ courseCode: "CSTE3209", courseTeacher: "Kuri" }],
-  },
-];
 export const routineColumns = [
   {
     Header: "Day",
@@ -205,5 +381,103 @@ export const routineColumns = [
   {
     Header: "4.00-4:45",
     accessor: "timeG",
+  },
+];
+
+// attendance lists
+export const attendanceLists = [
+  { sid: "1701001", totalClass: "20", attendedClass: "10" },
+  { sid: "1701003", totalClass: "20", attendedClass: "5" },
+  { sid: "1701004", totalClass: "20", attendedClass: "7" },
+  { sid: "1701005", totalClass: "20", attendedClass: "1" },
+  { sid: "1701007", totalClass: "20", attendedClass: "11" },
+  { sid: "1701008", totalClass: "20", attendedClass: "7" },
+  { sid: "1701009", totalClass: "20", attendedClass: "7" },
+  { sid: "1701010", totalClass: "20", attendedClass: "10" },
+  { sid: "1701011", totalClass: "20", attendedClass: "10" },
+  { sid: "1701011", totalClass: "20", attendedClass: "10" },
+];
+
+// marks lists
+export const marksLists = [
+  {
+    sid: "1701001",
+    ct1: "20",
+    ct2: "18",
+    ct3: "15",
+    attendance: "4",
+    written: "55",
+  },
+  {
+    sid: "1701003",
+    ct1: "20",
+    ct2: "18",
+    ct3: "15",
+    attendance: "4",
+    written: "55",
+  },
+  {
+    sid: "1701004",
+    ct1: "20",
+    ct2: "18",
+    ct3: "15",
+    attendance: "4",
+    written: "55",
+  },
+  {
+    sid: "1701005",
+    ct1: "20",
+    ct2: "18",
+    ct3: "15",
+    attendance: "4",
+    written: "55",
+  },
+  {
+    sid: "1701007",
+    ct1: "20",
+    ct2: "18",
+    ct3: "15",
+    attendance: "4",
+    written: "55",
+  },
+  {
+    sid: "1701008",
+    ct1: "20",
+    ct2: "18",
+    ct3: "15",
+    attendance: "4",
+    written: "55",
+  },
+  {
+    sid: "1701009",
+    ct1: "20",
+    ct2: "18",
+    ct3: "15",
+    attendance: "4",
+    written: "55",
+  },
+  {
+    sid: "1701010",
+    ct1: "20",
+    ct2: "18",
+    ct3: "15",
+    attendance: "4",
+    written: "55",
+  },
+  {
+    sid: "1701011",
+    ct1: "20",
+    ct2: "18",
+    ct3: "15",
+    attendance: "4",
+    written: "55",
+  },
+  {
+    sid: "1701011",
+    ct1: "20",
+    ct2: "18",
+    ct3: "15",
+    attendance: "4",
+    written: "55",
   },
 ];

@@ -11,9 +11,9 @@ function RoutineTable({ customers }) {
   return (
     <table
       class="table table-hover table-responsive"
-      style={{ fontSize: "0.7rem" }}
+      style={{ fontSize: "0.7rem", display: "table" }}
     >
-      <thead>
+      <thead class="bg-gradient">
         <tr>
           <th scope="col" className="tbl-head">
             Day

@@ -115,9 +115,16 @@ $theme-color: #fa5d4e;
 }
 
 // routine table style
-.tbl-head{
+.tbl-head {
   font-size: 1.1rem;
-    font-weight: bold !important;
-    color: #fa5d4e !important;
-
+  font-weight: bold !important;
+  // color: #fa5d4e !important;
+  color: #fff !important;
+  text-align: center;
+}
+.submit-response{
+  display: flex;
+  margin: 1.5rem 0;
+  padding: 1rem 0;
+  gap: 1rem;
 }

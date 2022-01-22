@@ -66,7 +66,7 @@ function Table({ columns, data }) {
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      <td className="text-center" {...cell.getCellProps()}>{cell.render("Cell")}</td>
                     );
                   })}
                   <td className="text-center">

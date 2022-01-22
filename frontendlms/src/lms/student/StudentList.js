@@ -3,6 +3,7 @@ import { Link, useRouteMatch } from "react-router-dom";
 import Table from "../../common/Table";
 import { studentColumns } from "../../store/columnlevel";
 import STUDENT_DATA from "../../store/STUDENT_MOCK_DATA.json";
+// import $ from "jquery";
 
 export default function StudentList() {
   const data = useMemo(() => STUDENT_DATA, []);
@@ -12,6 +13,9 @@ export default function StudentList() {
 
   useEffect(() => {
     // document.querySelector(".es-form select").niceSelect();
+    // $(document).on("ready", function () {
+    //   $(".es-form select").niceSelect();
+    // });
   }, []);
 
   return (
@@ -44,7 +48,7 @@ export default function StudentList() {
             <form action="#" className="es-form">
               <div className="row align-items-center">
                 <div className="col">
-                  <label for="class">Class</label>
+                  <label htmlFor="class">Class</label>
                   <select id="class" className="">
                     <option data-display="Select">Nothing</option>
                     <option value="1">Some option</option>
@@ -56,7 +60,7 @@ export default function StudentList() {
                   </select>
                 </div>
                 <div className="col">
-                  <label for="section">Section</label>
+                  <label htmlFor="section">Section</label>
                   <select id="section" className="">
                     <option data-display="Select">Nothing</option>
                     <option value="1">Some option</option>

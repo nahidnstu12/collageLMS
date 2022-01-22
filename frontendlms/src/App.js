@@ -21,6 +21,9 @@ import StudentList from "./lms/student/StudentList";
 import ForgetPass from "./auth/ForgetPass";
 import StudentDetails from "./lms/student/StudentDetails";
 import PrivateRoute from "./hooks/PrivateRoute";
+import CourseList from "./lms/courses/CourseList";
+import CourseAdd from "./lms/courses/CourseAdd";
+import CourseDetails from "./lms/courses/CourseDetails";
 
 function App() {
   return (
@@ -38,6 +41,11 @@ function App() {
             <PrivateRoute path={`/dashboard`} exact>
               <Dashboard />
             </PrivateRoute>
+
+            {/* course */}
+            <PrivateRoute path={`/course/lists`} exact component={CourseList} />
+            <PrivateRoute path={`/course/add`} exact component={CourseAdd} />
+            <PrivateRoute path={`/course/:id`} component={CourseDetails} />
 
             {/* attendance */}
             <PrivateRoute

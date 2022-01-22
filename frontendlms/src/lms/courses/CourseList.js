@@ -1,18 +1,22 @@
-import MarksTable from "../../common/MarksTable";
-export default function MarkSheet() {
+import React, { useMemo } from 'react';
+import Table from '../../common/Table';
+import { courseColumns, courseData } from '../../store/columnlevel';
+
+export default function CourseList() {
+  const data = useMemo(() => courseData, []);
+  const columns = useMemo(() => courseColumns, []);
   return (
-    <>
+    <div>
       <section class="breadcumb-area card bg-gradient mb-5">
         <div class="bread-cumb-content card-body d-flex align-items-center">
           <div class="breadcumb-heading">
-            <h2 class="text-white">All Students Marks</h2>
+            <h2 class="text-white">Course Lists</h2>
           </div>
           <div class="breadcumb-image ml-auto">
             <img src="/assets/img/breadcumb-marks.png" alt="" />
           </div>
         </div>
       </section>
-
       <section class="es-form-area">
         <div class="card">
           <header class="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
@@ -47,18 +51,7 @@ export default function MarkSheet() {
                     <option value="4">Potato</option>
                   </select>
                 </div>
-                <div class="col">
-                  <label for="date">Date</label>
-                  <div class="datepicker-wrap">
-                    <input
-                      type="text"
-                      id="datepicker"
-                      class="datepicker"
-                      placeholder="25/12/2021"
-                    />
-                    <i class="fa fa-calendar datepicker-icon"></i>
-                  </div>
-                </div>
+
                 <div class="col">
                   <a
                     href=""
@@ -81,11 +74,12 @@ export default function MarkSheet() {
                   </form>
                 </div>
               </div>
-              <MarksTable />
+              {/* <MarksTable /> */}
+              <Table columns={columns} data={data} />
             </div>
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
