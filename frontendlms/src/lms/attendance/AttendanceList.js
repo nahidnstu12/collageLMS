@@ -1,6 +1,13 @@
+import { useForm } from "react-hook-form";
 import AttendanceTable from "../../common/AttendanceTable";
+import FilterBatch from "../../common/FilterBatch";
 
 export default function AttendanceList() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: "all" });
   return (
     <>
       <section className="breadcumb-area card bg-gradient mb-5">
@@ -16,10 +23,15 @@ export default function AttendanceList() {
           </div>
         </div>
       </section>
-      <AttendanceTable />
-      <div className="submit-response">
-        <button className="btn btn-outline-success">Submit Attendance</button>
-        <button className="btn btn-outline-info">Edit Attendance</button>
+      <div className="card-body">
+        <FilterBatch />
+        <div className="attendances-list-wrap mt-5">
+          <AttendanceTable />
+        </div>
+        <div className="submit-response">
+          <button className="btn btn-outline-success">Submit Attendance</button>
+          <button className="btn btn-outline-info">Edit Attendance</button>
+        </div>
       </div>
     </>
   );

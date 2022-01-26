@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
+import FilterBatch from "../../common/FilterBatch";
 import Table from "../../common/Table";
 import { studentColumns } from "../../store/columnlevel";
 import STUDENT_DATA from "../../store/STUDENT_MOCK_DATA.json";
@@ -45,44 +46,7 @@ export default function StudentList() {
           </header>
 
           <div className="card-body">
-            <form action="#" className="es-form">
-              <div className="row align-items-center">
-                <div className="col">
-                  <label htmlFor="class">Class</label>
-                  <select id="class" className="">
-                    <option data-display="Select">Nothing</option>
-                    <option value="1">Some option</option>
-                    <option value="2">Another option</option>
-                    <option value="3" disabled>
-                      A disabled option
-                    </option>
-                    <option value="4">Potato</option>
-                  </select>
-                </div>
-                <div className="col">
-                  <label htmlFor="section">Section</label>
-                  <select id="section" className="">
-                    <option data-display="Select">Nothing</option>
-                    <option value="1">Some option</option>
-                    <option value="2">Another option</option>
-                    <option value="3" disabled>
-                      A disabled option
-                    </option>
-                    <option value="4">Potato</option>
-                  </select>
-                </div>
-                <div className="col">
-                  <a
-                    href=""
-                    className="es-form-btn btn btn-block bg-gradient text-white"
-                  >
-                    View
-                  </a>
-                </div>
-                <div className="col"></div>
-              </div>
-            </form>
-
+            <FilterBatch />
             <div className="attendances-list-wrap mt-5">
               <Table columns={columns} data={data} />
             </div>

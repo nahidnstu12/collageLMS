@@ -37,7 +37,8 @@ export const Input = ({
 
 export const Select = ({ label, lists, name, register, required, id }) => {
   return (
-    <div className="col-lg-8 offset-lg-2 col-md-12 mb-4">
+    <div className="col">
+      {/* <div className="col-lg-8 offset-lg-2 col-md-12 mb-4"> */}
       <label htmlFor={id}>{label}</label>
       <select
         id={id}
@@ -70,7 +71,7 @@ export const InputFile = ({
   return (
     <div className="custom-file col-lg-8 offset-lg-2 col-md-12 mb-4 ">
       <input
-        onChange={e=>onChange(e)}
+        onChange={(e) => onChange(e)}
         id={id}
         type={"file"}
         name={name}

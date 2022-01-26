@@ -13,6 +13,13 @@ export const batchLists = [
   { code: "4", title: "15" },
 ];
 
+export const yearTerm = [
+  { code: "1", title: "Y1-T1" },
+  { code: "2", title: "Y2-T1" },
+  { code: "3", title: "Y3-T1" },
+  { code: "4", title: "Y4-T1" },
+];
+
 export const courseList = [
   { courseName: "Physics Lab", courseCode: "1" },
   { courseName: "Chemistry", courseCode: "2" },

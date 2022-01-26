@@ -1,5 +1,12 @@
+import { useForm } from "react-hook-form";
+import FilterBatch from "../../common/FilterBatch";
 import MarksTable from "../../common/MarksTable";
 export default function MarkSheet() {
+   const {
+     register,
+     handleSubmit,
+     formState: { errors },
+   } = useForm({ mode: "all" });
   return (
     <>
       <section class="breadcumb-area card bg-gradient mb-5">
@@ -21,54 +28,7 @@ export default function MarkSheet() {
             </a>
           </header>
           <div class="card-body">
-            <form action="#" class="es-form">
-              <div class="row align-items-center">
-                <div class="col">
-                  <label for="class">Class</label>
-                  <select id="class" class="">
-                    <option data-display="Select">Nothing</option>
-                    <option value="1">Some option</option>
-                    <option value="2">Another option</option>
-                    <option value="3" disabled>
-                      A disabled option
-                    </option>
-                    <option value="4">Potato</option>
-                  </select>
-                </div>
-                <div class="col">
-                  <label for="section">Section</label>
-                  <select id="section" class="">
-                    <option data-display="Select">Nothing</option>
-                    <option value="1">Some option</option>
-                    <option value="2">Another option</option>
-                    <option value="3" disabled>
-                      A disabled option
-                    </option>
-                    <option value="4">Potato</option>
-                  </select>
-                </div>
-                <div class="col">
-                  <label for="date">Date</label>
-                  <div class="datepicker-wrap">
-                    <input
-                      type="text"
-                      id="datepicker"
-                      class="datepicker"
-                      placeholder="25/12/2021"
-                    />
-                    <i class="fa fa-calendar datepicker-icon"></i>
-                  </div>
-                </div>
-                <div class="col">
-                  <a
-                    href=""
-                    class="es-form-btn btn btn-block bg-gradient text-white"
-                  >
-                    View
-                  </a>
-                </div>
-              </div>
-            </form>
+            <FilterBatch />
 
             <div class="attendances-list-wrap mt-5">
               <div class="show-option d-flex align-items-center mb-4">

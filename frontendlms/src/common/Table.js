@@ -108,7 +108,7 @@ export const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
       <form action="" className="search-student-form">
         <input
           type="text"
-          placeholder="Student Name"
+          placeholder="Search "
           value={value || ""}
           onChange={(e) => {
             setValue(e.target.value);
