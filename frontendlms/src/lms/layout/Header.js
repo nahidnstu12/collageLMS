@@ -8,14 +8,14 @@ export default function Header() {
       <div className="u-header-left">
         <a className="u-header-logo" href="/">
           <img
-            className="u-logo-desktop"
-            src="/assets/img/logo.png"
+            className="u-logo-desktop logo-header"
+            src="/logo-full-1.png"
             width="160"
             alt="Stream Dashboard"
           />
           <img
-            className="img-fluid u-logo-mobile"
-            src="/assets/img/logo-mobile.png"
+            className="img-fluid u-logo-mobile logo-header"
+            src="/logo.png"
             width="50"
             alt="Stream Dashboard"
           />

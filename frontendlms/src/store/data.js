@@ -3,6 +3,7 @@ export const sessionLists = [
   { title: "2017-18", code: "2" },
   { title: "2018-19", code: "3" },
   { title: "2019-20", code: "4" },
+ 
 ];
 
 export const batchLists = [
@@ -10,6 +11,13 @@ export const batchLists = [
   { code: "2", title: "13" },
   { code: "3", title: "14" },
   { code: "4", title: "15" },
+];
+
+export const yearTerm = [
+  { code: "1", title: "Y1-T1" },
+  { code: "2", title: "Y2-T1" },
+  { code: "3", title: "Y3-T1" },
+  { code: "4", title: "Y4-T1" },
 ];
 
 export const courseList = [

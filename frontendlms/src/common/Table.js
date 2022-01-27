@@ -66,7 +66,7 @@ function Table({ columns, data }) {
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      <td className="text-center" {...cell.getCellProps()}>{cell.render("Cell")}</td>
                     );
                   })}
                   <td className="text-center">
@@ -108,7 +108,7 @@ export const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
       <form action="" className="search-student-form">
         <input
           type="text"
-          placeholder="Student Name"
+          placeholder="Search "
           value={value || ""}
           onChange={(e) => {
             setValue(e.target.value);
