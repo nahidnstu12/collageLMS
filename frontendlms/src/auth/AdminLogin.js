@@ -4,10 +4,11 @@ import "./login.scss";
 import { useForm } from "react-hook-form";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import AuthConsumer from "../hooks/useAuth";
-import { postData } from "../hooks/axios";
-import Cookies from "js-cookie";
+import { handleSignIn } from "../hooks/utils";
+import { useState } from "react";
 
-export default function Login() {
+export default function AdminLogin() {
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const history = useHistory();
   const {
@@ -16,36 +17,28 @@ export default function Login() {
     formState: { errors },
   } = useForm({ mode: "all" });
 
-  const { authed, login } = AuthConsumer();
-  // console.log({ authed });
-
-  const handleSignIn = async (formdata) => {
-    const cred = {
-      email: formdata.email,
-      password: formdata.password,
-    };
-    const data = await postData("/student-login", cred);
-    console.log(data);
-
-    // save cookie
-    Cookies.set("login-token", data.token, { expires: 1 });
-    // redirect private route
-    if (data.token) {
-      login().then(() => {
-        const { from } = location.state || { from: { pathname: "/dashboard" } };
-        history.replace(from);
-      });
-    }
+  const { login, setProfile } = AuthConsumer();
+  const handleSigned = async (formdata) => {
+    handleSignIn(
+      "/super-admin-login",
+      formdata,
+      setLoading,
+      login,
+      setProfile,
+      location,
+      history
+    );
   };
+
   return (
     <section className="es-form-area section-center">
       <div className="card">
         <header className="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
-          <h2 className="text-white m-auto  mb-0">Login</h2>
+          <h2 className="text-white m-auto  mb-0">Admin Login</h2>
         </header>
         <div className="card-body">
           <form
-            onSubmit={handleSubmit(handleSignIn)}
+            onSubmit={handleSubmit(handleSigned)}
             className="es-form es-add-form"
           >
             <div className="row">
@@ -57,11 +50,6 @@ export default function Login() {
                 label={"User's Email"}
                 register={register}
                 required="Input field can not be empty"
-                // pattern={{
-                //   value: /@\(teacher|student)\.nstu\.edu\.bd/,
-                //   message: "Must be login with edu mail",
-                // }}
-
                 error={errors.email}
               />
               <Input
@@ -83,7 +71,7 @@ export default function Login() {
                 error={errors.password}
               />
 
-              <Button label={"Login"} />
+              <Button label={loading ? "loading" : "Login"} />
               <Link to={"/forget-pass"} className="forget-pass">
                 <span>Forget password</span>
               </Link>
