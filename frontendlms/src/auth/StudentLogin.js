@@ -2,13 +2,14 @@ import Button from "../common/Button";
 import { Input } from "../common/Input";
 import "./login.scss";
 import { useForm } from "react-hook-form";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import AuthConsumer from "../hooks/useAuth";
 import { useState } from "react";
 import { handleSignIn } from "../hooks/utils";
 
 export default function StudentLogin() {
   const [loading, setLoading] = useState(false);
+  // const [redirectToReferrer, setRedirectToReferrer] = useState(false);
   const location = useLocation();
   const history = useHistory();
   const {
@@ -17,6 +18,7 @@ export default function StudentLogin() {
     formState: { errors },
   } = useForm({ mode: "all" });
 
+  
   const { login, setProfile } = AuthConsumer();
   const handleSigned = async (formdata) => {
     handleSignIn(
@@ -26,9 +28,14 @@ export default function StudentLogin() {
       login,
       setProfile,
       location,
-      history
+      history,
+      // setRedirectToReferrer
     );
   };
+
+  // if (redirectToReferrer === true) {
+  //   return <Redirect to={location.state?.from || "/dashboard"} />;
+  // }
 
   return (
     <section className="es-form-area section-center">

@@ -8,6 +8,7 @@ export const handleSignIn = async (
   login,
   location,
   history
+  // setRedirectToReferrer
 ) => {
   const cred = {
     email: formdata.email,
@@ -30,7 +31,11 @@ export const handleSignIn = async (
       role: profile?.roles[0].name,
     };
     Cookies.set("user-profile", JSON.stringify(profileData), { expires: 1 });
-    // console.log(profileData);
+    // setRedirectToReferrer(true);
+    // const { from } = location.state || { from: { pathname: "/dashboard" } };
+    // history.replace(from);
+
+    // console.log(history);
     login().then(() => {
       const { from } = location.state || { from: { pathname: "/dashboard" } };
       history.replace(from);
