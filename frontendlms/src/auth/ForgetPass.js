@@ -2,6 +2,7 @@ import Button from "../common/Button";
 import { Input } from "../common/Input";
 import "./login.scss";
 import { useForm } from "react-hook-form";
+import {Link} from "react-router-dom"
 
 export default function ForgetPass() {
   const {
@@ -40,6 +41,9 @@ export default function ForgetPass() {
               />
 
               <Button label={"Forget Password"} />
+              <Link to={"/login"} className="forget-pass">
+                <span>Login</span>
+              </Link>
             </div>
           </form>
         </div>

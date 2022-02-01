@@ -147,7 +147,6 @@ export const courseColumns = [
     Header: "Year-Term",
     accessor: "yt",
   },
-  
 ];
 export const courseData = [
   {
@@ -473,7 +472,7 @@ export const marksLists = [
     written: "55",
   },
   {
-    sid: "1701011",
+    sid: "1701012",
     ct1: "20",
     ct2: "18",
     ct3: "15",

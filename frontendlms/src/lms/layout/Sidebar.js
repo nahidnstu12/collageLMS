@@ -1,91 +1,25 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import AuthConsumer from "../../hooks/useAuth";
+import {
+  studentMenuItems,
+  teacherMenuItems,
+  adminMenuItems,
+} from "../../store/menuItems";
 import MenuItem from "./MenuItem";
 
-export const menuItems = [
-  {
-    name: "Dashboard",
-    exact: true,
-    to: "/dashboard",
-    iconClassName: "fa-tachometer-alt",
-  },
-  {
-    name: "Courses",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-book",
-    subMenus: [
-      { label: " Courses Lists", to: "/course/lists" },
-      { label: " Courses details", to: "/course/:id" },
-      { label: " Courses Add", to: "/course/add" },
-    ],
-  },
-  {
-    name: "Attendances",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-user-check",
-    subMenus: [
-      { label: "Attendances List", to: "/attendance/lists" },
-      { label: "Attendances Reports", to: "/attendance/reports" },
-    ],
-  },
-  {
-    name: "Routine",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-stopwatch",
-    subMenus: [
-      { label: " Full Routine", to: "/routine/full" },
-      { label: " todays", to: "/routine/todays" },
-    ],
-  },
-  {
-    name: "Marks",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-clipboard",
-    subMenus: [
-      { label: "MarkSheet", to: "/marks" },
-      { label: " Add Marks", to: "/marks/add" },
-    ],
-  },
-  {
-    name: "Students",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-user-graduate",
-    subMenus: [
-      { label: " Student Lists", to: "/student/lists" },
-      { label: " Student details", to: "/student/:id" },
-      { label: " Student Add", to: "/student/add" },
-    ],
-  },
-  {
-    name: "Teacher",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-chalkboard-teacher",
-    subMenus: [
-      { label: " Teacher Lists", to: "/teacher/lists" },
-      { label: " Teacher Details", to: "/teacher/:id" },
-      { label: " Teacher Add", to: "/teacher/add" },
-    ],
-  },
-  {
-    name: "Profile",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-user",
-    subMenus: [
-      { label: " My Profile", to: "/my-profile" },
-      { label: " Edit Profile", to: "/my-profile/edit" },
-    ],
-  },
-];
-
-export default function Sidebar(props) {
+export default function Sidebar() {
   const [inactive, setInactive] = useState(false);
+  const { profile } = AuthConsumer();
+  
+  const menuItems = (role) =>
+    role === "teacher"
+      ? teacherMenuItems
+      : role === "student"
+      ? studentMenuItems
+      : adminMenuItems;
+  // console.log(menuItems(profile.role));
+
   useEffect(() => {
     if (inactive) {
       removeActiveClassFromSubMenu();
@@ -134,7 +68,7 @@ export default function Sidebar(props) {
 
         <nav className="u-sidebar-nav">
           <ul className="u-sidebar-nav-menu u-sidebar-nav-menu--top-level">
-            {menuItems.map((menuItem, index) => (
+            {menuItems(profile.role).map((menuItem, index) => (
               <MenuItem
                 key={index}
                 name={menuItem.name}

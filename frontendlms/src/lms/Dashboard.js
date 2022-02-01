@@ -1,7 +1,12 @@
-import React from "react";
-// import "./dasboard.css";
+import React, { useEffect, useState } from "react";
+
+import AuthConsumer from "../hooks/useAuth";
 
 export default function Dashboard() {
+  const { authed, login, profile } = AuthConsumer();
+  console.log(profile?.role);
+  // console.log(Cookies.get("login-token-2"));
+
   return (
     <>
       <section className="breadcumb-area card bg-gradient mb-5">

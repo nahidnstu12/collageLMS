@@ -3,7 +3,7 @@ import useAuth from "../hooks/useAuth";
 export default function PrivateRoute(props) {
   const location = useLocation();
 
-  const { authed } = useAuth();
+  const { authed,profile } = useAuth();
   // console.log({ authed });
   
   return authed ? (
@@ -11,7 +11,7 @@ export default function PrivateRoute(props) {
   ) : (
     <Redirect
       to={{
-        pathname: "/login",
+        pathname: `/${profile.role}/login`,
         state: { from: location },
       }}
     />

@@ -24,6 +24,9 @@ import PrivateRoute from "./hooks/PrivateRoute";
 import CourseList from "./lms/courses/CourseList";
 import CourseAdd from "./lms/courses/CourseAdd";
 import CourseDetails from "./lms/courses/CourseDetails";
+import TeacherLogin from "./auth/TeacherLogin";
+import StudentLogin from "./auth/StudentLogin";
+import AdminLogin from "./auth/AdminLogin";
 
 function App() {
   return (
@@ -32,6 +35,10 @@ function App() {
         {/* auth */}
 
         <Route path={`/login`} exact component={Login} />
+        {/* teacherlogin */}
+        <Route path={`/teacher/login`} exact component={TeacherLogin} />
+        <Route path={`/student/login`} exact component={StudentLogin} />
+        <Route path={`/admin/login`} exact component={AdminLogin} />
 
         <Route path={`/forget-pass`} exact component={ForgetPass} />
 

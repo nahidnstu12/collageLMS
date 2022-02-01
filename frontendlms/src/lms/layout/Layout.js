@@ -5,7 +5,13 @@ import Sidebar from "./Sidebar";
 export default function Layout({ children }) {
   const { pathname } = useLocation();
   
-  const publicRoute = ["/forget-pass", "/login"];
+  const publicRoute = [
+    "/forget-pass",
+    "/login",
+    "/teacher/login",
+    "/student/login",
+    "/admin/login",
+  ];
   const routing = publicRoute.find((p) => p === pathname);
   // const routing = undefined;
   // console.log({ pathname,  routing });
