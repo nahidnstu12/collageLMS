@@ -1,10 +1,13 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
+import Modal, { CourseModal } from "../../common/Modal";
 import Table from "../../common/Table";
 import { courseColumns, courseData } from "../../store/columnlevel";
 
-export default function CourseList() {
+export default function CourseList({role}) {
+ 
   const data = useMemo(() => courseData, []);
   const columns = useMemo(() => courseColumns, []);
+   const [show, setShow] = useState(false);
   return (
     <div>
       <section className="breadcumb-area card bg-gradient mb-5">
@@ -20,13 +23,21 @@ export default function CourseList() {
       <section className="es-form-area">
         <div className="card">
           <header className="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
-            <a href="" className="btn btn-sm btn-pill btn-outline-light ml-auto">
-              + Add New
-            </a>
+            {role === "admin" && (
+              <a
+                href=""
+                className="btn btn-sm btn-pill btn-outline-light ml-auto"
+              >
+                + Add New
+              </a>
+            )}
+            {/* test modal */}
+            <button onClick={() => setShow(true)}>Show Modal</button>
+            <Modal title="My Modal" onClose={() => setShow(false)} show={show}>
+              <CourseModal />
+            </Modal>
           </header>
           <div className="card-body">
-           
-
             <div className="attendances-list-wrap mt-5">
               <Table columns={columns} data={data} />
             </div>

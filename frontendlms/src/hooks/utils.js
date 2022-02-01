@@ -14,6 +14,7 @@ export const handleSignIn = async (
     email: formdata.email,
     password: formdata.password,
   };
+  // console.log(props.history);
   setLoading(true);
   const data = await postData(url, cred);
   //   console.log(data);
@@ -31,14 +32,8 @@ export const handleSignIn = async (
       role: profile?.roles[0].name,
     };
     Cookies.set("user-profile", JSON.stringify(profileData), { expires: 1 });
-    // setRedirectToReferrer(true);
-    // const { from } = location.state || { from: { pathname: "/dashboard" } };
-    // history.replace(from);
 
-    // console.log(history);
-    login().then(() => {
-      const { from } = location.state || { from: { pathname: "/dashboard" } };
-      history.replace(from);
-    });
+    // history?.push("/dashboard");
+    window.location.href = "/dashboard";
   }
 };

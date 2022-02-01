@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import FilterBatch from "../../common/FilterBatch";
 import MarksTable from "../../common/MarksTable";
-export default function MarkSheet() {
-   const {
-     register,
-     handleSubmit,
-     formState: { errors },
-   } = useForm({ mode: "all" });
+export default function MarkSheet({role}) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: "all" });
   return (
     <>
       <section className="breadcumb-area card bg-gradient mb-5">
@@ -23,9 +23,14 @@ export default function MarkSheet() {
       <section className="es-form-area">
         <div className="card">
           <header className="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
-            <a href="" className="btn btn-sm btn-pill btn-outline-light ml-auto">
-              + Add New
-            </a>
+            {role === "teacher" && (
+              <a
+                href=""
+                className="btn btn-sm btn-pill btn-outline-light ml-auto"
+              >
+                + Add New
+              </a>
+            )}
           </header>
           <div className="card-body">
             <FilterBatch />

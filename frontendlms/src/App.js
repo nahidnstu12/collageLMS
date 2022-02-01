@@ -27,8 +27,10 @@ import CourseDetails from "./lms/courses/CourseDetails";
 import TeacherLogin from "./auth/TeacherLogin";
 import StudentLogin from "./auth/StudentLogin";
 import AdminLogin from "./auth/AdminLogin";
+import AuthConsumer from "./hooks/useAuth";
 
 function App() {
+  const { profile } = AuthConsumer();
   return (
     <div className="App">
       <Router>
@@ -48,62 +50,69 @@ function App() {
             <PrivateRoute path={`/dashboard`} exact>
               <Dashboard />
             </PrivateRoute>
-
             {/* course */}
-            <PrivateRoute path={`/course/lists`} exact component={CourseList} />
-            <PrivateRoute path={`/course/add`} exact component={CourseAdd} />
-            <PrivateRoute path={`/course/:id`} component={CourseDetails} />
-
+            <PrivateRoute path={`/course/lists`} exact>
+              <CourseList role={profile?.role} />
+            </PrivateRoute>
+            <PrivateRoute path={`/course/add`} exact>
+              <CourseAdd />
+            </PrivateRoute>
+            <PrivateRoute path={`/course/:id`}>
+              <CourseDetails />
+            </PrivateRoute>
             {/* attendance */}
-            <PrivateRoute
-              path={`/attendance/lists`}
-              exact
-              component={AttendanceList}
-            />
-            <PrivateRoute
-              path={`/attendance/reports`}
-              exact
-              component={AttendanceReport}
-            />
+            <PrivateRoute path={`/attendance/lists`} exact>
+              <AttendanceList />
+            </PrivateRoute>
+            <PrivateRoute path={`/attendance/reports`} exact>
+              <AttendanceReport />
+            </PrivateRoute>
 
             {/* routine */}
-            <PrivateRoute
-              path={`/routine/full`}
-              exact
-              component={FullRoutine}
-            />
-            <PrivateRoute path={`/routine/todays`} exact component={Todays} />
-            {/* marks */}
-            <PrivateRoute path={`/marks`} exact component={MarkSheet} />
-            <PrivateRoute path={`/marks/add`} exact component={AddMarks} />
-            {/* teacher */}
-            <PrivateRoute
-              path={`/teacher/lists`}
-              exact
-              component={TeacherList}
-            />
-            <PrivateRoute
-              path={`/teacher/:id`}
-              exact
-              component={TeacherDetails}
-            />
-            <PrivateRoute path={`/teacher/add`} exact component={AddTeacher} />
-            {/* student */}
-            <PrivateRoute
-              path={`/student/lists`}
-              exact
-              component={StudentList}
-            />
-            <PrivateRoute path={`/student/add`} exact component={AddStudent} />
-            <PrivateRoute path={`/student/:id`} component={StudentDetails} />
+            <PrivateRoute path={`/routine/full`} exact>
+              <FullRoutine />
+            </PrivateRoute>
 
+            <PrivateRoute path={`/routine/todays`} exact>
+              <Todays />
+            </PrivateRoute>
+            {/* marks */}
+            <PrivateRoute path={`/marks`} exact>
+              <MarkSheet role={profile?.role} />
+            </PrivateRoute>
+            <PrivateRoute path={`/marks/add`} exact>
+              <AddMarks />
+            </PrivateRoute>
+            {/* teacher */}
+            <PrivateRoute path={`/teacher/lists`} exact>
+              <TeacherList />
+            </PrivateRoute>
+
+            <PrivateRoute path={`/teacher/:id`} exact>
+              <TeacherDetails />
+            </PrivateRoute>
+
+            <PrivateRoute path={`/teacher/add`} exact>
+              <AddTeacher />
+            </PrivateRoute>
+            {/* student */}
+            <PrivateRoute path={`/student/lists`} exact>
+              <StudentList />
+            </PrivateRoute>
+
+            <PrivateRoute path={`/student/add`} exact>
+              <AddStudent />
+            </PrivateRoute>
+            <PrivateRoute path={`/student/:id`}>
+              <StudentDetails />
+            </PrivateRoute>
             {/* profile */}
-            <PrivateRoute path={`/my-profile`} exact component={MyProfile} />
-            <PrivateRoute
-              path={`/my-profile/edit`}
-              exact
-              component={EditProfile}
-            />
+            <PrivateRoute path={`/my-profile`} exact>
+              <MyProfile />
+            </PrivateRoute>
+            <PrivateRoute path={`/my-profile/edit`} exact>
+              <EditProfile />
+            </PrivateRoute>
 
             <Route path={`/`}>
               <Homelist />
@@ -116,3 +125,5 @@ function App() {
 }
 
 export default App;
+
+

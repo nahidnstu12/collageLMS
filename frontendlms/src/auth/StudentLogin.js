@@ -7,8 +7,9 @@ import AuthConsumer from "../hooks/useAuth";
 import { useState } from "react";
 import { handleSignIn } from "../hooks/utils";
 
-export default function StudentLogin() {
+export default function StudentLogin(props) {
   const [loading, setLoading] = useState(false);
+  // console.log(props);
   // const [redirectToReferrer, setRedirectToReferrer] = useState(false);
   const location = useLocation();
   const history = useHistory();
@@ -18,7 +19,6 @@ export default function StudentLogin() {
     formState: { errors },
   } = useForm({ mode: "all" });
 
-  
   const { login, setProfile } = AuthConsumer();
   const handleSigned = async (formdata) => {
     handleSignIn(
@@ -28,14 +28,11 @@ export default function StudentLogin() {
       login,
       setProfile,
       location,
-      history,
+      history
       // setRedirectToReferrer
     );
   };
 
-  // if (redirectToReferrer === true) {
-  //   return <Redirect to={location.state?.from || "/dashboard"} />;
-  // }
 
   return (
     <section className="es-form-area section-center">
