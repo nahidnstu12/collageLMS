@@ -1,10 +1,48 @@
-import { Input, InputFile, Select } from "../../common/Input";
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
-import { batchLists, sessionLists } from "../../store/data";
-import { useState } from "react";
+import { CSSTransition } from "react-transition-group";
+import { sessionLists } from "../store/data";
+import { Input, Select } from "./Input";
+import "./modal.scss";
 
-export default function AddStudent() {
-  const [placeholdar,setPlaceholder]=useState("Image File")
+const Modal = (props) => {
+  const closeOnEscapeKeyDown = (e) => {
+    if ((e.charCode || e.keyCode) === 27) {
+      props.onClose();
+    }
+  };
+
+  useEffect(() => {
+    document.body.addEventListener("keydown", closeOnEscapeKeyDown);
+    return function cleanup() {
+      document.body.removeEventListener("keydown", closeOnEscapeKeyDown);
+    };
+  }, []);
+
+  return ReactDOM.createPortal(
+    <CSSTransition
+      in={props.show}
+      unmountOnExit
+      timeout={{ enter: 0, exit: 300 }}
+    >
+      <div className="modal" onClick={props.onClose}>
+        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          
+          <div className="modal-body">{props.children}</div>
+          {/* <div className="modal-footer">
+            <button onClick={props.onClose} className="button">
+              Close
+            </button>
+          </div> */}
+        </div>
+      </div>
+      
+    </CSSTransition>,
+    document.getElementById("root")
+  );
+};
+export const CourseModal = () => {
   const {
     register,
     handleSubmit,
@@ -12,17 +50,7 @@ export default function AddStudent() {
   } = useForm({ mode: "all" });
   const submit = async (formdata) => {
     console.log(formdata);
-    const image = formdata.image[0].name;
-    console.log(image);
   };
-  console.log(placeholdar)
-  const onChangeHandler=(e)=>{
-    e.preventDeafault();
-    // setPlaceholder(e.target)
-    console.log(e.target)
-    console.log("object")
-
-  }
   return (
     <section className="es-form-area">
       <div className="card">
@@ -75,23 +103,13 @@ export default function AddStudent() {
               <Select
                 id={"session"}
                 name={"session"}
-               full={true}
                 lists={sessionLists}
                 label={"Student's Session"}
                 register={register}
                 required="Input field can not be empty"
                 error={errors.session}
               />
-              <Select
-                id={"batch"}
-                name={"batch"}
-                lists={batchLists}
-                label={"Student's batch"}
-                register={register}
-                required="Input field can not be empty"
-                error={errors.batch}
-                full={true}
-              />
+
               <Input
                 id={"address"}
                 name={"address"}
@@ -101,18 +119,6 @@ export default function AddStudent() {
                 register={register}
                 required="Input field can not be empty"
                 error={errors.address}
-              />
-              <InputFile
-                id={"customFile"}
-                name={"image"}
-                type={"file"}
-                placeholder={placeholdar}
-                label={"Student's Image"}
-                register={register}
-                value={placeholdar}
-                required="Input field can not be empty"
-                error={errors.image}
-                onChange={e=>setPlaceholder(e.target.value)}
               />
 
               <div className="col-lg-4 offset-lg-4 col-md-12 text-center">
@@ -126,4 +132,21 @@ export default function AddStudent() {
       </div>
     </section>
   );
+};
+export default Modal;
+
+{
+  /* <div className="modal" onClick={props.onClose}>
+  <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-header">
+      <h4 className="modal-title">{props.title}</h4>
+    </div>
+    <div className="modal-body">{props.children}</div>
+    <div className="modal-footer">
+      <button onClick={props.onClose} className="button">
+        Close
+      </button>
+    </div>
+  </div>
+</div>; */
 }

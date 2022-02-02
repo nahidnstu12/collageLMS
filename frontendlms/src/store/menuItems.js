@@ -80,7 +80,6 @@ export const adminMenuItems = [
   },
 ];
 
-
 // teacher
 export const teacherMenuItems = [
   {
@@ -97,7 +96,6 @@ export const teacherMenuItems = [
     subMenus: [
       { label: " Courses Lists", to: "/course/lists" },
       { label: " Courses details", to: "/course/:id" },
-    
     ],
   },
   {
@@ -138,7 +136,6 @@ export const teacherMenuItems = [
     subMenus: [
       { label: " Student Lists", to: "/student/lists" },
       { label: " Student details", to: "/student/:id" },
-     
     ],
   },
   {
@@ -149,7 +146,6 @@ export const teacherMenuItems = [
     subMenus: [
       { label: " Teacher Lists", to: "/teacher/lists" },
       { label: " Teacher Details", to: "/teacher/:id" },
-     
     ],
   },
   {
@@ -163,7 +159,6 @@ export const teacherMenuItems = [
     ],
   },
 ];
-
 
 // student
 export const studentMenuItems = [
@@ -181,7 +176,6 @@ export const studentMenuItems = [
     subMenus: [
       { label: " Courses Lists", to: "/course/lists" },
       { label: " Courses details", to: "/course/:id" },
-     
     ],
   },
   {
@@ -209,10 +203,7 @@ export const studentMenuItems = [
     exact: true,
     to: `#`,
     iconClassName: "fa-clipboard",
-    subMenus: [
-      { label: "MarkSheet", to: "/marks" },
-     
-    ],
+    subMenus: [{ label: "MarkSheet", to: "/marks" }],
   },
   {
     name: "Students",
@@ -222,7 +213,6 @@ export const studentMenuItems = [
     subMenus: [
       { label: " Student Lists", to: "/student/lists" },
       { label: " Student details", to: "/student/:id" },
-      
     ],
   },
   {
@@ -233,7 +223,6 @@ export const studentMenuItems = [
     subMenus: [
       { label: " Teacher Lists", to: "/teacher/lists" },
       { label: " Teacher Details", to: "/teacher/:id" },
-     
     ],
   },
   {

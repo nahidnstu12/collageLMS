@@ -35,9 +35,17 @@ export const Input = ({
   );
 };
 
-export const Select = ({ label, lists, name, register, required, id }) => {
+export const Select = ({
+  label,
+  lists,
+  name,
+  register,
+  required,
+  id,
+  full,
+}) => {
   return (
-    <div className="col">
+    <div className={full ? "col-lg-8 offset-lg-2 col-md-12 mb-4" : "col"}>
       {/* <div className="col-lg-8 offset-lg-2 col-md-12 mb-4"> */}
       <label htmlFor={id}>{label}</label>
       <select
