@@ -26,23 +26,19 @@ const Modal = (props) => {
       unmountOnExit
       timeout={{ enter: 0, exit: 300 }}
     >
-      <div className="modal" onClick={props.onClose}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          
-          <div className="modal-body">{props.children}</div>
-          {/* <div className="modal-footer">
-            <button onClick={props.onClose} className="button">
-              Close
-            </button>
-          </div> */}
+      <div className="modal-c" onClick={props.onClose}>
+        <div className="modal-c-content" onClick={(e) => e.stopPropagation()}>
+          {/* <div className="modal-c-body">{props.children}</div> */}
+          <div className="modal-c-body">
+            {React.cloneElement(props.children, { ...props })}
+          </div>
         </div>
       </div>
-      
     </CSSTransition>,
     document.getElementById("root")
   );
 };
-export const CourseModal = () => {
+export const CourseModal = (props) => {
   const {
     register,
     handleSubmit,
@@ -52,10 +48,13 @@ export const CourseModal = () => {
     console.log(formdata);
   };
   return (
-    <section className="es-form-area">
+    <section className="es-form-area" style={{ marginTop: "16rem" }}>
       <div className="card">
         <header className="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
           <h2 className="text-white mb-0">Add New Student</h2>
+          <button onClick={props.onClose} className="btn btn-outline-warning ml-auto text-white">
+            Close
+          </button>
         </header>
         <div className="card-body">
           <form className="es-form es-add-form" onSubmit={handleSubmit(submit)}>
@@ -108,6 +107,7 @@ export const CourseModal = () => {
                 register={register}
                 required="Input field can not be empty"
                 error={errors.session}
+                full={true}
               />
 
               <Input
