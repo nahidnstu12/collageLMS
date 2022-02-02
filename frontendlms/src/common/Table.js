@@ -1,6 +1,7 @@
 import { useAsyncDebounce } from "react-table";
 import { useState } from "react";
 import useTablesHook from "../hooks/useTablesHook";
+import {Link} from "react-router-dom"
 
 function Table({ columns, data }) {
   const {
@@ -70,9 +71,9 @@ function Table({ columns, data }) {
                     );
                   })}
                   <td className="text-center">
-                    <a href="" className="btn btn-outline-danger es-am-btn">
+                    <Link to={"/course/add"} className="btn btn-outline-danger es-am-btn">
                       Edit
-                    </a>
+                    </Link>
                   </td>
                 </tr>
               );

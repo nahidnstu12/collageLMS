@@ -26,3 +26,13 @@ export const courseList = [
   { courseName: "Biology", courseCode: "3" },
   { courseName: "Zoology", courseCode: "4" },
 ];
+
+export const teacherLists = [ 
+  {code: 1, title:"Hasnat Riaz"},
+  {code: 2, title:"Salauddin Pathan"},
+  {code: 3, title:"Abul Kalam Azad"},
+  {code: 4, title:"Ratna Dip Kuri"},
+  {code: 5, title:"Nazia Mazadi"},
+  {code: 6, title:"Humaun Kabir"},
+  {code: 7, title:"MAH Rana"},
+]

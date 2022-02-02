@@ -33,7 +33,7 @@ export default function CourseList({role}) {
             )}
             {/* test modal */}
             <button onClick={() => setShow(true)}>Show Modal</button>
-            <Modal title="My Modal" onClose={() => setShow(false)} show={show}>
+            <Modal title="My Modal" w80={true} onClose={() => setShow(false)} show={show}>
               <CourseModal />
             </Modal>
           </header>

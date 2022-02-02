@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getData } from "../../hooks/axios";
 
 export const studentInfo = {
   type: "Student",
@@ -16,6 +18,12 @@ export const studentInfo = {
 };
 
 export default function MyProfile() {
+  const [user, setProfile] = useState({})
+  useEffect(async() =>{
+   const {profile} = await getData('/profile')
+   setProfile(profile);
+  //  console.log(profile.full_name);
+  },[])
   return (
     <div>
       <section className="breadcumb-area card bg-gradient mb-5">
@@ -31,10 +39,12 @@ export default function MyProfile() {
       <section className="profile-area card">
         <div className="profile-content card-body d-flex">
           <div className="user-image-wrap mr-5">
-            <img src={studentInfo.profileImg} alt="" />
+            <img src={user.img || studentInfo.profileImg} alt="" />
           </div>
           <div className="user-about">
-            <h2 className="text-danger">{studentInfo.name}</h2>
+            <h2 className="text-danger">
+              {user.full_name || studentInfo.name}
+            </h2>
             <p>
               <strong>
                 {studentInfo.roll} {"  |  "} {studentInfo.currentYear}
@@ -46,13 +56,18 @@ export default function MyProfile() {
             <p>Credit Complete: {studentInfo.creditCompleted} </p>
             <br />
             <br />
-            <p>Email: {studentInfo.email} </p>
-            <p>Phone: {studentInfo.phone} </p>
+            <p>Email: {user.email || studentInfo.email} </p>
+            <p>Phone: {user.phone || studentInfo.phone} </p>
             <p>Address: {studentInfo.address} </p>
 
             <br />
             <br />
-            <Link className="btn btn-outline-danger pl-4 pr-4" to="/my-profile/edit">Edit</Link>
+            <Link
+              className="btn btn-outline-danger pl-4 pr-4"
+              to="/my-profile/edit"
+            >
+              Edit
+            </Link>
             {/* <a href="" className="btn btn-outline-danger pl-4 pr-4">
               Edit
             </a> */}

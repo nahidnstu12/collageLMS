@@ -64,6 +64,7 @@ export const teacherData = [
     designation: "Professior",
     email: "asadun@teacher.com",
     phone: "0173425632",
+    // profilePic: "../"
   },
   {
     tid: "123-001",
@@ -156,6 +157,7 @@ export const courseData = [
     courseDescription:
       "Computer fundamental Computer fundamental Computer fundamental Computer fundamental",
     yt: "1-1",
+    // asignee: 1, //teacher id
   },
   {
     courseId: "CSTE1103",
@@ -385,16 +387,16 @@ export const routineColumns = [
 
 // attendance lists
 export const attendanceLists = [
-  { sid: "1701001", totalClass: "20", attendedClass: "10" },
-  { sid: "1701003", totalClass: "20", attendedClass: "5" },
-  { sid: "1701004", totalClass: "20", attendedClass: "7" },
-  { sid: "1701005", totalClass: "20", attendedClass: "1" },
-  { sid: "1701007", totalClass: "20", attendedClass: "11" },
-  { sid: "1701008", totalClass: "20", attendedClass: "7" },
-  { sid: "1701009", totalClass: "20", attendedClass: "7" },
-  { sid: "1701010", totalClass: "20", attendedClass: "10" },
-  { sid: "1701011", totalClass: "20", attendedClass: "10" },
-  { sid: "1701011", totalClass: "20", attendedClass: "10" },
+  { sid: "1701001", totalClass: "20", attendedClass: "10", yt: "Y1-T1" },
+  { sid: "1701003", totalClass: "20", attendedClass: "5", yt: "Y1-T1" },
+  { sid: "1701004", totalClass: "20", attendedClass: "7", yt: "Y1-T1" },
+  { sid: "1701005", totalClass: "20", attendedClass: "1", yt: "Y2-T1" },
+  { sid: "1701007", totalClass: "20", attendedClass: "11", yt: "Y2-T1" },
+  { sid: "1701008", totalClass: "20", attendedClass: "7", yt: "Y1-T1" },
+  { sid: "1701009", totalClass: "20", attendedClass: "7", yt: "Y1-T1" },
+  { sid: "1701010", totalClass: "20", attendedClass: "10", yt: "Y1-T1" },
+  { sid: "1701011", totalClass: "20", attendedClass: "10", yt: "Y1-T1" },
+  { sid: "1701011", totalClass: "20", attendedClass: "10", yt: "Y1-T1" },
 ];
 
 // marks lists
@@ -406,6 +408,8 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
+    yt: "Y1-T1",
   },
   {
     sid: "1701003",
@@ -414,6 +418,8 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
+    yt: "Y1-T1",
   },
   {
     sid: "1701004",
@@ -422,6 +428,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701005",
@@ -430,6 +437,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701007",
@@ -438,6 +446,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701008",
@@ -446,6 +455,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701009",
@@ -454,6 +464,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701010",
@@ -462,6 +473,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701011",
@@ -470,6 +482,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701012",
@@ -478,5 +491,6 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
 ];

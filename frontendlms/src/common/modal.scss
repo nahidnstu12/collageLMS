@@ -15,6 +15,7 @@
   overflow-y: scroll;
   z-index: 1050;
   padding: 1rem;
+  margin: auto;
 }
 
 .modal-c.enter-done {
@@ -27,7 +28,7 @@
 }
 
 .modal-c-content {
-  width: 80%;
+  // width: 80%;
   // background-color: none;
   transition: all 0.3s ease-in-out;
   transform: translateY(-200px);

@@ -11,10 +11,14 @@ export const Input = ({
   validate,
   pattern,
   error,
+  margin,
 }) => {
   return (
-    <div className="col-lg-8 offset-lg-2 col-md-12 mb-4">
-      <label htmlFor={id}>{label}</label>
+    <div
+      className="col-lg-8 offset-lg-2 col-md-12 "
+      style={{ marginBottom: margin ? "" : "0.85rem" }}
+    >
+      {label && <label htmlFor={id}>{label}</label>}
       <input
         id={id}
         type={type}
