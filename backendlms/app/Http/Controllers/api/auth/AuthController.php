@@ -439,7 +439,9 @@ class AuthController extends Controller
      */
     public function profile()
     {
-        return $this->customResponse(['profile'=>Auth::user()],200);
+        $user=Auth::user();
+        $user->roles;
+        return $this->customResponse(['profile'=>$user],200);
     }
 }
     

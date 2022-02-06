@@ -20,13 +20,13 @@ class UserSeeder extends Seeder
     {
         $this->truncateLaratrustTables();
         $user = new User();
-        $user->email = 'test@gmail.com';
-        $user->full_name = "Administrator User";
+        $user->email = 'student@gmail.com';
+        $user->full_name = "Student User";
         $user->password = bcrypt('123');
         $user->email_verified_at = now();
         $user->save();
 
-        $role = Role::whereName(Constants::ROLE_KEY_SUPER_ADMIN)->firstOrFail();
+        $role = Role::whereName(Constants::ROLE_KEY_STUDENT)->firstOrFail();
         return $user->attachRole($role);
     }
 

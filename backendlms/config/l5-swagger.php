@@ -18,7 +18,7 @@ return [
                 \Illuminate\Routing\Middleware\SubstituteBindings::class,
                 \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
                 'auth',
-                'title' => 'MVE SERVER DOCUMENTATION',
+                'title' => 'student info',
             ],
 
             'routes' => [

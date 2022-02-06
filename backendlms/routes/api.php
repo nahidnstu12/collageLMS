@@ -1,16 +1,15 @@
 <?php
-
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\api\auth\AuthController;
-use App\Http\Controllers\api\teacher\TeacherController;
 use App\Http\Controllers\api\auth\ForgotController;
+use App\Http\Controllers\api\teacher\TeacherController;
 use App\Http\Controllers\api\teacher\TeacherRoleController;
-use App\Http\Controllers\api\teacher\TeacherPermissionController;
+use App\Http\Controllers\api\student\StudentManageController;
 use App\Http\Controllers\api\auth\EmailVerificationController;
-use App\Http\Controllers\api\student\studentManageController;
-use App\Http\Controllers\api\teacher\TeacherController as TeacherTeacherController;
+use App\Http\Controllers\api\course\CourseController;
+use App\Http\Controllers\api\teacher\TeacherPermissionController;
+use App\Models\Mark;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,13 +40,23 @@ Route::post('reset-password',[ForgotController::class,'resetPassword']);
 
 //         --------------------student managing-------------------
 Route::resource('students',StudentManageController::class,['only'=>['index','show','destroy']]);
-Route::post('students/unverified',[StudentManageController::class,'unverifiedStudent']);
-Route::post('students/verify/{id}',[StudentManageController::class,'tudentVerify']);
+Route::get('unverified/students',[StudentManageController::class,'unverifiedStudent']);
+Route::get('verify/student/{id}',[StudentManageController::class,'studentVerify']);
 
 //         --------------------teacher managing-------------------
 Route::apiResource('teachers',TeacherController::class);
 Route::apiResource('teachers/{teacher}/roles',TeacherRoleController::class,['only'=>['index','store','destroy']]);
 Route::apiResource('teachers/{teacher}/permissions',TeacherPermissionController::class,['only'=>['index','store','destroy']]);
+
+// ---------------------- course ---------------
+
+Route::apiResource('courses',CourseController::class);
+Route::get('user/{user}/courses',[CourseController::class,'userWiseCourselist']);
+// -----------------marks--------------
+Route::apiResource('marks',Mark::class);
+
+
+
 
 
 Route::middleware(['auth:api'])->group(function () {
@@ -59,6 +68,9 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::get('profile',[AuthController::class,'profile'])->middleware(['verified']);
     Route::post('student-profile',function(){return "hello student";})->middleware(['verified','permission:verified_seller']);
+
+    // --------courses----------
+    Route::get('user/courses',[CourseController::class,'userCourselist']);
 
     Route::get('logout',[AuthController::class,'logout']);
     
