@@ -1,3 +1,143 @@
-.App{
-    margin: auto;
+$theme-color: #fa5d4e;
+.App {
+  min-height: 100vh;
+  display: grid;
+}
+.error-msg {
+  color: #c90e0e;
+  transition: 0.3s;
+  visibility: visible;
+  opacity: 100;
+}
+.hide {
+  visibility: hidden;
+  opacity: 0;
+}
+// logo header
+.logo-header{
+  width: 310px;
+  object-fit: contain;
+}
+
+// student
+.max-container {
+  max-width: 1020px;
+}
+
+.custom-file-label {
+  width: 93%;
+  border: 1px solid $theme-color;
+  border-radius: 12px;
+  color: $theme-color;
+  font-size: 18px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 50px;
+  line-height: 46px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-left: 1rem;
+
+  &::after {
+    top: 3px;
+    right: 10px;
+    border-radius: 10px;
+    text-align: center;
+    background: $theme-color;
+    color: #fff;
+    line-height: 1.2;
+    height: 40px;
+  }
+}
+.es-add-select {
+  width: 100%;
+  border: 1px solid $theme-color;
+  border-radius: 12px;
+  color: $theme-color;
+  font-size: 18px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 50px;
+  line-height: 46px;
+  padding-top: 0;
+  padding-bottom: 0;
+  &::selection {
+    border: 1px solid $theme-color;
+  }
+ 
+
+  option:checked {
+    font-weight: bold;
+  }
+}
+
+.custom-select {
+  border: 1px solid $theme-color;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+// breadcrums
+.breadcumb-area {
+  margin-top: 0;
+}
+
+// profile
+.user-image-wrap {
+  min-width: 220px;
+  min-height: 220px;
+  max-width: 250px;
+  max-height: 250px;
+  box-shadow: 0 0.1rem 1rem $theme-color;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border: 2px solid $theme-color;
+    margin: 0;
+    object-fit: cover;
+  }
+}
+.additonal-info {
+  color: #446f9a;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1.3rem 0;
+  border-bottom: 1px solid $theme-color;
+  padding-bottom: 4px;
+}
+// sidebar css
+
+.menu-item.active {
+  background: #fff;
+  // border-radius: 5px;
+  color: $theme-color;
+}
+.u-sidebar-nav-menu--second-level {
+  display: block;
+}
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-in;
+  padding-top: 0;
+  margin-bottom: -13px;
+  &.active {
+    max-height: 200px;
+  }
+}
+
+// routine table style
+.tbl-head {
+  font-size: 1.1rem;
+  font-weight: bold !important;
+  // color: #fa5d4e !important;
+  color: #fff !important;
+  text-align: center;
+}
+.submit-response {
+  display: flex;
+  margin: 1.5rem 0;
+  padding: 1rem 0;
+  gap: 1rem;
 }

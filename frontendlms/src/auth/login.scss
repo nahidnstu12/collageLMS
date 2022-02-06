@@ -1,7 +1,21 @@
 .section-center {
   display: flex;
-  margin: auto;
-  width: 70%;
   align-items: center;
   justify-content: center;
+}
+.forget-pass-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .card {
+    min-width: 800px;
+  }
+}
+.forget-pass {
+  margin: auto 0;
+  font-size: 1.3rem;
+  color: #fa5d4e;
+  &:hover {
+    color: #fa5d4e;
+  }
 }

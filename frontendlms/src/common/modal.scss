@@ -1,0 +1,58 @@
+.modal-c {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  height: auto;
+  overflow-y: scroll;
+  z-index: 1050;
+  padding: 1rem;
+}
+
+.modal-c.enter-done {
+  opacity: 1;
+  pointer-events: visible;
+}
+
+.modal-c.exit {
+  opacity: 0;
+}
+
+.modal-c-content {
+  width: 80%;
+  // background-color: none;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-200px);
+  border-radius: 50px;
+}
+
+.modal-c.enter-done .modal-c-content {
+  transform: translateY(0);
+}
+
+.modal-c.exit .modal-c-content {
+  transform: translateY(-200px);
+}
+
+.modal-c-header,
+.modal-c-footer {
+  padding: 10px;
+}
+
+.modal-c-title {
+  margin: 0;
+}
+
+.modal-c-body {
+  padding: 0;
+  // border-top: 1px solid #eee;
+  // border-bottom: 1px solid #eee;
+}
