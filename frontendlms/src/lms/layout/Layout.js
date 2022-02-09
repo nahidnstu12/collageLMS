@@ -1,21 +1,30 @@
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import AuthConsumer from "../../hooks/useAuth";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 export default function Layout({ children }) {
   const { pathname } = useLocation();
-  
+  const { profile } = AuthConsumer();
+  const history = useHistory();
+  const [role, setRole] = useState(profile?.role);
   const publicRoute = [
     "/forget-pass",
     "/login",
     "/teacher/login",
     "/student/login",
-    "/admin/login",
+    "/super_admin/login",
   ];
   const routing = publicRoute.find((p) => p === pathname);
-  // const routing = undefined;
-  // console.log({ pathname,  routing });
-  return routing  ? (
+
+  useEffect(() => {
+    if (profile?.role === undefined) {
+      // history?.push(`/${role}/login`);
+      // history?.push(`/student/login`);
+    }
+  }, []);
+  return routing ? (
     <></>
   ) : (
     <div>

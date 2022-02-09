@@ -61,8 +61,8 @@ export const Select = ({
         })}
         // style={{display:"none"}}
       >
-        {lists.map((item) => (
-          <option key={item.code} value={item.title}>
+        {lists && lists?.map((item) => (
+          <option key={item.code} value={item.code}>
             {item.title}
           </option>
         ))}

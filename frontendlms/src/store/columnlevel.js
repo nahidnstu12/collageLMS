@@ -1,11 +1,11 @@
 export const studentColumns = [
   {
     Header: "SID",
-    accessor: "sid",
+    accessor: "student_infos.s_id",
   },
   {
     Header: "Name",
-    accessor: "name",
+    accessor: "full_name",
   },
   {
     Header: "Email",
@@ -17,19 +17,19 @@ export const studentColumns = [
   },
   {
     Header: "Session",
-    accessor: "session",
+    accessor: "student_infos.session",
   },
   {
     Header: "Year-Term",
-    accessor: "yt",
+    accessor: "student_infos.yt",
   },
   {
     Header: "Batch",
-    accessor: "Batch",
+    accessor: "student_infos.batch",
   },
   {
     Header: "Address",
-    accessor: "address",
+    accessor: "Address",
   },
 ];
 
@@ -37,11 +37,11 @@ export const studentColumns = [
 export const teacherColumns = [
   {
     Header: "TID",
-    accessor: "tid",
+    accessor: "teacher_infos.t_id",
   },
   {
     Header: "Name",
-    accessor: "name",
+    accessor: "full_name",
   },
   {
     Header: "Email",
@@ -53,7 +53,7 @@ export const teacherColumns = [
   },
   {
     Header: "Designation",
-    accessor: "designation",
+    accessor: "teacher_infos.designation",
   },
 ];
 
@@ -134,15 +134,19 @@ export const teacherData = [
 export const courseColumns = [
   {
     Header: "Course Id",
-    accessor: "courseId",
+    accessor: "course_code",
   },
   {
     Header: "Course Title",
-    accessor: "courseTitle",
+    accessor: "course_title",
+  },
+  {
+    Header: "Course Teacher",
+    accessor: "teacher.full_name",
   },
   {
     Header: "Credit Hour",
-    accessor: "creditHour",
+    accessor: "credit_hour",
   },
   {
     Header: "Year-Term",

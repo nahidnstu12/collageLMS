@@ -11,7 +11,7 @@ import MenuItem from "./MenuItem";
 export default function Sidebar() {
   const [inactive, setInactive] = useState(false);
   const { profile } = AuthConsumer();
-  
+
   const menuItems = (role) =>
     role === "teacher"
       ? teacherMenuItems
@@ -68,7 +68,7 @@ export default function Sidebar() {
 
         <nav className="u-sidebar-nav">
           <ul className="u-sidebar-nav-menu u-sidebar-nav-menu--top-level">
-            {menuItems(profile.role).map((menuItem, index) => (
+            {menuItems(profile?.role).map((menuItem, index) => (
               <MenuItem
                 key={index}
                 name={menuItem.name}

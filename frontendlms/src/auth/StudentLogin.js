@@ -9,8 +9,7 @@ import { handleSignIn } from "../hooks/utils";
 
 export default function StudentLogin(props) {
   const [loading, setLoading] = useState(false);
-  // console.log(props);
-  // const [redirectToReferrer, setRedirectToReferrer] = useState(false);
+  
   const location = useLocation();
   const history = useHistory();
   const {

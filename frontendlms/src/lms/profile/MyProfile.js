@@ -11,19 +11,19 @@ export const studentInfo = {
   batch: "12th",
   email: "nahid@nstu.edu.com",
   phone: "0162176123",
-  profileImg: "/assets/img/nahid-2.png",
+  profileImg: "/dummy-profile.png",
   status: "Regular",
   creditCompleted: 140,
-  address:"Noakhali",
+  address: "Noakhali",
 };
 
 export default function MyProfile() {
-  const [user, setProfile] = useState({})
-  useEffect(async() =>{
-   const {profile} = await getData('/profile')
-   setProfile(profile);
-  //  console.log(profile.full_name);
-  },[])
+  const [user, setProfile] = useState({});
+  useEffect(async () => {
+    const { profile } = await getData("/profile");
+    setProfile(profile);
+    //  console.log(profile.full_name);
+  }, []);
   return (
     <div>
       <section className="breadcumb-area card bg-gradient mb-5">
@@ -39,11 +39,11 @@ export default function MyProfile() {
       <section className="profile-area card">
         <div className="profile-content card-body d-flex">
           <div className="user-image-wrap mr-5">
-            <img src={user.img || studentInfo.profileImg} alt="" />
+            <img src={studentInfo.profileImg} alt="" />
           </div>
           <div className="user-about">
             <h2 className="text-danger">
-              {user.full_name || studentInfo.name}
+              {user?.full_name || studentInfo.name}
             </h2>
             <p>
               <strong>
@@ -56,8 +56,8 @@ export default function MyProfile() {
             <p>Credit Complete: {studentInfo.creditCompleted} </p>
             <br />
             <br />
-            <p>Email: {user.email || studentInfo.email} </p>
-            <p>Phone: {user.phone || studentInfo.phone} </p>
+            <p>Email: {user?.email || studentInfo.email} </p>
+            <p>Phone: {user?.phone || studentInfo.phone} </p>
             <p>Address: {studentInfo.address} </p>
 
             <br />

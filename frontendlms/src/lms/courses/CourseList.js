@@ -1,13 +1,21 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Modal, { CourseModal } from "../../common/Modal";
 import Table from "../../common/Table";
+import { getData } from "../../hooks/axios";
 import { courseColumns, courseData } from "../../store/columnlevel";
 
-export default function CourseList({role}) {
- 
-  const data = useMemo(() => courseData, []);
+export default function CourseList({ role }) {
+  const [courses, setCourses] = useState([]);
+  //  let data
+  const data = useMemo(() => courses, [courses]);
   const columns = useMemo(() => courseColumns, []);
-   const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
+
+  useEffect(async () => {
+    const data = await getData("/courses");
+    setCourses(data);
+    console.log(data);
+  }, []);
   return (
     <div>
       <section className="breadcumb-area card bg-gradient mb-5">
@@ -33,13 +41,18 @@ export default function CourseList({role}) {
             )}
             {/* test modal */}
             <button onClick={() => setShow(true)}>Show Modal</button>
-            <Modal title="My Modal" w80={true} onClose={() => setShow(false)} show={show}>
+            <Modal
+              title="My Modal"
+              w80={true}
+              onClose={() => setShow(false)}
+              show={show}
+            >
               <CourseModal />
             </Modal>
           </header>
           <div className="card-body">
             <div className="attendances-list-wrap mt-5">
-              <Table columns={columns} data={data} />
+              <Table columns={columns} data={data} select={"course"}/>
             </div>
           </div>
         </div>

@@ -1,28 +1,72 @@
 import { Input, InputFile, Select } from "../../common/Input";
 import { useForm } from "react-hook-form";
-import { batchLists, sessionLists } from "../../store/data";
-import { useState } from "react";
+import { batchLists, sessionLists, yearTerm } from "../../store/data";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getData, postData, patchData } from "../../hooks/axios";
 
 export default function AddStudent() {
-  const [placeholdar,setPlaceholder]=useState("Image File")
+  const [placeholdar, setPlaceholder] = useState("Image File");
+  const [lists, setLists] = useState([]);
+  const [student, setStudent] = useState({});
   const {
     register,
     handleSubmit,
+    setValue,
+    reset,
     formState: { errors },
   } = useForm({ mode: "all" });
+
+  const { id } = useParams();
+  const isAddMode = !id;
+
   const submit = async (formdata) => {
     console.log(formdata);
     const image = formdata.image[0].name;
-    console.log(image);
+    // console.log(image);
+    return isAddMode ? createStudent(formdata) : updateStudent(id, formdata);
   };
-  console.log(placeholdar)
-  const onChangeHandler=(e)=>{
-    e.preventDeafault();
-    // setPlaceholder(e.target)
-    console.log(e.target)
-    console.log("object")
 
+  async function createStudent(data) {
+    try {
+      // const res = await postData("/student", data);
+      // console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   }
+  async function updateStudent(id, data) {
+    try {
+      const res = await patchData(`/student/${id}`, data);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(async () => {
+    if (!isAddMode) {
+      // get user and set form fields
+      try {
+        const res = await getData(`/student/${id}`);
+        const fields = [
+          "full_name",
+          "student_infos.s_id",
+          "email",
+          "phone",
+          "student_infos.designation",
+          "address",
+          "image",
+        ];
+        fields.forEach((field) => setValue(field, res[field]));
+        setStudent(res);
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, []);
+
   return (
     <section className="es-form-area">
       <div className="card">
@@ -34,7 +78,7 @@ export default function AddStudent() {
             <div className="row">
               <Input
                 id={"name"}
-                name={"name"}
+                name={"full_name"}
                 type={"text"}
                 placeholder={"eg. Mazharul Islam"}
                 label={"Student's Name"}
@@ -44,7 +88,7 @@ export default function AddStudent() {
               />
               <Input
                 id={"sid"}
-                name={"sid"}
+                name={"student_infos.s_id"}
                 type={"text"}
                 placeholder={"eg. 1701054"}
                 label={"Student's ID"}
@@ -74,8 +118,8 @@ export default function AddStudent() {
               />
               <Select
                 id={"session"}
-                name={"session"}
-               full={true}
+                name={"student_infos.session"}
+                full={true}
                 lists={sessionLists}
                 label={"Student's Session"}
                 register={register}
@@ -84,9 +128,19 @@ export default function AddStudent() {
               />
               <Select
                 id={"batch"}
-                name={"batch"}
+                name={"student_infos.batch"}
                 lists={batchLists}
                 label={"Student's batch"}
+                register={register}
+                required="Input field can not be empty"
+                error={errors.batch}
+                full={true}
+              />
+              <Select
+                id={"batch"}
+                name={"student_infos.yt"}
+                lists={yearTerm}
+                label={"Student's Year Term"}
                 register={register}
                 required="Input field can not be empty"
                 error={errors.batch}
@@ -112,7 +166,7 @@ export default function AddStudent() {
                 value={placeholdar}
                 required="Input field can not be empty"
                 error={errors.image}
-                onChange={e=>setPlaceholder(e.target.value)}
+                onChange={(e) => setPlaceholder(e.target.value)}
               />
 
               <div className="col-lg-4 offset-lg-4 col-md-12 text-center">

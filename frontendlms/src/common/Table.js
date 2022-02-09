@@ -1,9 +1,11 @@
 import { useAsyncDebounce } from "react-table";
 import { useState } from "react";
 import useTablesHook from "../hooks/useTablesHook";
-import {Link} from "react-router-dom"
+import { Link, useHistory } from "react-router-dom";
+import Spinner from "./Spinner";
+import AuthConsumer from "../hooks/useAuth";
 
-function Table({ columns, data }) {
+function Table({ columns, data, select, ckUrl }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -27,9 +29,15 @@ function Table({ columns, data }) {
     columns,
     data,
   });
+  const history = useHistory()
+  // console.log(history);
   // console.log({ state, page });
 
   // Render the UI for your table
+  // console.log(data);
+  const {
+    profile: { role },
+  } = AuthConsumer();
   return (
     <>
       <div className="show-option d-flex align-items-center mb-4">
@@ -42,61 +50,105 @@ function Table({ columns, data }) {
       </div>
 
       <div className="table-responsive">
-        <table {...getTableProps()} className="table table-sm mb-0">
-          <thead className="bg-gradient">
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th
-                    className="text-white text-center"
-                    {...column.getHeaderProps()}
-                  >
-                    {column.render("Header")}
-                  </th>
-                ))}
-                <th scope="col" className="text-white text-center">
-                  Option
-                </th>
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {page.map((row, i) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td className="text-center" {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  })}
-                  <td className="text-center">
-                    <Link to={"/course/add"} className="btn btn-outline-danger es-am-btn">
-                      Edit
-                    </Link>
-                  </td>
+        {data.length === 0 ? (
+          <Spinner />
+        ) : (
+          <table {...getTableProps()} className="table table-sm mb-0">
+            <thead className="bg-gradient">
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th
+                      className="text-white text-center"
+                      {...column.getHeaderProps()}
+                    >
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                  {role === "super_admin" && (
+                    <th scope="col" className="text-white text-center">
+                      Option
+                    </th>
+                  )}
+                  {role === "super_admin" && select === "student" && ckUrl && (
+                    <th scope="col" className="text-white text-center">
+                      Verify
+                    </th>
+                  )}
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              ))}
+            </thead>
+
+            <tbody {...getTableBodyProps()}>
+              {page.map((row, i) => {
+                prepareRow(row);
+                // console.log( encodeURIComponent(row.cells[0].value));
+                return (
+                  // <Link to={`/${select}/${row.cells[0].value}`}>
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        //  <Link to={`/${select}/${row.cells[0].value}`}>
+                        <td
+                          className="text-center"
+                          {...cell.getCellProps()}
+                          onClick={() =>
+                            history.push(`/${select}/${row.cells[0].value}`)
+                          }
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                        // </Link>
+                      );
+                    })}
+                    {role === "super_admin" && (
+                      <EditBtn
+                        url={`/${select}/edit/${encodeURIComponent(
+                          row.cells[0].value
+                        )}`}
+                        text={"Edit"}
+                      />
+                    )}
+                    {role === "super_admin" &&
+                      select === "student" &&
+                      ckUrl && (
+                        <EditBtn url={`/verify/student/`} text={"Verify"} />
+                      )}
+                  </tr>
+                  // </Link>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
-      <Pagination
-        canPreviousPage={canPreviousPage}
-        canNextPage={canNextPage}
-        pageOptions={pageOptions}
-        pageCount={pageCount}
-        gotoPage={gotoPage}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        setPageSize={setPageSize}
-        state={state}
-        page={page}
-      />
+      {data.length !==0 && (
+        <Pagination
+          canPreviousPage={canPreviousPage}
+          canNextPage={canNextPage}
+          pageOptions={pageOptions}
+          pageCount={pageCount}
+          gotoPage={gotoPage}
+          nextPage={nextPage}
+          previousPage={previousPage}
+          setPageSize={setPageSize}
+          state={state}
+          page={page}
+        />
+      )}
     </>
   );
 }
-
+export const EditBtn = ({ url, text }) => {
+  // console.log(text[0].value);
+  return (
+    <td className="text-center">
+      <Link to={url} className="btn btn-outline-danger es-am-btn">
+        {text}
+      </Link>
+    </td>
+  );
+};
 export const GlobalFilter = ({ globalFilter, setGlobalFilter }) => {
   //   const count = preGlobalFilteredRows.length;
   const [value, setValue] = useState(globalFilter);
@@ -134,7 +186,7 @@ export const Pagination = ({
   state,
   page,
 }) => {
-  console.log({ state, page, pageCount, pageOptions });
+  // console.log({ state, page, pageCount, pageOptions });
   return (
     <div className="row">
       <div className="col-md-12 text-center">

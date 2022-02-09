@@ -1,72 +1,137 @@
 import { Input, Select } from "../../common/Input";
 import { useForm } from "react-hook-form";
 import { teacherLists, yearTerm } from "../../store/data";
+import { teacherlists } from "../../hooks/lib";
+import { useEffect, useMemo, useState } from "react";
+import { getData, patchData, postData } from "../../hooks/axios";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 
-export default function CoureseAdd() {
+export default function CoureseAdd(props) {
   // const [placeholdar, setPlaceholder] = useState("Image File");
+  const [lists, setLists] = useState([]);
+  const [course, setCourse] = useState({});
+
+  const { id } = useParams();
+  // console.log(props);
+  // console.log({ id });
+  const isAddMode = !id;
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
+    reset,
     formState: { errors },
   } = useForm({ mode: "all" });
+
   const submit = async (formdata) => {
     console.log(formdata);
-   
+    // const data = await postData("/courses", formdata);
+    // console.log(data);
+    return isAddMode ? createCourse(formdata) : updateCourse(id, formdata);
   };
-  // const onChangeHandler = (e) => {
-  //   e.preventDeafault();
-  //   // setPlaceholder(e.target)
-  //   console.log(e.target);
-  //   console.log("object");
-  // };
+  async function createCourse(data) {
+    try {
+      const res = await postData("/courses", data);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function updateCourse(id, data) {
+    try {
+      const res = await patchData(`/courses/${id}`, data);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(async () => {
+    if (!isAddMode) {
+      // get user and set form fields
+      try {
+        const res = await getData(`/courses/${1}`);
+        const fields = [
+          "course_code",
+          "course_title",
+          "credit_hour",
+          "course_description",
+          "yt",
+          "teacher_id",
+        ];
+        fields.forEach((field) => setValue(field, res[field]));
+        setCourse(res);
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      }
+      //  userService.getById(id).then((user) => {
+
+      //    fields.forEach((field) => setValue(field, user[field]));
+      //    setUser(user);
+      //  });
+    }
+  }, []);
+  useEffect(async () => {
+    const data = await teacherlists();
+    setLists(data);
+    console.log(data);
+  }, []);
+
   return (
     <section className="es-form-area">
       <div className="card">
         <header className="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
-          <h2 className="text-white mb-0">Add New Course</h2>
+          <h2 className="text-white mb-0">
+            {isAddMode ? "Add New Course" : "Edit Course"}
+          </h2>
         </header>
         <div className="card-body">
-          <form className="es-form es-add-form" onSubmit={handleSubmit(submit)}>
+          <form
+            className="es-form es-add-form"
+            onSubmit={handleSubmit(submit)}
+            onReset={reset}
+          >
             <div className="row">
               <Input
                 id={"cid"}
-                name={"cid"}
+                name={"course_code"}
                 type={"text"}
                 placeholder={"eg. CSTE1101"}
                 label={"Course Code"}
                 register={register}
                 required="Input field can not be empty"
-                error={errors.cid}
+                error={errors.course_code}
               />
               <Input
                 id={"ctitle"}
-                name={"ctitle"}
+                name={"course_title"}
                 type={"text"}
                 placeholder={"eg. Computer Fundamentals"}
                 label={"Course Title"}
                 register={register}
                 required="Input field can not be empty"
-                error={errors.ctitle}
+                error={errors.course_title}
               />
               <Input
                 id={"credit"}
-                name={"credit"}
+                name={"credit_hour"}
                 type={"number"}
                 placeholder={"eg. 3"}
                 label={"Credit Hour"}
                 register={register}
                 required="Input field can not be empty"
-                error={errors.credit}
+                error={errors.credit_hour}
               />
               <Input
-                id={"cdescription"}
-                name={"cdescription"}
+                id={"course_description"}
+                name={"course_description"}
                 type={"text"}
                 placeholder={"eg. "}
                 label={"Course Description"}
                 register={register}
                 required="Input field can not be empty"
-                error={errors.cdescription}
+                error={errors.course_description}
               />
               <Select
                 id={"yt"}
@@ -81,13 +146,13 @@ export default function CoureseAdd() {
 
               <Select
                 id={"assignee"}
-                name={"assignee"}
+                name={"teacher_id"}
                 full={true}
-                lists={teacherLists}
+                lists={lists}
                 label={"Assigned Teacher"}
                 register={register}
                 required="Input field can not be empty"
-                error={errors.assignee}
+                error={errors.teacher_id}
               />
 
               <div className="col-lg-4 offset-lg-4 col-md-12 text-center">
