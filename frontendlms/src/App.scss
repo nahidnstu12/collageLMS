@@ -18,7 +18,13 @@ $theme-color: #fa5d4e;
   width: 310px;
   object-fit: contain;
 }
-
+// profile
+.user-image-wrap {
+  &::after{
+      position: relative;
+    }
+    
+}
 // student
 .max-container {
   max-width: 1020px;

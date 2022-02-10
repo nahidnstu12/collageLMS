@@ -61,7 +61,7 @@
     });
 
     // niceSelect
-    $('.es-form select').niceSelect();
+    // $('.es-form select').niceSelect();
 
     $( function() {
       $( "#datepicker" ).datepicker();

@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import { fullRoutine } from "../store/columnlevel";
+import Modal, { EditRoutineCellModal } from "./Modal";
+
 
 function RoutineTable({ customers }) {
   const sunday = fullRoutine.filter((item) => item.day === "sunday");
@@ -7,7 +9,7 @@ function RoutineTable({ customers }) {
   const tuesday = fullRoutine.filter((item) => item.day === "tuesday");
   const wednesday = fullRoutine.filter((item) => item.day === "wednesday");
   const thursday = fullRoutine.filter((item) => item.day === "thursday");
-  console.log(sunday);
+  // console.log(sunday);
   return (
     <table
       class="table table-hover table-responsive"
@@ -55,7 +57,7 @@ function RoutineTable({ customers }) {
 }
 export const RoutineBody = ({ subject }) => {
   //   const { day, courseCode, courseTeacher, time } = subject;
-  console.log({ subject });
+  // console.log({ subject });
   return (
     <tr>
       <td>{subject[0].day}</td>
@@ -74,9 +76,13 @@ export const RoutineBody = ({ subject }) => {
 };
 export const RoutineCell = ({ courseTeacher, courseCode }) => {
   //   const { day, courseCode, courseTeacher, time } = subject;
+   const [show, setShow] = useState(false);
   return (
-    <td className="text-center">
+    <td className="text-center" onDoubleClick={() => setShow(true)}>
       {courseCode || "X"} <br /> {courseTeacher}
+      <Modal title="My Modal" w50={true} onClose={() => setShow(false)} show={show}>
+        <EditRoutineCellModal />
+      </Modal>
     </td>
   );
 };

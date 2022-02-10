@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getData } from "../../hooks/axios";
 
 export const studentInfo = {
   type: "Student",
@@ -9,13 +11,19 @@ export const studentInfo = {
   batch: "12th",
   email: "nahid@nstu.edu.com",
   phone: "0162176123",
-  profileImg: "/assets/img/nahid-2.png",
+  profileImg: "/dummy-profile.png",
   status: "Regular",
   creditCompleted: 140,
-  address:"Noakhali",
+  address: "Noakhali",
 };
 
 export default function MyProfile() {
+  const [user, setProfile] = useState({});
+  useEffect(async () => {
+    const { profile } = await getData("/profile");
+    setProfile(profile);
+    //  console.log(profile.full_name);
+  }, []);
   return (
     <div>
       <section className="breadcumb-area card bg-gradient mb-5">
@@ -34,7 +42,9 @@ export default function MyProfile() {
             <img src={studentInfo.profileImg} alt="" />
           </div>
           <div className="user-about">
-            <h2 className="text-danger">{studentInfo.name}</h2>
+            <h2 className="text-danger">
+              {user?.full_name || studentInfo.name}
+            </h2>
             <p>
               <strong>
                 {studentInfo.roll} {"  |  "} {studentInfo.currentYear}
@@ -46,13 +56,18 @@ export default function MyProfile() {
             <p>Credit Complete: {studentInfo.creditCompleted} </p>
             <br />
             <br />
-            <p>Email: {studentInfo.email} </p>
-            <p>Phone: {studentInfo.phone} </p>
+            <p>Email: {user?.email || studentInfo.email} </p>
+            <p>Phone: {user?.phone || studentInfo.phone} </p>
             <p>Address: {studentInfo.address} </p>
 
             <br />
             <br />
-            <Link className="btn btn-outline-danger pl-4 pr-4" to="/my-profile/edit">Edit</Link>
+            <Link
+              className="btn btn-outline-danger pl-4 pr-4"
+              to="/my-profile/edit"
+            >
+              Edit
+            </Link>
             {/* <a href="" className="btn btn-outline-danger pl-4 pr-4">
               Edit
             </a> */}

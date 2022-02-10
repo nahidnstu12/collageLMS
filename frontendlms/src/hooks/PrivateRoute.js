@@ -3,9 +3,9 @@ import useAuth from "../hooks/useAuth";
 export default function PrivateRoute(props) {
   const location = useLocation();
 
-  const { authed,profile } = useAuth();
+  const { authed, profile } = useAuth();
   // console.log({ authed });
-  
+
   return authed ? (
     <Route {...props} />
   ) : (

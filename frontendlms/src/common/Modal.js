@@ -27,7 +27,11 @@ const Modal = (props) => {
       timeout={{ enter: 0, exit: 300 }}
     >
       <div className="modal-c" onClick={props.onClose}>
-        <div className="modal-c-content" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="modal-c-content"
+          onClick={(e) => e.stopPropagation()}
+          style={{ width: props.w80 ? "80%" : "" }}
+        >
           {/* <div className="modal-c-body">{props.children}</div> */}
           <div className="modal-c-body">
             {React.cloneElement(props.children, { ...props })}
@@ -52,7 +56,10 @@ export const CourseModal = (props) => {
       <div className="card">
         <header className="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
           <h2 className="text-white mb-0">Add New Student</h2>
-          <button onClick={props.onClose} className="btn btn-outline-warning ml-auto text-white">
+          <button
+            onClick={props.onClose}
+            className="btn btn-outline-warning ml-auto text-white"
+          >
             Close
           </button>
         </header>
@@ -133,20 +140,55 @@ export const CourseModal = (props) => {
     </section>
   );
 };
-export default Modal;
 
-{
-  /* <div className="modal" onClick={props.onClose}>
-  <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-    <div className="modal-header">
-      <h4 className="modal-title">{props.title}</h4>
-    </div>
-    <div className="modal-body">{props.children}</div>
-    <div className="modal-footer">
-      <button onClick={props.onClose} className="button">
-        Close
-      </button>
-    </div>
-  </div>
-</div>; */
-}
+export const EditRoutineCellModal = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: "all" });
+  const submit = async (formdata) => {
+    console.log(formdata);
+  };
+  return (
+    <section className="es-form-area">
+      <div className="card" style={{padding: "1rem"}}>
+        <form className="es-form es-add-form" onSubmit={handleSubmit(submit)}>
+          <div className="row">
+            <Input
+              id={"course_code"}
+              name={"course_code"}
+              type={"text"}
+              placeholder={"eg. CSTE 1101"}
+              label={"Course Code"}
+              register={register}
+              required="Input field can not be empty"
+              error={errors.course_code}
+            />
+            <Input
+              id={"course_teacher"}
+              name={"course_teacher"}
+              type={"text"}
+              placeholder={"eg. Pathan"}
+              label={"Course Teacher"}
+              register={register}
+              required="Input field can not be empty"
+              error={errors.course_teacher}
+            />
+            <div className="col-lg-4 offset-lg-4 col-md-12 text-center">
+              <button className="btn btn-danger btn-block bg-gradient border-0 text-white">
+                Updata
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
+};
+
+
+
+
+
+export default Modal;

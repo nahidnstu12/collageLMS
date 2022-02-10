@@ -53,6 +53,7 @@ export const adminMenuItems = [
     iconClassName: "fa-user-graduate",
     subMenus: [
       { label: " Student Lists", to: "/student/lists" },
+      { label: " Verified Students", to: "/student/verified" },
       { label: " Student details", to: "/student/:id" },
       { label: " Student Add", to: "/student/add" },
     ],
@@ -134,7 +135,7 @@ export const teacherMenuItems = [
     to: `#`,
     iconClassName: "fa-user-graduate",
     subMenus: [
-      { label: " Student Lists", to: "/student/lists" },
+      { label: " Student Lists", to: "/student/verified" },
       { label: " Student details", to: "/student/:id" },
     ],
   },
@@ -211,7 +212,7 @@ export const studentMenuItems = [
     to: `#`,
     iconClassName: "fa-user-graduate",
     subMenus: [
-      { label: " Student Lists", to: "/student/lists" },
+      { label: " Student Lists", to: "/student/verified" },
       { label: " Student details", to: "/student/:id" },
     ],
   },
