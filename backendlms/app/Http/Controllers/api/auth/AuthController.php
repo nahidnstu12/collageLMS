@@ -45,6 +45,80 @@ class AuthController extends Controller
     }
     
 
+    // student registration
+
+    /**
+     * @OA\Post(
+     ** path="/student-register",
+     *   tags={"student Register"},
+     *   summary="Register",
+     *   operationId="studentRegister",
+     *
+     *  @OA\Parameter(
+     *      name="full_name",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="email",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *       name="phone",
+     *      in="query",
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="password",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="password_confirmation",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=201,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=401,
+     *       description="Unauthenticated"
+     *   ),
+     *   @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *   @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *   )
+     *)
+     **/
+
     public function studentRegister(Request $request)
     {
         return $this->register($request,'student');
@@ -90,18 +164,186 @@ class AuthController extends Controller
         return response(['status'=>1,'msg'=>'logged in!!',"token"=>$token],200);
     }
 
+
+     //merchat login
+
+    
+    /**
+ * @OA\Post(
+ ** path="/super-admin-login",
+    *   tags={"Super Admin Login"},
+    *   summary="Login",
+    *   operationId="login",
+    *
+    *   @OA\Parameter(
+    *      name="email",
+    *      in="query",
+    *      required=true,
+    *      @OA\Schema(
+    *           type="string"
+    *      )
+    *   ),
+    *   @OA\Parameter(
+    *      name="password",
+    *      in="query",
+    *      required=true,
+    *      @OA\Schema(
+    *          type="string"
+    *      )
+    *   ),
+    *   @OA\Response(
+    *      response=200,
+    *       description="Success",
+    *      @OA\MediaType(
+    *           mediaType="application/json",
+    *      )
+    *   ),
+    *   @OA\Response(
+    *      response=401,
+    *       description="Unauthenticated"
+    *   ),
+    *   @OA\Response(
+    *      response=400,
+    *      description="Bad Request"
+    *   ),
+    *   @OA\Response(
+    *      response=404,
+    *      description="not found"
+    *   ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      )
+    *)
+    **/
+/**
+ * login api
+ *
+ * @return \Illuminate\Http\Response
+ */
+
     public function superAdminLogin(Request $request){
 
         return $this->login($request,"super_admin");
     }
 
 
+     //teacher login
+
     
+    /**
+ * @OA\Post(
+ ** path="/teacher-login",
+    *   tags={"teacher Login"},
+    *   summary="Login",
+    *   operationId="login",
+    *
+    *   @OA\Parameter(
+    *      name="email",
+    *      in="query",
+    *      required=true,
+    *      @OA\Schema(
+    *           type="string"
+    *      )
+    *   ),
+    *   @OA\Parameter(
+    *      name="password",
+    *      in="query",
+    *      required=true,
+    *      @OA\Schema(
+    *          type="string"
+    *      )
+    *   ),
+    *   @OA\Response(
+    *      response=200,
+    *       description="Success",
+    *      @OA\MediaType(
+    *           mediaType="application/json",
+    *      )
+    *   ),
+    *   @OA\Response(
+    *      response=401,
+    *       description="Unauthenticated"
+    *   ),
+    *   @OA\Response(
+    *      response=400,
+    *      description="Bad Request"
+    *   ),
+    *   @OA\Response(
+    *      response=404,
+    *      description="not found"
+    *   ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      )
+    *)
+    **/
+/**
+ * login api
+ *
+ * @return \Illuminate\Http\Response
+ */
     public function teacherLogin(Request $request)
     {
         return $this->login($request,"teacher");
     }
     
+
+//student login
+    /**
+ * @OA\Post(
+ ** path="/student-login",
+    *   tags={"student Login"},
+    *   summary="Login",
+    *   operationId="login",
+    *
+    *   @OA\Parameter(
+    *      name="email",
+    *      in="query",
+    *      required=true,
+    *      @OA\Schema(
+    *           type="string"
+    *      )
+    *   ),
+    *   @OA\Parameter(
+    *      name="password",
+    *      in="query",
+    *      required=true,
+    *      @OA\Schema(
+    *          type="string"
+    *      )
+    *   ),
+    *   @OA\Response(
+    *      response=200,
+    *       description="Success",
+    *      @OA\MediaType(
+    *           mediaType="application/json",
+    *      )
+    *   ),
+    *   @OA\Response(
+    *      response=401,
+    *       description="Unauthenticated"
+    *   ),
+    *   @OA\Response(
+    *      response=400,
+    *      description="Bad Request"
+    *   ),
+    *   @OA\Response(
+    *      response=404,
+    *      description="not found"
+    *   ),
+    *      @OA\Response(
+    *          response=403,
+    *          description="Forbidden"
+    *      )
+    *)
+    **/
+/**
+ * login api
+ *
+ * @return \Illuminate\Http\Response
+ */
     
     public function studentLogin(Request $request)
     {
@@ -197,7 +439,9 @@ class AuthController extends Controller
      */
     public function profile()
     {
-        return $this->customResponse(['profile'=>Auth::user()],200);
+        $user=Auth::user();
+        $user->roles;
+        return $this->customResponse(['profile'=>$user],200);
     }
 }
     

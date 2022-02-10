@@ -15,14 +15,112 @@ class TeacherController extends Controller
 {
 
     //list of teacher users
+
+     /**
+     * @OA\Get(
+     *      path="/teachers",
+     *      operationId="getUserList",
+     *      tags={"Teacher List"},
+     * 
+     *      summary="Get teacher list",
+     *      description="Returns all teacher",
+     * 
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *      ),
+     *  )
+     */
+
     public function index()
     {
         $teachers=User::whereRoleIs('teacher')->get();
+        foreach($teachers as $teacher){
+            $teacher->teacherInfos;
+        }
         return $this->mutliResponse($teachers);
     }
 
 
     //create teacher
+
+    // student registration
+
+    /**
+     * @OA\Post(
+     ** path="/teachers",
+     *   tags={"Teacher Create"},
+     *   summary="create",
+     *   operationId="teacherRegister",
+     *
+     *  @OA\Parameter(
+     *      name="full_name",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="email",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *  @OA\Parameter(
+     *      name="role",
+     *      in="query",
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=201,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *   @OA\Response(
+     *      response=401,
+     *       description="Unauthenticated"
+     *   ),
+     *   @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     *   @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *   ),
+     *   @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *   )
+     *)
+     **/
+
     public function store(TeacherCreateRequest $request)
     {
         
@@ -71,8 +169,56 @@ class TeacherController extends Controller
 
 
     //teacher details
+    /**
+     * @OA\Get(
+     *      path="/teachers/{id}",
+     *      operationId="getTeacherDetails",
+     *      tags={"Teachers Profile"},
+     * 
+     *       security={
+     *           {"bearerAuth": {}}
+     *       },
+     * 
+     *      summary="Get teacher Profile",
+     *      description="Returns teacher data",
+     * 
+     * @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     * 
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *      ),
+     *  )
+     */
     public function show(User $teacher)
     {
+        $teacher->teacherInfos;
         return $this->oneResponse($teacher);
 
     }

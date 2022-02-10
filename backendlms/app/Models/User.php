@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use PhpParser\Node\Expr\FuncCall;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -33,7 +34,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'verified',
-        'verification_token'
+        'verification_token',
+        'year',
+        'term',
+        'batch',
+        'session',
+        'address'
     ];
 
     /**
@@ -55,6 +61,27 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
+
+
+    public function marks()
+    {
+        return $this->hasMany(Mark::class,'student_id');
+    }
+
+    public function studentInfos()
+    {
+        return $this->hasOne(StudentInfo::class,'student_id');
+    }
+    
+    public function teacherInfos()
+    {
+        return $this->hasOne(TeacherInfo::class,'teacher_id');
+    }
 
     
     // ==========accessor and mutator==============

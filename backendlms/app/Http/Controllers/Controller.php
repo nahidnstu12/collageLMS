@@ -11,8 +11,8 @@ use Illuminate\Routing\Controller as BaseController;
 /**
      * @OA\Info(
      *      version="1.0.0",
-     *      title="MVE SERVER API DOCUMENTATION",
-     *      description="Implementation of Swagger with in Laravel",
+     *      title="Student Information API DOCUMENTATION",
+     *      description="managing student of department",
      *      @OA\Contact(
      *          email="rubel162765@gmail.com"
      *      ),
@@ -32,13 +32,16 @@ use Illuminate\Routing\Controller as BaseController;
      * ),
      *
      * @OA\Server(
-     *      url="http://127.0.0.1:8000/api",
+     *      url="https://studentinfopopy.herokuapp.com/api/",
      *      description="Demo API Server"
      * )
 
      *
      *
      */
+
+     // http://127.0.0.1:8000/api/
+    //    url="https://studentinfopopy.herokuapp.com/api/,
 
 
 class Controller extends BaseController
