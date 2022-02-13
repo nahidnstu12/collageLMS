@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { teacherLists, yearTerm } from "../../store/data";
 import { teacherlists } from "../../hooks/lib";
 import { useEffect, useMemo, useState } from "react";
-import { getData, patchData, postData } from "../../hooks/axios";
+import { getData, patchData, postData,putData } from "../../hooks/axios";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 
 export default function CoureseAdd(props) {
@@ -40,7 +40,7 @@ export default function CoureseAdd(props) {
   }
   async function updateCourse(id, data) {
     try {
-      const res = await patchData(`/courses/${id}`, data);
+      const res = await putData(`/courses/${id}`, data);
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -50,7 +50,7 @@ export default function CoureseAdd(props) {
     if (!isAddMode) {
       // get user and set form fields
       try {
-        const res = await getData(`/courses/${1}`);
+        const res = await getData(`/courses/${id}`);
         const fields = [
           "course_code",
           "course_title",
@@ -157,7 +157,7 @@ export default function CoureseAdd(props) {
 
               <div className="col-lg-4 offset-lg-4 col-md-12 text-center">
                 <button className="btn btn-danger btn-block bg-gradient border-0 text-white">
-                  Add Course
+                  {isAddMode ? "Add New Course" : "Edit Course"}
                 </button>
               </div>
             </div>

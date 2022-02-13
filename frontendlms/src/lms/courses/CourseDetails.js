@@ -47,15 +47,24 @@ export default function CourseDetails() {
             </h2>
             <p>
               <strong>
-                {courseInfo.course_title} {"  |  "} {courseInfo.credit_hour}
+                {course?.course_title || courseInfo.course_title} {"  |  "}{" "}
+                {course?.credit_hour || courseInfo.credit_hour} Credit
               </strong>
             </p>
             <h4 className="additonal-info">Additonal Information</h4>
-            <p>Course Title: {courseInfo.course_title} </p>
-            <p>Course Description: {courseInfo.course_description} </p>
-            <p>Credit Hour: {courseInfo.credit_hour} </p>
-            <p>Year Term: {courseInfo.yt} </p>
-            <p>Assigned Teacher: {courseInfo.teacher.full_name} </p>
+            <p>
+              Course Title: {course?.course_title || courseInfo.course_title}{" "}
+            </p>
+            <p>
+              Course Description:{" "}
+              {course?.course_description || courseInfo.course_description}{" "}
+            </p>
+            <p>Credit Hour: {course?.credit_hour || courseInfo.credit_hour} </p>
+            <p>Year Term: {course?.yt || courseInfo.yt} </p>
+            <p>
+              Assigned Teacher:{" "}
+              {course?.teacher?.full_name || courseInfo.teacher.full_name}{" "}
+            </p>
             <br />
             <br />
 

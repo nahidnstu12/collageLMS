@@ -8,7 +8,7 @@ export default function StudentDetails() {
   const {id} = useParams()
   useEffect(async () => {
     const res = await getData(`/students/${id}`);
-    setUser(res);
+    setUser(res[0]);
      console.log(res);
   }, []);
   return (
@@ -26,7 +26,7 @@ export default function StudentDetails() {
       <section className="profile-area card">
         <div className="profile-content card-body d-flex">
           <div className="user-image-wrap mr-5">
-            <img src={studentInfo.profileImg} alt="" />
+            <img src={user?.image || studentInfo.profileImg} alt="" />
           </div>
           <div className="user-about">
             <h2 className="text-danger">
@@ -34,22 +34,25 @@ export default function StudentDetails() {
             </h2>
             <p>
               <strong>
-                {studentInfo.roll} {"  |  "} {studentInfo.currentYear}
+                {user?.student_infos?.s_id || studentInfo.roll} {"  |  "}{" "}
+                {user?.student_infos?.yt || studentInfo.currentYear}
               </strong>
             </p>
             <h4 className="additonal-info">Additonal Information</h4>
-            <p>Batch: {studentInfo.batch} batch</p>
-            <p>Session: {studentInfo.sesseion} </p>
-            <p>Credit Complete: {studentInfo.creditCompleted} </p>
+            <p>Batch: {user?.student_infos?.batch || studentInfo.batch} batch</p>
+            <p>
+              Session: {user?.student_infos?.session || studentInfo.sesseion}{" "}
+            </p>
+            {/* <p>Credit Complete: {studentInfo.creditCompleted} </p> */}
             <br />
             <br />
             <p>Email: {user?.email || studentInfo.email} </p>
             <p>Phone: {user?.phone || studentInfo.phone} </p>
-            <p>Address: {studentInfo.address} </p>
+            <p>Address: {user?.address || studentInfo.address} </p>
 
             <br />
             <br />
-            
+
             {/* <a href="" className="btn btn-outline-danger pl-4 pr-4">
               Edit
             </a> */}

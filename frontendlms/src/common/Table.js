@@ -4,6 +4,8 @@ import useTablesHook from "../hooks/useTablesHook";
 import { Link, useHistory } from "react-router-dom";
 import Spinner from "./Spinner";
 import AuthConsumer from "../hooks/useAuth";
+import { useEffect } from "react";
+import { getData } from "../hooks/axios";
 
 function Table({ columns, data, select, ckUrl }) {
   const {
@@ -29,15 +31,24 @@ function Table({ columns, data, select, ckUrl }) {
     columns,
     data,
   });
-  const history = useHistory()
-  // console.log(history);
-  // console.log({ state, page });
+  const history = useHistory();
+  // const [datas, setData] = useState([]);
+  // useEffect(() => {
+  //   setData(data);
+  // }, [datas]);
 
-  // Render the UI for your table
-  // console.log(data);
   const {
     profile: { role },
   } = AuthConsumer();
+
+  const handleVerify = async (id) => {
+    const res = await getData(`/verify/student/${id}`);
+    console.log(res);
+    // let unverifiedData = await getData("/unverified/students");
+    // unverifiedData = unverifiedData.filter((item) => item.student_infos);
+    // setData(unverifiedData);
+    // console.log(unverifiedData);
+  };
   return (
     <>
       <div className="show-option d-flex align-items-center mb-4">
@@ -92,7 +103,7 @@ function Table({ columns, data, select, ckUrl }) {
                         <td
                           className="text-center"
                           {...cell.getCellProps()}
-                          onClick={() =>
+                          onDoubleClick={() =>
                             history.push(`/${select}/${row.cells[0].value}`)
                           }
                         >
@@ -112,7 +123,14 @@ function Table({ columns, data, select, ckUrl }) {
                     {role === "super_admin" &&
                       select === "student" &&
                       ckUrl && (
-                        <EditBtn url={`/verify/student/`} text={"Verify"} />
+                        <EditBtn
+                          text={"Verify"}
+                          handleVerify={() =>
+                            handleVerify(
+                              `${encodeURIComponent(row.cells[0].value)}`
+                            )
+                          }
+                        />
                       )}
                   </tr>
                   // </Link>
@@ -122,7 +140,7 @@ function Table({ columns, data, select, ckUrl }) {
           </table>
         )}
       </div>
-      {data.length !==0 && (
+      {data.length !== 0 && (
         <Pagination
           canPreviousPage={canPreviousPage}
           canNextPage={canNextPage}
@@ -139,11 +157,19 @@ function Table({ columns, data, select, ckUrl }) {
     </>
   );
 }
-export const EditBtn = ({ url, text }) => {
+export const EditBtn = ({ url, text, network, handleVerify }) => {
   // console.log(text[0].value);
+  // useEffect(async () => {
+  //   const data = await getData(network);
+  //   console.log(data);
+  // }, []);
   return (
     <td className="text-center">
-      <Link to={url} className="btn btn-outline-danger es-am-btn">
+      <Link
+        to={url}
+        className="btn btn-outline-danger es-am-btn"
+        onClick={handleVerify}
+      >
         {text}
       </Link>
     </td>
