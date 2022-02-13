@@ -4,6 +4,7 @@ import { batchLists, sessionLists, yearTerm } from "../../store/data";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getData, postData, patchData, putData } from "../../hooks/axios";
+import { toast } from "react-toastify";
 
 export default function AddStudent() {
   const [placeholdar, setPlaceholder] = useState("Image File");
@@ -21,7 +22,6 @@ export default function AddStudent() {
   const isAddMode = !id;
   // console.log(isAddMode);
   const submit = async (formdata) => {
-    
     const { s_id, image, ...updateData } = formdata;
     // console.log(updateData);
     console.log(formdata);
@@ -33,8 +33,10 @@ export default function AddStudent() {
     try {
       const res = await postData("/students", data);
       console.log(res);
+      toast.success(res.msg);
     } catch (err) {
       console.log(err);
+      toast.error(err.error);
     }
   }
   async function updateStudent(id, data) {
@@ -42,8 +44,10 @@ export default function AddStudent() {
       console.log(data);
       const res = await postData(`student/update/${id}`, data);
       console.log(res);
+      toast.success(res.msg);
     } catch (err) {
       console.log(err);
+      toast.error(err.error);
     }
   }
   // useEffect(() => {

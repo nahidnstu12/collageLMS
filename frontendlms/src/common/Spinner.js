@@ -4,7 +4,7 @@ import "./spinner.scss"
 export default function Spinner() {
   return (
     <div className="center">
-      <div class="lds-hourglass"></div>
+      <div className="lds-hourglass"></div>
     </div>
   );
 }

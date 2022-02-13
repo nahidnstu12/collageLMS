@@ -4,6 +4,7 @@ import { batchLists, designation, sessionLists } from "../../store/data";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getData, postData, patchData, putData } from "../../hooks/axios";
+import { toast } from "react-toastify";
 
 export default function AddTeacher() {
   const [lists, setLists] = useState([]);
@@ -34,8 +35,10 @@ export default function AddTeacher() {
       const res = await postData("/teachers", data);
 
       console.log(res);
+      toast.success(res.msg);
     } catch (err) {
       console.log(err);
+      toast.error(err.error);
     }
   }
   async function updateTeacher(id, data) {
@@ -43,8 +46,10 @@ export default function AddTeacher() {
       const res = await postData(`/teacher/update/${id}`, data);
 
       console.log(res);
+      toast.success(res.msg);
     } catch (err) {
       console.log(err);
+      toast.error(err.error);
     }
   }
 

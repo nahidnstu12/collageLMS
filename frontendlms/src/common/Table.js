@@ -6,6 +6,7 @@ import Spinner from "./Spinner";
 import AuthConsumer from "../hooks/useAuth";
 import { useEffect } from "react";
 import { getData } from "../hooks/axios";
+import { toast } from "react-toastify";
 
 function Table({ columns, data, select, ckUrl }) {
   const {
@@ -32,10 +33,6 @@ function Table({ columns, data, select, ckUrl }) {
     data,
   });
   const history = useHistory();
-  // const [datas, setData] = useState([]);
-  // useEffect(() => {
-  //   setData(data);
-  // }, [datas]);
 
   const {
     profile: { role },
@@ -44,10 +41,7 @@ function Table({ columns, data, select, ckUrl }) {
   const handleVerify = async (id) => {
     const res = await getData(`/verify/student/${id}`);
     console.log(res);
-    // let unverifiedData = await getData("/unverified/students");
-    // unverifiedData = unverifiedData.filter((item) => item.student_infos);
-    // setData(unverifiedData);
-    // console.log(unverifiedData);
+    toast.success(res.message);
   };
   return (
     <>
