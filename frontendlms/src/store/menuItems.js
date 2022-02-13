@@ -12,7 +12,6 @@ export const adminMenuItems = [
     iconClassName: "fa-book",
     subMenus: [
       { label: " Courses Lists", to: "/course/lists" },
-      { label: " Courses details", to: "/course/:id" },
       { label: " Courses Add", to: "/course/add" },
     ],
   },
@@ -43,7 +42,6 @@ export const adminMenuItems = [
     iconClassName: "fa-clipboard",
     subMenus: [
       { label: "MarkSheet", to: "/marks" },
-      { label: " Add Marks", to: "/marks/add" },
     ],
   },
   {
@@ -54,7 +52,7 @@ export const adminMenuItems = [
     subMenus: [
       { label: " Student Lists", to: "/student/lists" },
       { label: " Verified Students", to: "/student/verified" },
-      { label: " Student details", to: "/student/:id" },
+      // { label: " Student details", to: "/student/:id" },
       { label: " Student Add", to: "/student/add" },
     ],
   },
@@ -65,7 +63,7 @@ export const adminMenuItems = [
     iconClassName: "fa-chalkboard-teacher",
     subMenus: [
       { label: " Teacher Lists", to: "/teacher/lists" },
-      { label: " Teacher Details", to: "/teacher/:id" },
+      // { label: " Teacher Details", to: "/teacher/:id" },
       { label: " Teacher Add", to: "/teacher/add" },
     ],
   },
@@ -96,7 +94,7 @@ export const teacherMenuItems = [
     iconClassName: "fa-book",
     subMenus: [
       { label: " Courses Lists", to: "/course/lists" },
-      { label: " Courses details", to: "/course/:id" },
+      // { label: " Courses details", to: "/course/:id" },
     ],
   },
   {
@@ -126,7 +124,7 @@ export const teacherMenuItems = [
     iconClassName: "fa-clipboard",
     subMenus: [
       { label: "MarkSheet", to: "/marks" },
-      { label: " Add Marks", to: "/marks/add" },
+      // { label: " Add Marks", to: "/marks/add" },
     ],
   },
   {
@@ -136,7 +134,7 @@ export const teacherMenuItems = [
     iconClassName: "fa-user-graduate",
     subMenus: [
       { label: " Student Lists", to: "/student/verified" },
-      { label: " Student details", to: "/student/:id" },
+      // { label: " Student details", to: "/student/:id" },
     ],
   },
   {
@@ -146,7 +144,7 @@ export const teacherMenuItems = [
     iconClassName: "fa-chalkboard-teacher",
     subMenus: [
       { label: " Teacher Lists", to: "/teacher/lists" },
-      { label: " Teacher Details", to: "/teacher/:id" },
+      // { label: " Teacher Details", to: "/teacher/:id" },
     ],
   },
   {
@@ -176,7 +174,7 @@ export const studentMenuItems = [
     iconClassName: "fa-book",
     subMenus: [
       { label: " Courses Lists", to: "/course/lists" },
-      { label: " Courses details", to: "/course/:id" },
+      // { label: " Courses details", to: "/course/:id" },
     ],
   },
   {
@@ -213,7 +211,7 @@ export const studentMenuItems = [
     iconClassName: "fa-user-graduate",
     subMenus: [
       { label: " Student Lists", to: "/student/verified" },
-      { label: " Student details", to: "/student/:id" },
+      // { label: " Student details", to: "/student/:id" },
     ],
   },
   {
@@ -223,7 +221,7 @@ export const studentMenuItems = [
     iconClassName: "fa-chalkboard-teacher",
     subMenus: [
       { label: " Teacher Lists", to: "/teacher/lists" },
-      { label: " Teacher Details", to: "/teacher/:id" },
+      // { label: " Teacher Details", to: "/teacher/:id" },
     ],
   },
   {

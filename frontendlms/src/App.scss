@@ -14,16 +14,19 @@ $theme-color: #fa5d4e;
   opacity: 0;
 }
 // logo header
-.logo-header{
+.logo-header {
   width: 310px;
   object-fit: contain;
 }
+.input-file {
+  padding-top: 6px !important;
+  line-height: 30px !important;
+}
 // profile
 .user-image-wrap {
-  &::after{
-      position: relative;
-    }
-    
+  &::after {
+    position: relative;
+  }
 }
 // student
 .max-container {
@@ -70,7 +73,6 @@ $theme-color: #fa5d4e;
   &::selection {
     border: 1px solid $theme-color;
   }
- 
 
   option:checked {
     font-weight: bold;

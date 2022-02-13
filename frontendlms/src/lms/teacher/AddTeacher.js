@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { batchLists, designation, sessionLists } from "../../store/data";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getData, postData, patchData } from "../../hooks/axios";
+import { getData, postData, patchData, putData } from "../../hooks/axios";
 
 export default function AddTeacher() {
   const [lists, setLists] = useState([]);
-  const [teacher, setTeacher] = useState({});
+  const [upteacher, setTeacher] = useState({});
   const [placeholdar, setPlaceholder] = useState("Image File");
   const {
     register,
@@ -21,20 +21,17 @@ export default function AddTeacher() {
   const isAddMode = !id;
   const submit = async (formdata) => {
     console.log(formdata);
-    const image = formdata.image[0].name;
+    // const image = formdata.image[0].name;
+    // const set_id = upteacher.teacher_id;
+    const { t_id, image, ...updateData } = formdata;
+    console.log({ formdata, updateData });
 
-    // const data = {
-    //   ...formdata,
-    //   teacher_infos: { t_id: formdata.t_id, designation: formdata.designation },
-    // };
-    // console.log(data);
-
-    // return isAddMode ? createTeacher(formdata) : updateTeacher(id, formdata);
+    return isAddMode ? createTeacher(formdata) : updateTeacher(id, updateData);
   };
 
   async function createTeacher(data) {
     try {
-      const res = await postData("/teacher", data);
+      const res = await postData("/teachers", data);
 
       console.log(res);
     } catch (err) {
@@ -43,7 +40,7 @@ export default function AddTeacher() {
   }
   async function updateTeacher(id, data) {
     try {
-      const res = await patchData(`/teacher/${id}`, data);
+      const res = await postData(`/teacher/update/${id}`, data);
 
       console.log(res);
     } catch (err) {
@@ -55,19 +52,27 @@ export default function AddTeacher() {
     if (!isAddMode) {
       // get user and set form fields
       try {
-        // const res = await getData(`/teacher/${id}`);
+        const res = await getData(`/teachers/${id}`);
+        let r = res[0].teacher;
+        let response = {
+          ...res[0],
+          full_name: r.full_name,
+          email: r.email,
+          phone: r.phone,
+          address: r.address,
+        };
         const fields = [
+          "teacher_id",
           "full_name",
-          "teacher_infos.t_id",
+          "t_id",
           "email",
           "phone",
-          "teacher_infos.designation",
+          "designation",
           "address",
-          "image",
         ];
-        // fields.forEach((field) => setValue(field, res[field]));
-        // setTeacher(res);
-        // console.log(res);
+        fields.forEach((field) => setValue(field, response[field]));
+        setTeacher(response);
+        console.log(response);
       } catch (err) {
         console.log(err);
       }
@@ -78,11 +83,22 @@ export default function AddTeacher() {
     <section className="es-form-area">
       <div className="card">
         <header className="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
-          <h2 className="text-white mb-0">Add New Teacher</h2>
+          <h2 className="text-white mb-0">
+            {isAddMode ? "Add New Teacher" : "Edit Teacher"}
+          </h2>
         </header>
         <div className="card-body">
           <form className="es-form es-add-form" onSubmit={handleSubmit(submit)}>
             <div className="row">
+              <Input
+                id={"teacher_id"}
+                name={"teacher_id"}
+                type={"hidden"}
+                placeholder={"eg. Mazharul Islam"}
+                register={register}
+                // required="Input field can not be empty"
+                error={errors.teacher_id}
+              />
               <Input
                 id={"name"}
                 name={"full_name"}
@@ -95,7 +111,7 @@ export default function AddTeacher() {
               />
               <Input
                 id={"sid"}
-                name={"teacher_infos.t_id"}
+                name={"t_id"}
                 type={"text"}
                 placeholder={"eg. 1701054"}
                 label={"Teacher's ID"}
@@ -120,13 +136,13 @@ export default function AddTeacher() {
                 placeholder={"eg. 1701054"}
                 label={"Teacher's Phone"}
                 register={register}
-                required="Input field can not be empty"
+                // required="Input field can not be empty"
                 error={errors.phone}
               />
 
               <Select
                 id={"designation"}
-                name={"teacher_infos.designation"}
+                name={"designation"}
                 lists={designation}
                 label={"Teacher's designation"}
                 register={register}
@@ -141,10 +157,10 @@ export default function AddTeacher() {
                 placeholder={"eg. Noakhali"}
                 label={"Teacher's Address"}
                 register={register}
-                required="Input field can not be empty"
+                // required="Input field can not be empty"
                 error={errors.address}
               />
-              <InputFile
+              {/* <InputFile
                 id={"customFile"}
                 name={"image"}
                 type={"file"}
@@ -155,11 +171,11 @@ export default function AddTeacher() {
                 required="Input field can not be empty"
                 error={errors.image}
                 onChange={(e) => setPlaceholder(e.target.value)}
-              />
+              /> */}
 
               <div className="col-lg-4 offset-lg-4 col-md-12 text-center">
                 <button className="btn btn-danger btn-block bg-gradient border-0 text-white">
-                  Add Teacher
+                  {isAddMode ? "Add New Teacher" : "Edit Teacher"}
                 </button>
               </div>
             </div>

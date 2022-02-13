@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { batchLists, sessionLists, yearTerm } from "../../store/data";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getData, postData, patchData } from "../../hooks/axios";
+import { getData, postData, patchData, putData } from "../../hooks/axios";
 
 export default function AddStudent() {
   const [placeholdar, setPlaceholder] = useState("Image File");
@@ -14,67 +14,92 @@ export default function AddStudent() {
     handleSubmit,
     setValue,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
   } = useForm({ mode: "all" });
 
   const { id } = useParams();
   const isAddMode = !id;
-
+  // console.log(isAddMode);
   const submit = async (formdata) => {
+    
+    const { s_id, image, ...updateData } = formdata;
+    // console.log(updateData);
     console.log(formdata);
-    const image = formdata.image[0].name;
     // console.log(image);
-    return isAddMode ? createStudent(formdata) : updateStudent(id, formdata);
+    return isAddMode ? createStudent(formdata) : updateStudent(id, updateData);
   };
 
   async function createStudent(data) {
     try {
-      // const res = await postData("/student", data);
-      // console.log(res);
+      const res = await postData("/students", data);
+      console.log(res);
     } catch (err) {
       console.log(err);
     }
   }
   async function updateStudent(id, data) {
     try {
-      const res = await patchData(`/student/${id}`, data);
+      console.log(data);
+      const res = await postData(`student/update/${id}`, data);
       console.log(res);
     } catch (err) {
       console.log(err);
     }
   }
-
+  // useEffect(() => {
+  //   if (isSubmitSuccessful) {
+  //     reset({});
+  //   }
+  // }, [reset]);
   useEffect(async () => {
     if (!isAddMode) {
       // get user and set form fields
       try {
-        const res = await getData(`/student/${id}`);
+        const res = await getData(`/students/${id}`);
+        let r = res[0].student_infos;
+        let response = {
+          ...res[0],
+          s_id: r.s_id,
+          session: r.session,
+          batch: r.batch,
+          yt: r.yt,
+        };
+        // response = response.student_infos;
+        console.log(response);
         const fields = [
           "full_name",
-          "student_infos.s_id",
+          "s_id",
           "email",
           "phone",
-          "student_infos.designation",
+          "session",
+          "batch",
+          "yt",
           "address",
-          "image",
+          // "image",
         ];
-        fields.forEach((field) => setValue(field, res[field]));
-        setStudent(res);
-        console.log(res);
+        fields.forEach((field) => setValue(field, response[field]));
+        setStudent(response);
+        // console.log(res[0]);
       } catch (err) {
         console.log(err);
       }
     }
-  }, []);
+  }, [isAddMode]);
 
   return (
     <section className="es-form-area">
       <div className="card">
         <header className="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
-          <h2 className="text-white mb-0">Add New Student</h2>
+          <h2 className="text-white mb-0">
+            {isAddMode ? "Add New Student" : "Edit Student"}
+          </h2>
         </header>
         <div className="card-body">
-          <form className="es-form es-add-form" onSubmit={handleSubmit(submit)}>
+          <form
+            className="es-form es-add-form"
+            onSubmit={handleSubmit(submit)}
+            onReset={reset}
+          >
             <div className="row">
               <Input
                 id={"name"}
@@ -88,7 +113,7 @@ export default function AddStudent() {
               />
               <Input
                 id={"sid"}
-                name={"student_infos.s_id"}
+                name={"s_id"}
                 type={"text"}
                 placeholder={"eg. 1701054"}
                 label={"Student's ID"}
@@ -113,12 +138,12 @@ export default function AddStudent() {
                 placeholder={"eg. 1701054"}
                 label={"Student's Phone"}
                 register={register}
-                required="Input field can not be empty"
+                // required="Input field can not be empty"
                 error={errors.phone}
               />
               <Select
                 id={"session"}
-                name={"student_infos.session"}
+                name={"session"}
                 full={true}
                 lists={sessionLists}
                 label={"Student's Session"}
@@ -128,7 +153,7 @@ export default function AddStudent() {
               />
               <Select
                 id={"batch"}
-                name={"student_infos.batch"}
+                name={"batch"}
                 lists={batchLists}
                 label={"Student's batch"}
                 register={register}
@@ -137,8 +162,8 @@ export default function AddStudent() {
                 full={true}
               />
               <Select
-                id={"batch"}
-                name={"student_infos.yt"}
+                id={"yt"}
+                name={"yt"}
                 lists={yearTerm}
                 label={"Student's Year Term"}
                 register={register}
@@ -153,10 +178,10 @@ export default function AddStudent() {
                 placeholder={"eg. Noakhali"}
                 label={"Student's Address"}
                 register={register}
-                required="Input field can not be empty"
+                // required="Input field can not be empty"
                 error={errors.address}
               />
-              <InputFile
+              {/* <InputFile
                 id={"customFile"}
                 name={"image"}
                 type={"file"}
@@ -167,11 +192,11 @@ export default function AddStudent() {
                 required="Input field can not be empty"
                 error={errors.image}
                 onChange={(e) => setPlaceholder(e.target.value)}
-              />
+              /> */}
 
               <div className="col-lg-4 offset-lg-4 col-md-12 text-center">
                 <button className="btn btn-danger btn-block bg-gradient border-0 text-white">
-                  Add
+                  {isAddMode ? "Add New Student" : "Edit Student"}
                 </button>
               </div>
             </div>

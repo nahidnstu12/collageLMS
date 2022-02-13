@@ -1,22 +1,21 @@
 export const sessionLists = [
-  { title: "2016-17", code: "1" },
-  { title: "2017-18", code: "2" },
-  { title: "2018-19", code: "3" },
-  { title: "2019-20", code: "4" },
- 
+  { title: "2016-17", code: "2016-17" },
+  { title: "2017-18", code: "2017-18" },
+  { title: "2018-19", code: "2018-19" },
+  { title: "2019-20", code: "2019-20" },
 ];
 
 export const batchLists = [
-  { code: "1", title: "12" },
-  { code: "2", title: "13" },
-  { code: "3", title: "14" },
-  { code: "4", title: "15" },
+  { code: "12", title: "12" },
+  { code: "13", title: "13" },
+  { code: "14", title: "14" },
+  { code: "15", title: "15" },
 ];
 
 export const designation = [
-  { code: "1", title: "Professior" },
-  { code: "2", title: "Assistant Professior" },
-  { code: "3", title: "Lecturer" },
+  { code: "professor", title: "Professior" },
+  { code: "assistant professor", title: "Assistant Professior" },
+  { code: "lecturer", title: "Lecturer" },
 ];
 
 export const yearTerm = [
