@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { teacherLists, yearTerm } from "../../store/data";
 import { teacherlists } from "../../hooks/lib";
 import { useEffect, useMemo, useState } from "react";
-import { getData, patchData, postData,putData } from "../../hooks/axios";
+import { getData, patchData, postData, putData } from "../../hooks/axios";
 import { useHistory, useLocation, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function CoureseAdd(props) {
   // const [placeholdar, setPlaceholder] = useState("Image File");
@@ -34,16 +35,20 @@ export default function CoureseAdd(props) {
     try {
       const res = await postData("/courses", data);
       console.log(res);
+      toast.success(res.msg)
     } catch (err) {
       console.log(err);
+      toast.error(err.error);
     }
   }
   async function updateCourse(id, data) {
     try {
       const res = await putData(`/courses/${id}`, data);
       console.log(res);
+      toast.success(res.msg);
     } catch (err) {
       console.log(err);
+      toast.error(err.error);
     }
   }
   useEffect(async () => {

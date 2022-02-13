@@ -28,6 +28,8 @@ import TeacherLogin from "./auth/TeacherLogin";
 import StudentLogin from "./auth/StudentLogin";
 import AdminLogin from "./auth/AdminLogin";
 import AuthConsumer from "./hooks/useAuth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const { profile } = AuthConsumer();
@@ -132,6 +134,23 @@ function App() {
               <Homelist />
             </Route>
           </Switch>
+          {/* toast */}
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            // rtl={false}
+            // pauseOnFocusLoss
+            draggable
+            // pauseOnHover
+            toastStyle={{
+              backgroundColor: "#333",
+              color: "#eee",
+            }}
+            progressClassName="toastProgress"
+          />
         </Layout>
       </Router>
     </div>

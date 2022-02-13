@@ -31,10 +31,10 @@ export const postData = async (url, post) => {
 
 export const putData = async (url, post) => {
   try {
-    await request.put(`${url}`, {
+   const {data} =  await request.put(`${url}`, {
       ...post,
     });
-    // return data;
+    return data;
   } catch (err) {
     return err.message;
   }
