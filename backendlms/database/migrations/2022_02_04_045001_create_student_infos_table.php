@@ -16,10 +16,10 @@ class CreateStudentInfosTable extends Migration
         Schema::create('student_infos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->integer('year')->nullable();
-            $table->integer('term')->nullable();
+            $table->string('s_id')->nullable();
             $table->integer('batch')->nullable();
             $table->string('session')->nullable();
+            $table->string('yt')->nullable();
             $table->string('status')->nullable();
             $table->string('creditCompleted')->nullable();
 

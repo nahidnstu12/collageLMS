@@ -15,8 +15,9 @@ class CreateTeacherInfosTable extends Migration
     {
         Schema::create('teacher_infos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('teacher_id');
+            $table->string('teacher_id')->uniqid();
             $table->string('designation');
+            $table->string('t_id');
             $table->timestamps();
         });
     }

@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\api\student;
 
+use App\Data\Constants;
 use App\Models\User;
+use App\Models\StudentInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 
 class StudentManageController extends Controller
 {
@@ -165,12 +170,17 @@ class StudentManageController extends Controller
      *      ),
      *  )
      */
-    public function studentVerify($id)
+    public function studentVerify($s_id)
     {
-        $student=User::findOrFail($id);
-        if($student->hasRole('student')){
-            $student->attachPermission('verified_student');
-            return $this->customResponse(["message"=>"student has been approved"]);
+        // $student=User::findOrFail($id);
+        $studentInfo = StudentInfo::where(['s_id'=>$s_id])->get();
+        if(sizeof($studentInfo)){
+
+            $student=$studentInfo[0]->student;
+            if($student->hasRole('student')){
+                $student->attachPermission('verified_student');
+                return $this->customResponse(["message"=>"student has been approved"]);
+            }
         }
         return $this->customResponse(["message"=>"student not found"],404);
     }
@@ -178,7 +188,38 @@ class StudentManageController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'full_name'=>'required',
+        'email'=>'email|required|unique:users',
+        'address'=>'required',
+        's_id'=>'required|unique:student_infos',
+        'yt'=>'required',
+        'batch'=>'required',
+        'session'=>'required',
+        'image'=>'mimes:jpeg,jpg,png',
+        ]);
+
+        $user=new User();
+        $user->full_name=$request->full_name;
+        $user->email=$request->email;
+        $user->address=$request->address;
+        $user->password=bcrypt('you_can_do');
+        if($request->image) $user->image = $request->image;
+        $res=$user->save();
+
+        if($res){
+            $user->attachPermission('verified_student');
+            $info=new StudentInfo();
+            $info->s_id=$request->s_id;
+            $info->student_id=$user->id;
+            $info->yt=$request->yt;
+            $info->batch=$request->batch;
+            $info->session=$request->session;
+            $info->status=$request->status;
+            $info->save();    
+            return $this->customResponse(["msg"=>"student created"]);
+        }
+
     }
 
     /**
@@ -235,10 +276,16 @@ class StudentManageController extends Controller
      *      ),
      *  )
      */
-    public function show($id)
+    public function show($s_id)
     {
-        $student=User::findOrfail($id)->studentInfos;
-        if($student->hasRole('student')) return $this->oneResponse($student);
+        $studentInfo=StudentInfo::where(['s_id'=>$s_id])->get();
+        if(sizeof($studentInfo)){
+            $studentInfo[0]=$studentInfo[0]->student;
+            $studentInfo[0]->studentInfos;
+            // if($studentInfo[0]->image) $studentInfo[0]->image=asset('storage/profile/'.$studentInfo[0]->image);
+            return $this->customResponse($studentInfo);
+        }
+        else
         return $this->customResponse(["message"=>"student not found"],404);
     }
 
@@ -249,9 +296,47 @@ class StudentManageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $s_id)
     {
-        //
+        $info=StudentInfo::where(['s_id'=>$s_id])->get();
+        if(sizeof($info)){
+            $user_id=$info[0]->student->id;
+
+        }
+        $request->validate([
+            'email'=>'email|unique:users,email,'.$user_id,
+            's_id'=>'unique:student_infos',
+            'image'=>'mimes:jpeg,jpg,png',
+            ]);
+
+            $info=StudentInfo::where(['s_id'=>$s_id])->get();
+
+            if(sizeof($info)){
+                $info=$info[0];
+                $user=$info->student;
+                // return $user;
+
+                // $user=new User();
+                if($request->full_name)$user->full_name=$request->full_name;
+                if($request->email)$user->email=$request->email;
+                if($request->address)$user->address=$request->address;
+                if($request->password)$user->password=Hash::make($request->password);
+                if($request->image) $user->image=$request->image;
+                $res=$user->save();
+
+                if($res){
+        
+                    // $info=new StudentInfo();
+                    if($request->s_id)$info->s_id=$request->s_id;
+                    // if($request->student_id)$info->student_id=$user->id;
+                    if($request->yt)$info->yt=$request->yt;
+                    if($request->batch)$info->batch=$request->batch;
+                    if($request->session)$info->session=$request->session;
+                    if($request->status)$info->status=$request->status;
+                    $info->save();
+                    return $this->customResponse(["msg"=>"student updated"]);
+                }
+            }
     }
 
     /**
@@ -301,13 +386,34 @@ class StudentManageController extends Controller
      *      ),
      *  )
      */
-    public function destroy($id)
+    public function destroy($s_id)
     {
-        $student=User::findOrFail($id);
-        if($student->hasRole('student')) {
-            $student->delete();
-            return $this->customResponse(["message"=>"student deleted!!"]);
+        $info=StudentInfo::where(['s_id'=>$s_id])->get();
+        if(sizeof($info)){
+            $student=$info[0]->student;
+
+            if($info[0] && $student){
+                $info[0]->delete();
+                $student->delete();
+                return $this->customResponse(['message'=>'student has deleted successfully!']);
+            }
+            $this->errorResponse('student not found',404);
         }
-        return $this->customResponse(["message"=>"student not found"],404);
+        else
+            return $this->errorResponse('student not found',404);
+        return $info;
+    }
+
+    public function studentByYt($yt){
+        $infos=StudentInfo::where(['yt'=>$yt])->get();
+        $i=0;
+        if(sizeof($infos)){
+            foreach($infos as $info){
+                $infos[$i]=$info->student;
+                $infos[$i]->studentInfos;
+                $i++;
+            }
+        }
+        return $this->mutliResponse($infos);
     }
 }

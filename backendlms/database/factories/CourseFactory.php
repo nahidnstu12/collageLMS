@@ -24,6 +24,7 @@ class CourseFactory extends Factory
             'teacher_id'=>$this->faker->randomElement([1,2,5,6,8,9,4]),
             'course_title'=>$this->faker->word(),
             'credit_hour'=>$this->faker->randomElement([2,3]),
+            'course_code'=>'CSTE'.$this->faker->uniqid,
             'yt'=>$this->faker->randomElement([
                 'Y1-T1',
                 'Y2-T1',

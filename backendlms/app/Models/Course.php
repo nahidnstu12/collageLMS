@@ -9,11 +9,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Course extends Model
 {
     use HasFactory;
-    protected $fillable=['course_code','teacher_id','course_title','credit_hour','course_description'];
+    protected $fillable=['course_code', 'teacher_id', 'course_title', 'credit_hour', 'yt', 'course_description'];
 
-    public function Users()
+    public function users()
     {
         return $this->belongsToMany(User::class,'course_user');
+    }
+    public function teacher()
+    {
+        return $this->belongsTo(User::class,'teacher_id','id')->select('full_name');
     }
     public function marks()
     {

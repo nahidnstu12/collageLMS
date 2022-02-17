@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\course;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\TeacherInfo;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,6 +54,9 @@ class CourseController extends Controller
     public function index()
     {
         $courses=Course::all();
+        foreach($courses as $course){
+            $course->teacher;
+        }
         return $this->mutliResponse($courses);
     }
 
@@ -204,6 +208,22 @@ class CourseController extends Controller
      *           type="string"
      *      )
      *   ),
+     *   @OA\Parameter(
+     *      name="year",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
+     *   @OA\Parameter(
+     *      name="term",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="string"
+     *      )
+     *   ),
      *   @OA\Response(
      *      response=201,
      *       description="Success",
@@ -233,10 +253,11 @@ class CourseController extends Controller
     {
         $request->validate([
             'teacher_id'=>'required',
-            'course_code'=>'required',
+            'course_code'=>'required|unique:courses',
             'course_title'=>'required',
             'course_description'=>'required',
-            'credit_hour'=>'required'
+            'credit_hour'=>'required',
+            'yt' =>'required'
         ]);
         $course=$request->all();
         $res=Course::create($course);
@@ -290,9 +311,14 @@ class CourseController extends Controller
      *      ),
      *  )
      */
-    public function show(Course $course)
+    public function show($course_code)
     {
-        return $this->oneResponse($course);
+        $course_details= Course::where(['course_code'=>$course_code])->get();
+        if(sizeof($course_details)){
+            $course_details[0]->teacher;
+            return $this->customResponse($course_details[0]);
+        }
+        else return $this->errorResponse('Course not found',404);
     }
 
     // course update
@@ -371,16 +397,21 @@ class CourseController extends Controller
      *   )
      *)
      **/
-    public function update(Request $request, Course $course)
+    public function update(Request $request, $course_code)
     {
-        if($request->course_code) $course['course_code'] = $request->course_code;
-        if($request->course_title) $course['course_title'] = $request->course_title;
-        if($request->course_description) $course['course_description'] = $request->course_description;
-        if($request->credit_hour) $course['credit_hour'] = $request->credit_hour;
-        if($request->teacher_id) $course['teacher_id'] = $request->teacher_id;
+        $course=Course::where(['course_code'=>$course_code])->get();
 
+        if(sizeof($course)){
+        $course = $course[0];
+        if($request->course_code) $course->course_code= $request->course_code;
+        if($request->course_title) $course->course_title = $request->course_title;
+        if($request->course_description) $course->course_description= $request->course_description;
+        if($request->credit_hour) $course->credit_hour= $request->credit_hour;
+        if($request->teacher_id) $course->teacher_id = $request->teacher_id;
+        
         $course->save();
-
+        }
+        else return $this->errorResponse('course not found',404);
         return $this->customResponse(['msg'=>'course updated']);
     }
 
@@ -436,4 +467,14 @@ class CourseController extends Controller
         $course->delete();
         return $this->customResponse(['msg'=>'course deleted!!']);
     }
+    public function teacherWiseCourse($teacher_id){
+        $teacher=TeacherInfo::where(['t_id'=>$teacher_id])->get();
+
+        if(sizeof($teacher)) $teacher=$teacher[0];
+        else return $this->errorResponse('The teacher is not found',404);
+        
+        $courses=$teacher->courses;
+        return $courses;
+    }
+
 }

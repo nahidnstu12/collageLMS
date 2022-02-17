@@ -11,7 +11,11 @@ class Mark extends Model
     
     protected $fillable=[
     'student_id',
+    'teacher_id',
     'course_id',
+    's_id',
+    't_id',
+    'course_code',
     'ct1',
     'ct2',
     'ct3',

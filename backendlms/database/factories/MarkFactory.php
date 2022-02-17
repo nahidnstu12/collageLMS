@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,12 +17,12 @@ class MarkFactory extends Factory
     {
         return [
             'student_id'=>User::whereRoleIs('student')->get()->random()->id,
-            'course_id' =>rand(1,20),
+            'course_id' =>Course::all()->random()->id,
             'ct1'=>rand(1,25),
             'ct2'=>rand(1,25),
             'ct3'=>rand(1,25),
             'attendence'=>rand(1,5),
-            'writte'=>rand(1,70),
+            'written'=>rand(1,70),
             'total'=>rand(1,100),
             'yt'=>$this->faker->randomElement([
                 'Y1-T1',

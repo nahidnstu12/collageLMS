@@ -47,6 +47,9 @@ class SuperAdminSeeder extends Seeder
 
     public function run()
     {
+        DB::table('permission_role')->truncate();
+        DB::table('permission_user')->truncate();
+        DB::table('role_user')->truncate();
         DB::table('users')->truncate();
         
         $user = new User();

@@ -15,15 +15,19 @@ class CreateMarksTable extends Migration
     {
         Schema::create('marks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('course_id');
-            $table->float('ct1');
-            $table->float('ct2');
-            $table->float('ct3');
-            $table->float('attendence');
-            $table->float('written');
-            $table->float('total');
-            $table->string('yt');
+            $table->unsignedBigInteger('student_id')->nullable();
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->unsignedBigInteger('course_id')->nullable();
+            $table->string('s_id')->nullable();
+            $table->string('t_id')->nullable();
+            $table->string('course_code')->nullable();
+            $table->float('ct1')->nullable();
+            $table->float('ct2')->nullable();
+            $table->float('ct3')->nullable();
+            $table->float('attendence')->nullable();
+            $table->float('written')->nullable();
+            $table->float('total')->nullable();
+            $table->string('yt')->nullable();
             $table->timestamps();
         });
     }

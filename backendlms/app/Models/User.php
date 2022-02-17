@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use PhpParser\Node\Expr\FuncCall;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -35,11 +34,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'verified',
         'verification_token',
-        'year',
-        'term',
-        'batch',
-        'session',
-        'address'
+        'address',
+        'image',
+        'phone'
     ];
 
     /**
@@ -64,7 +61,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsToMany(Course::class,'teacher_id');
     }
 
 
@@ -75,12 +72,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function studentInfos()
     {
-        return $this->hasOne(StudentInfo::class,'student_id');
+        return $this->hasOne(StudentInfo::class,'student_id')->select("s_id","batch","session","yt",
+        "status");
     }
     
     public function teacherInfos()
     {
-        return $this->hasOne(TeacherInfo::class,'teacher_id');
+        return $this->hasOne(TeacherInfo::class,'teacher_id')->select(['t_id','designation']);
     }
 
     
@@ -88,5 +86,28 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public static function generateVerificationCode(){
         return Str::random(6);
+    }
+
+    // private function pullImageName()
+    // {
+    //     return $this->image;
+    // }
+
+    public function getImageAttribute()
+    {
+        if($this->attributes['image'])
+        return asset('storage/profile/'.$this->attributes['image']);
+        else
+        return asset('storage/profile/'.'default.jpg');
+    }
+    public function setImageAttribute($value)
+    {
+        $image=$value;
+        if($image){
+            $image_f=uniqid();
+            // if($this->attributes['image']) file_exists('storage/profile/'.$this->attributes['image'])?unlink('storage/profile/'.$this->attributes['image']):'';
+            Image::make($image)->save(public_path('storage/profile/'.$image_f.'.jpg').'',100,'jpg');
+            $this->attributes['image'] = $image_f.'.jpg';
+        }
     }
 }
