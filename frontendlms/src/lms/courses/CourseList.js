@@ -40,15 +40,7 @@ export default function CourseList({ role }) {
               </a>
             )}
             {/* test modal */}
-            <button onClick={() => setShow(true)}>Show Modal</button>
-            <Modal
-              title="My Modal"
-              w80={true}
-              onClose={() => setShow(false)}
-              show={show}
-            >
-              <CourseModal />
-            </Modal>
+           
           </header>
           <div className="card-body">
             <div className="attendances-list-wrap mt-5">

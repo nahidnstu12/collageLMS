@@ -69,7 +69,7 @@ export default function Profile() {
 
 export const ProfileItem = ({ label, icon, logout }) => {
   return (
-    <li className="mb-4" onClick={() => logout()}>
+    <li className="mb-4" onClick={() => logout()} style={{cursor:"pointer"}}>
       {/* <Link className="d-flex align-items-center link-dark" to="/student/login"> */}
       <span className="h3 mb-0">
         <i className={"far text-muted mr-3 " + icon}></i>

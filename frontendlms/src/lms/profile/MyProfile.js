@@ -19,7 +19,7 @@ export const studentInfo = {
 };
 export const adminInfo = {
   type: "Admin",
-  name: "Hannan Mia",
+  name: "Dalim Mia",
   email: "hannan@nstu.edu.com",
   phone: "0162176123",
   profileImg: "/dummy-profile.png",
@@ -29,6 +29,7 @@ export const adminInfo = {
 
 export default function MyProfile() {
   const [user, setProfile] = useState({});
+  // const [profileType, setProfileType] = useState();
   const { profile } = AuthConsumer();
   console.log(profile?.role);
 
@@ -37,52 +38,21 @@ export default function MyProfile() {
     setProfile(profile);
     console.log(profile);
     //  console.log(profile.full_name);
+
   }, []);
 
-  const StudentProfile = () => {
-    <>
-      <p>
-        <strong>
-          {user?.student_infos?.s_id || studentInfo.roll} {"  |  "}{" "}
-          {user?.student_infos?.yt || studentInfo.currentYear}
-        </strong>
-      </p>
-      <h4 className="additonal-info">Additonal Information</h4>
-      <p>Batch: {user?.student_infos?.batch || studentInfo.batch} batch</p>
-      <p>Session: {user?.student_infos?.session || studentInfo.sesseion} </p>
-    </>;
-  };
-  const TeacherProfile = () => {
-    <>
-      <p>
-        <strong>
-          {user?.t_id} {"  |  "} {user?.designation}
-        </strong>
-      </p>
-      <h4 className="additonal-info">Additonal Information</h4>
-      <p>Full Name: {user?.teacher?.full_name} </p>
-      <p>Designation: {user?.designation} </p>
-    </>;
-  };
-  const AdminProfile = () => {
-    <>
-      <p>
-        <strong>
-          {adminInfo?.type} {"  |  "} {adminInfo?.designation}
-        </strong>
-      </p>
-      <h4 className="additonal-info">Additonal Information</h4>
-      <p>Full Name: {adminInfo?.full_name} </p>
-      <p>Designation: {adminInfo?.designation} </p>
-    </>;
-  };
 
-  const profileType =
-    profile?.role === "super_admin"
-      ? AdminProfile()
-      : profile?.role === "teacher"
-      ? TeacherProfile()
-      : StudentProfile();
+
+  // const profileType =
+  //   profile?.role === "super_admin" ? (
+  //     <AdminProfile user={user} adminInfo={adminInfo} />
+  //   ) : profile?.role === "teacher" ? (
+  //     <TeacherProfile user={user} />
+  //   ) : (
+  //     <StudentProfile user={user} studentInfo={studentInfo} />
+  //   );
+
+  // console.log({ profileType, role: profile?.role });
   return (
     <div>
       <section className="breadcumb-area card bg-gradient mb-5">
@@ -104,16 +74,8 @@ export default function MyProfile() {
             <h2 className="text-danger">
               {user?.full_name || studentInfo.name}
             </h2>
-            {/* <p>
-              <strong>
-                {studentInfo.roll} {"  |  "} {studentInfo.currentYear}
-              </strong>
-            </p>
-            <h4 className="additonal-info">Additonal Information</h4>
-            <p>Batch: {studentInfo.batch} batch</p>
-            <p>Session: {studentInfo.sesseion} </p>
-            <p>Credit Complete: {studentInfo.creditCompleted} </p> */}
-            {profileType}
+            
+            {/* {profileType} */}
             <br />
             <br />
             <p>Email: {user?.email || studentInfo.email} </p>
@@ -137,3 +99,52 @@ export default function MyProfile() {
     </div>
   );
 }
+const StudentProfile = ( studentInfo) => {
+  const [user, setProfile] = useState({});
+  useEffect(async() => {
+    const data = await getData("/students")
+    console.log(data);
+    setProfile(data)
+  }, []);
+  return (
+    <>
+      <p>
+        <strong>
+          {user?.student_infos?.s_id || studentInfo.roll} {"  |  "}{" "}
+          {user?.student_infos?.yt || studentInfo.currentYear}
+        </strong>
+      </p>
+      <h4 className="additonal-info">Additonal Information</h4>
+      <p>Batch: {user?.student_infos?.batch || studentInfo.batch} batch</p>
+      <p>Session: {user?.student_infos?.session || studentInfo.sesseion} </p>
+    </>
+  );
+};
+const TeacherProfile = (user) => {
+  return (
+    <>
+      <p>
+        <strong>
+          {user?.t_id} {"  |  "} {user?.designation}
+        </strong>
+      </p>
+      <h4 className="additonal-info">Additonal Information</h4>
+      <p>Full Name: {user?.teacher?.full_name} </p>
+      <p>Designation: {user?.designation} </p>
+    </>
+  );
+};
+const AdminProfile = (adminInfo) => {
+  return (
+    <>
+      <p>
+        <strong>
+          {adminInfo?.type} {"  |  "} {adminInfo?.designation}
+        </strong>
+      </p>
+      <h4 className="additonal-info">Additonal Information</h4>
+      <p>Full Name: {adminInfo?.full_name} </p>
+      <p>Designation: {adminInfo?.designation} </p>
+    </>
+  );
+};
