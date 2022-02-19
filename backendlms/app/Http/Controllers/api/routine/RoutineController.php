@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\routine;
+namespace App\Http\Controllers\api\routine;
 
-use App\Http\Controllers\Controller;
 use App\Models\Routine;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+use App\Http\Controllers\Controller;
 
 class RoutineController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -37,16 +36,16 @@ class RoutineController extends Controller
         $request->validate([
             'timeslot'=>'required',
             'weekday'=>'required',
-            'course_code'=>'required',
+            'course_code'=>'required|unique:courses',
             'course_name'=>'required',
-            't_id'=>'required',
+            't_id'=>'required|unique:routines',
             'teacher_name'=>'required',
             'yt'=>'required'
         ]);
 
         $routine=$request->all();
         Routine::insert($routine);
-        return $this->customResponse(['msg'=>'rotine added']);
+        return $this->customResponse(['msg'=>'routine added']);
     }
 
     /**
@@ -67,9 +66,18 @@ class RoutineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Routine $routine)
     {
-        $routine=Routine::find($id);
+        // //course code
+        // $course=Course::where(['course_code'=>$request->course_code])->get();
+        // if(sizeof($course)) $course=$course[0];
+
+        $request->validate([
+            'course_code'=>'course_code|unique:routines,course_code,'.$routine->course_code,
+            't_id'=>'t_id|unique:routines,t_id,',
+        ]);
+
+        // $routine=Routine::find($id);
         if($request->timeslot) $routine->timeslot=$request->timeslot;
         if($request->weekday) $routine->weekday=$request->weekday;
         if($request->course_code) $routine->course_code=$request->course_code;

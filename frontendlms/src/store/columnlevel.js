@@ -1,11 +1,11 @@
 export const studentColumns = [
   {
     Header: "SID",
-    accessor: "sid",
+    accessor: "student_infos.s_id",
   },
   {
     Header: "Name",
-    accessor: "name",
+    accessor: "full_name",
   },
   {
     Header: "Email",
@@ -17,19 +17,19 @@ export const studentColumns = [
   },
   {
     Header: "Session",
-    accessor: "session",
+    accessor: "student_infos.session",
   },
   {
     Header: "Year-Term",
-    accessor: "yt",
+    accessor: "student_infos.yt",
   },
   {
     Header: "Batch",
-    accessor: "Batch",
+    accessor: "student_infos.batch",
   },
   {
     Header: "Address",
-    accessor: "address",
+    accessor: "Address",
   },
 ];
 
@@ -37,11 +37,11 @@ export const studentColumns = [
 export const teacherColumns = [
   {
     Header: "TID",
-    accessor: "tid",
+    accessor: "teacher_infos.t_id",
   },
   {
     Header: "Name",
-    accessor: "name",
+    accessor: "full_name",
   },
   {
     Header: "Email",
@@ -53,7 +53,7 @@ export const teacherColumns = [
   },
   {
     Header: "Designation",
-    accessor: "designation",
+    accessor: "teacher_infos.designation",
   },
 ];
 
@@ -64,6 +64,7 @@ export const teacherData = [
     designation: "Professior",
     email: "asadun@teacher.com",
     phone: "0173425632",
+    // profilePic: "../"
   },
   {
     tid: "123-001",
@@ -133,15 +134,19 @@ export const teacherData = [
 export const courseColumns = [
   {
     Header: "Course Id",
-    accessor: "courseId",
+    accessor: "course_code",
   },
   {
     Header: "Course Title",
-    accessor: "courseTitle",
+    accessor: "course_title",
+  },
+  {
+    Header: "Course Teacher",
+    accessor: "teacher.full_name",
   },
   {
     Header: "Credit Hour",
-    accessor: "creditHour",
+    accessor: "credit_hour",
   },
   {
     Header: "Year-Term",
@@ -156,6 +161,7 @@ export const courseData = [
     courseDescription:
       "Computer fundamental Computer fundamental Computer fundamental Computer fundamental",
     yt: "1-1",
+    // asignee: 1, //teacher id
   },
   {
     courseId: "CSTE1103",
@@ -385,16 +391,16 @@ export const routineColumns = [
 
 // attendance lists
 export const attendanceLists = [
-  { sid: "1701001", totalClass: "20", attendedClass: "10" },
-  { sid: "1701003", totalClass: "20", attendedClass: "5" },
-  { sid: "1701004", totalClass: "20", attendedClass: "7" },
-  { sid: "1701005", totalClass: "20", attendedClass: "1" },
-  { sid: "1701007", totalClass: "20", attendedClass: "11" },
-  { sid: "1701008", totalClass: "20", attendedClass: "7" },
-  { sid: "1701009", totalClass: "20", attendedClass: "7" },
-  { sid: "1701010", totalClass: "20", attendedClass: "10" },
-  { sid: "1701011", totalClass: "20", attendedClass: "10" },
-  { sid: "1701011", totalClass: "20", attendedClass: "10" },
+  { sid: "1701001", totalClass: "20", attendedClass: "10", yt: "Y1-T1" },
+  { sid: "1701003", totalClass: "20", attendedClass: "5", yt: "Y1-T1" },
+  { sid: "1701004", totalClass: "20", attendedClass: "7", yt: "Y1-T1" },
+  { sid: "1701005", totalClass: "20", attendedClass: "1", yt: "Y2-T1" },
+  { sid: "1701007", totalClass: "20", attendedClass: "11", yt: "Y2-T1" },
+  { sid: "1701008", totalClass: "20", attendedClass: "7", yt: "Y1-T1" },
+  { sid: "1701009", totalClass: "20", attendedClass: "7", yt: "Y1-T1" },
+  { sid: "1701010", totalClass: "20", attendedClass: "10", yt: "Y1-T1" },
+  { sid: "1701011", totalClass: "20", attendedClass: "10", yt: "Y1-T1" },
+  { sid: "1701011", totalClass: "20", attendedClass: "10", yt: "Y1-T1" },
 ];
 
 // marks lists
@@ -406,6 +412,8 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
+    yt: "Y1-T1",
   },
   {
     sid: "1701003",
@@ -414,6 +422,8 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
+    yt: "Y1-T1",
   },
   {
     sid: "1701004",
@@ -422,6 +432,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701005",
@@ -430,6 +441,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701007",
@@ -438,6 +450,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701008",
@@ -446,6 +459,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701009",
@@ -454,6 +468,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701010",
@@ -462,6 +477,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701011",
@@ -470,6 +486,7 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
   {
     sid: "1701012",
@@ -478,5 +495,6 @@ export const marksLists = [
     ct3: "15",
     attendance: "4",
     written: "55",
+    total: "70",
   },
 ];

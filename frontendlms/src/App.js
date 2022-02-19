@@ -28,6 +28,8 @@ import TeacherLogin from "./auth/TeacherLogin";
 import StudentLogin from "./auth/StudentLogin";
 import AdminLogin from "./auth/AdminLogin";
 import AuthConsumer from "./hooks/useAuth";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const { profile } = AuthConsumer();
@@ -40,7 +42,7 @@ function App() {
         {/* teacherlogin */}
         <Route path={`/teacher/login`} exact component={TeacherLogin} />
         <Route path={`/student/login`} exact component={StudentLogin} />
-        <Route path={`/admin/login`} exact component={AdminLogin} />
+        <Route path={`/super_admin/login`} exact component={AdminLogin} />
 
         <Route path={`/forget-pass`} exact component={ForgetPass} />
 
@@ -50,6 +52,7 @@ function App() {
             <PrivateRoute path={`/dashboard`} exact>
               <Dashboard />
             </PrivateRoute>
+
             {/* course */}
             <PrivateRoute path={`/course/lists`} exact>
               <CourseList role={profile?.role} />
@@ -57,9 +60,13 @@ function App() {
             <PrivateRoute path={`/course/add`} exact>
               <CourseAdd />
             </PrivateRoute>
+            <PrivateRoute path={`/course/edit/:id`} exact>
+              <CourseAdd />
+            </PrivateRoute>
             <PrivateRoute path={`/course/:id`}>
               <CourseDetails />
             </PrivateRoute>
+
             {/* attendance */}
             <PrivateRoute path={`/attendance/lists`} exact>
               <AttendanceList />
@@ -72,10 +79,10 @@ function App() {
             <PrivateRoute path={`/routine/full`} exact>
               <FullRoutine />
             </PrivateRoute>
-
             <PrivateRoute path={`/routine/todays`} exact>
               <Todays />
             </PrivateRoute>
+
             {/* marks */}
             <PrivateRoute path={`/marks`} exact>
               <MarkSheet role={profile?.role} />
@@ -83,24 +90,33 @@ function App() {
             <PrivateRoute path={`/marks/add`} exact>
               <AddMarks />
             </PrivateRoute>
+
             {/* teacher */}
             <PrivateRoute path={`/teacher/lists`} exact>
               <TeacherList />
             </PrivateRoute>
-
+            <PrivateRoute path={`/teacher/add`} exact>
+              <AddTeacher />
+            </PrivateRoute>
+            <PrivateRoute path={`/teacher/edit/:id`} exact>
+              <AddTeacher />
+            </PrivateRoute>
             <PrivateRoute path={`/teacher/:id`} exact>
               <TeacherDetails />
             </PrivateRoute>
 
-            <PrivateRoute path={`/teacher/add`} exact>
-              <AddTeacher />
-            </PrivateRoute>
             {/* student */}
             <PrivateRoute path={`/student/lists`} exact>
               <StudentList />
             </PrivateRoute>
+            <PrivateRoute path={`/student/verified`} exact>
+              <StudentList />
+            </PrivateRoute>
 
             <PrivateRoute path={`/student/add`} exact>
+              <AddStudent />
+            </PrivateRoute>
+            <PrivateRoute path={`/student/edit/:id`} exact>
               <AddStudent />
             </PrivateRoute>
             <PrivateRoute path={`/student/:id`}>
@@ -118,6 +134,23 @@ function App() {
               <Homelist />
             </Route>
           </Switch>
+          {/* toast */}
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            // rtl={false}
+            // pauseOnFocusLoss
+            draggable
+            // pauseOnHover
+            toastStyle={{
+              backgroundColor: "#333",
+              color: "#eee",
+            }}
+            progressClassName="toastProgress"
+          />
         </Layout>
       </Router>
     </div>

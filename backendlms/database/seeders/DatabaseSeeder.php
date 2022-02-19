@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             StudentInfoSeeder::class,
             TeacherInfoSeeder::class,
+            Routine::class,
             MarkSeeder::class,
         ]);
     }

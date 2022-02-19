@@ -17,4 +17,9 @@ class Routine extends Model
             'teacher_name',
             'yt'
             ];
+
+    public function teacher()
+    {
+        return $this->hasOne(TeacherInfo::class,'t_id','t_id');
+    }
 }

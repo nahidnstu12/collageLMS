@@ -2,16 +2,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\api\auth\AuthController;
+use App\Http\Controllers\api\mark\MarkController;
 use App\Http\Controllers\api\auth\ForgotController;
+use App\Http\Controllers\api\course\CourseController;
+use App\Http\Controllers\api\routine\RoutineController;
 use App\Http\Controllers\api\teacher\TeacherController;
 use App\Http\Controllers\api\teacher\TeacherRoleController;
 use App\Http\Controllers\api\student\StudentManageController;
 use App\Http\Controllers\api\auth\EmailVerificationController;
-use App\Http\Controllers\api\course\CourseController;
-use App\Http\Controllers\api\mark\MarkController;
 use App\Http\Controllers\api\teacher\TeacherPermissionController;
-use App\Http\Controllers\routine\RoutineController;
-use App\Models\Mark;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +61,11 @@ Route::get('user/{user}/courses',[CourseController::class,'userWiseCourselist'])
 Route::get('course/teacher/{teacher_id}',[CourseController::class,'teacherWiseCourse']);
 // -----------------marks--------------
 Route::apiResource('marks',MarkController::class);
+Route::get('mark/student/{s_id}',[MarkController::class,'studentWiseMark']);
+Route::get('mark/teacher/{t_id}',[MarkController::class,'teacherWiseMark']);
+Route::get('mark/course/{course_code}',[MarkController::class,'courseWiseMark']);
+Route::get('mark/yt/{yt}',[MarkController::class,'ytWiseMark']);
+Route::post('mark/batch-update',[MarkController::class,'batchUpdate']);
 // -------------routine------------
 Route::apiResource('routines',RoutineController::class);
 
