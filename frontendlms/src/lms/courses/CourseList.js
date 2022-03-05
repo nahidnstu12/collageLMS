@@ -40,7 +40,7 @@ export default function CourseList({ role }) {
               </a>
             )}
             {/* test modal */}
-           
+
           </header>
           <div className="card-body">
             <div className="attendances-list-wrap mt-5">

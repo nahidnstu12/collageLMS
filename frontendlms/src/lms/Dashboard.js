@@ -53,7 +53,9 @@ export default function Dashboard() {
                 <img src="assets/img/staff.png" alt="" />
               </div>
               <h2 className="text-white mb-0">
+
                 10 <small className="d-block mt-2">Staff</small>
+
               </h2>
             </div>
           </div>
