@@ -24,7 +24,7 @@ export default function CoureseAdd(props) {
     reset,
     formState: { errors },
   } = useForm({ mode: "all" });
-
+  // react hook form submit data
   const submit = async (formdata) => {
     console.log(formdata);
     // const data = await postData("/courses", formdata);
@@ -35,7 +35,7 @@ export default function CoureseAdd(props) {
     try {
       const res = await postData("/courses", data);
       console.log(res);
-      toast.success(res.msg)
+      toast.success(res.msg);
     } catch (err) {
       console.log(err);
       toast.error(err.error);
@@ -51,6 +51,7 @@ export default function CoureseAdd(props) {
       toast.error(err.error);
     }
   }
+  // form data feed
   useEffect(async () => {
     if (!isAddMode) {
       // get user and set form fields
@@ -70,11 +71,6 @@ export default function CoureseAdd(props) {
       } catch (err) {
         console.log(err);
       }
-      //  userService.getById(id).then((user) => {
-
-      //    fields.forEach((field) => setValue(field, user[field]));
-      //    setUser(user);
-      //  });
     }
   }, []);
   useEffect(async () => {

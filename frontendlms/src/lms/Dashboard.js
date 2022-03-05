@@ -53,7 +53,7 @@ export default function Dashboard() {
                 <img src="assets/img/parent.png" alt="" />
               </div>
               <h2 className="text-white mb-0">
-                160 <small className="d-block mt-2">Parent</small>
+                1 <small className="d-block mt-2">Super Admin</small>
               </h2>
             </div>
           </div>

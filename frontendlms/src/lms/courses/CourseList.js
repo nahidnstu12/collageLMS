@@ -40,7 +40,7 @@ export default function CourseList({ role }) {
               </a>
             )}
             {/* test modal */}
-            <button onClick={() => setShow(true)}>Show Modal</button>
+            {/* <button onClick={() => setShow(true)}>Show Modal</button>
             <Modal
               title="My Modal"
               w80={true}
@@ -48,7 +48,7 @@ export default function CourseList({ role }) {
               show={show}
             >
               <CourseModal />
-            </Modal>
+            </Modal> */}
           </header>
           <div className="card-body">
             <div className="attendances-list-wrap mt-5">
