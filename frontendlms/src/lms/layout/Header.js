@@ -1,7 +1,7 @@
 import Notification from "../../common/Notification";
 import Profile from "../../common/Profile";
 
-export default function Header() {
+export default function Header({home}) {
   return (
     <header className="u-header">
       {/* logo */}
@@ -65,9 +65,9 @@ export default function Header() {
 
       <div className="u-header-right">
         {/* notification */}
-        <Notification label={"Notification"} />
+        <Notification label={"Notification"} home={home}/>
 
-        <Profile />
+        <Profile home={home}/>
       </div>
     </header>
   );

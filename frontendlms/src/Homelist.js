@@ -1,12 +1,11 @@
 import Header from "./lms/layout/Header";
 
 export default function Homelist() {
-  
   return (
     <div>
-      <Header />
-      
-      <main className="u-main" role="main">
+      <Header home={"home"} />
+
+      <main className="u-main" role="main" style={{padding:"0 6rem"}}>
         <div className="u-content">
           <div className="u-body">
             <section className="es-form-area section-center">
@@ -29,7 +28,7 @@ export default function Homelist() {
                             <li key={i}>{itm}</li>
                           ))}
                         </ul>
-                        <p>Working features are:</p>
+                        <p>Working features are:</p><br/>
 
                         <ul>
                           {userManual.workingFeature.map((itm, i) => (
@@ -57,12 +56,11 @@ export default function Homelist() {
                       </ul>
                     </div>
                   </div>
+                  <h2>Some Website Snippets</h2>
                   <div className="row">
-                    <div className="col-4">
-                      <img src="" alt="" />
-                    </div>
-                    <div className="col-4"></div>
-                    <div className="col-4"></div>
+                    {siteImgArray.map((item) => (
+                      <SiteImg imgUrl={item.imgUrl} label={item.label} />
+                    ))}
                   </div>
                 </div>
               </div>
@@ -73,6 +71,27 @@ export default function Homelist() {
     </div>
   );
 }
+const siteImgArray = [
+  { imgUrl: "admin login.png", label: "Admin Login" },
+  { imgUrl: "admin dashboard.png", label: "Admin Dahboard" },
+  { imgUrl: "course lists.png", label: "Course Lists" },
+  { imgUrl: "course add.png", label: "Course Add" },
+  { imgUrl: "course edit.png", label: "Course Edit" },
+  { imgUrl: "student list.png", label: "Student Lists" },
+  { imgUrl: "verified student list.png", label: "Verified Student Lists" },
+  { imgUrl: "teacher lists.png", label: "Teacher Lists" },
+  { imgUrl: "student profile.png", label: "Student Profile" },
+];
+
+const SiteImg = ({ imgUrl, label }) => {
+  return (
+    <div className="col-4">
+      <img src={`/siteIMG/${imgUrl}`} alt="site img" className="site-img" />
+      <label className="img-label">{label}</label>
+    </div>
+  );
+};
+
 const userManual = {
   des: "This is CollageLMS where we can manage students, teacher and course materials. This software have managed three roles. 1) Super Admin 2) Student 3) Teacher.  These three types of user can login different interface.",
   features: [
@@ -83,8 +102,15 @@ const userManual = {
     "Profile Management",
     "Routine Management",
     "Attendance Mangement",
+    "Marks Management",
   ],
-  workingFeature: ["Routine Management", "Attendance Mangement"],
+  workingFeature: [
+    "Routine Management",
+    "User Specific Dashboard",
+    "Chart for specific domain",
+    "Attendance Mangement",
+    "Marks Management",
+  ],
   cred: [
     "Super Admin Email: admin@mail.com password: 123",
     "Teacher Email: ogrimes@example.net password: 123",
@@ -97,4 +123,3 @@ const userManual = {
     "Dahsboard: http://localhost:3000/dashboard",
   ],
 };
-

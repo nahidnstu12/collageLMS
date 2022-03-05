@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import AuthConsumer from "../hooks/useAuth";
 
-export default function Profile() {
+export default function Profile({home}) {
   const history = useHistory();
   const { logout, profile } = AuthConsumer();
   const capitalize = (s) =>
@@ -51,15 +51,35 @@ export default function Profile() {
           </div>
 
           <div className="card-body">
-            <ul className="list-unstyled mb-0">
-              <ProfileItem label={"Settings"} icon={"fa-list-alt"} />
-              <ProfileItem label={"View Profile"} icon={"fa-user-circle"} />
-              <ProfileItem
-                label={"Logout"}
-                icon={"fa-share-square"}
-                logout={logoutUser}
-              />
-            </ul>
+            {home === "home" ? (
+              <ul className="list-unstyled mb-0">
+                <ProfileItem
+                  label={"Admin Login"}
+                  icon={"fa-user-circle"}
+                  onClick={() => history.push("/super_admin/login")}
+                />
+                <ProfileItem
+                  label={"Teacher Login"}
+                  icon={"fa-user-circle"}
+                  onClick={() => history.push("/teacher/login")}
+                />
+                <ProfileItem
+                  label={"Student Login"}
+                  icon={"fa-user-circle"}
+                  onClick={() => history.push("/student/login")}
+                />
+              </ul>
+            ) : (
+              <ul className="list-unstyled mb-0">
+                <ProfileItem label={"Settings"} icon={"fa-list-alt"} />
+                <ProfileItem label={"View Profile"} icon={"fa-user-circle"} />
+                <ProfileItem
+                  label={"Logout"}
+                  icon={"fa-share-square"}
+                  onClick={logoutUser}
+                />
+              </ul>
+            )}
           </div>
         </div>
       </div>
@@ -67,9 +87,9 @@ export default function Profile() {
   );
 }
 
-export const ProfileItem = ({ label, icon, logout }) => {
+export const ProfileItem = ({ label, icon, onClick }) => {
   return (
-    <li className="mb-4" onClick={() => logout()} style={{cursor:"pointer"}}>
+    <li className="mb-4" onClick={onClick} style={{cursor:"pointer"}}>
       {/* <Link className="d-flex align-items-center link-dark" to="/student/login"> */}
       <span className="h3 mb-0">
         <i className={"far text-muted mr-3 " + icon}></i>
