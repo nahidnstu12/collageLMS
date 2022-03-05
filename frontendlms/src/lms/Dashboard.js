@@ -47,6 +47,20 @@ export default function Dashboard() {
         </div>
 
         <div className="col-lg-3 col-md-6">
+          <div className="single-asset-counting-list-box bg-gradient bg-gradient-yellow card border-0 text-center">
+            <div className="card-body">
+              <div className="single-asset-counting-list-image-wrap">
+                <img src="assets/img/staff.png" alt="" />
+              </div>
+              <h2 className="text-white mb-0">
+
+                10 <small className="d-block mt-2">Staff</small>
+
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div className="col-lg-3 col-md-6">
           <div className="single-asset-counting-list-box bg-gradient bg-gradient-green card border-0 text-center">
             <div className="card-body">
               <div className="single-asset-counting-list-image-wrap">
@@ -54,19 +68,6 @@ export default function Dashboard() {
               </div>
               <h2 className="text-white mb-0">
                 1 <small className="d-block mt-2">Super Admin</small>
-              </h2>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-lg-3 col-md-6">
-          <div className="single-asset-counting-list-box bg-gradient bg-gradient-yellow card border-0 text-center">
-            <div className="card-body">
-              <div className="single-asset-counting-list-image-wrap">
-                <img src="assets/img/staff.png" alt="" />
-              </div>
-              <h2 className="text-white mb-0">
-                10 <small className="d-block mt-2">Staff</small>
               </h2>
             </div>
           </div>
