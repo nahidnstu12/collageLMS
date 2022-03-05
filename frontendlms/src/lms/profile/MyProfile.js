@@ -38,19 +38,16 @@ export default function MyProfile() {
     setProfile(profile);
     console.log(profile);
     //  console.log(profile.full_name);
-
   }, []);
 
-
-
-  // const profileType =
-  //   profile?.role === "super_admin" ? (
-  //     <AdminProfile user={user} adminInfo={adminInfo} />
-  //   ) : profile?.role === "teacher" ? (
-  //     <TeacherProfile user={user} />
-  //   ) : (
-  //     <StudentProfile user={user} studentInfo={studentInfo} />
-  //   );
+  const profileType =
+    profile?.role === "super_admin" ? (
+      <AdminProfile user={user} adminInfo={adminInfo} />
+    ) : profile?.role === "teacher" ? (
+      <TeacherProfile user={user} />
+    ) : (
+      <StudentProfile user={user} studentInfo={studentInfo} />
+    );
 
   // console.log({ profileType, role: profile?.role });
   return (
@@ -74,8 +71,14 @@ export default function MyProfile() {
             <h2 className="text-danger">
               {user?.full_name || studentInfo.name}
             </h2>
-            
-            {/* {profileType} */}
+
+            {profile?.role === "super_admin" ? (
+              <AdminProfile user={user} adminInfo={adminInfo} />
+            ) : profile?.role === "teacher" ? (
+              <TeacherProfile user={user} />
+            ) : (
+              <StudentProfile user={user} studentInfo={studentInfo} />
+            )}
             <br />
             <br />
             <p>Email: {user?.email || studentInfo.email} </p>
@@ -99,12 +102,12 @@ export default function MyProfile() {
     </div>
   );
 }
-const StudentProfile = ( studentInfo) => {
+const StudentProfile = ({studentInfo}) => {
   const [user, setProfile] = useState({});
-  useEffect(async() => {
-    const data = await getData("/students")
+  useEffect(async () => {
+    const data = await getData("/students");
     console.log(data);
-    setProfile(data)
+    setProfile(data);
   }, []);
   return (
     <>
@@ -120,7 +123,7 @@ const StudentProfile = ( studentInfo) => {
     </>
   );
 };
-const TeacherProfile = (user) => {
+const TeacherProfile = ({user}) => {
   return (
     <>
       <p>
@@ -134,7 +137,7 @@ const TeacherProfile = (user) => {
     </>
   );
 };
-const AdminProfile = (adminInfo) => {
+const AdminProfile = ({adminInfo}) => {
   return (
     <>
       <p>
@@ -143,7 +146,7 @@ const AdminProfile = (adminInfo) => {
         </strong>
       </p>
       <h4 className="additonal-info">Additonal Information</h4>
-      <p>Full Name: {adminInfo?.full_name} </p>
+      <p>Full Name: {adminInfo?.name} </p>
       <p>Designation: {adminInfo?.designation} </p>
     </>
   );

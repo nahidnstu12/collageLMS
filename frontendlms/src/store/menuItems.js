@@ -15,35 +15,38 @@ export const adminMenuItems = [
       { label: " Courses Add", to: "/course/add" },
     ],
   },
-  {
-    name: "Attendances",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-user-check",
-    subMenus: [
-      { label: "Attendances List", to: "/attendance/lists" },
-      { label: "Attendances Reports", to: "/attendance/reports" },
-    ],
-  },
-  {
-    name: "Routine",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-stopwatch",
-    subMenus: [
-      { label: " Full Routine", to: "/routine/full" },
-      { label: " todays", to: "/routine/todays" },
-    ],
-  },
-  {
-    name: "Marks",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-clipboard",
-    subMenus: [
-      { label: "MarkSheet", to: "/marks" },
-    ],
-  },
+// Attendance Management
+  // {
+  //   name: "Attendances",
+  //   exact: true,
+  //   to: `#`,
+  //   iconClassName: "fa-user-check",
+  //   subMenus: [
+  //     { label: "Attendances List", to: "/attendance/lists" },
+  //     { label: "Attendances Reports", to: "/attendance/reports" },
+  //   ],
+  // },
+// routine managemewnt
+  // {
+  //   name: "Routine",
+  //   exact: true,
+  //   to: `#`,
+  //   iconClassName: "fa-stopwatch",
+  //   subMenus: [
+  //     { label: " Full Routine", to: "/routine/full" },
+  //     { label: " todays", to: "/routine/todays" },
+  //   ],
+  // },
+// Marks Management
+  // {
+  //   name: "Marks",
+  //   exact: true,
+  //   to: `#`,
+  //   iconClassName: "fa-clipboard",
+  //   subMenus: [
+  //     { label: "MarkSheet", to: "/marks" },
+  //   ],
+  // },
   {
     name: "Students",
     exact: true,
@@ -97,36 +100,36 @@ export const teacherMenuItems = [
       // { label: " Courses details", to: "/course/:id" },
     ],
   },
-  {
-    name: "Attendances",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-user-check",
-    subMenus: [
-      { label: "Attendances List", to: "/attendance/lists" },
-      { label: "Attendances Reports", to: "/attendance/reports" },
-    ],
-  },
-  {
-    name: "Routine",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-stopwatch",
-    subMenus: [
-      { label: " Full Routine", to: "/routine/full" },
-      { label: " todays", to: "/routine/todays" },
-    ],
-  },
-  {
-    name: "Marks",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-clipboard",
-    subMenus: [
-      { label: "MarkSheet", to: "/marks" },
-      // { label: " Add Marks", to: "/marks/add" },
-    ],
-  },
+  // {
+  //   name: "Attendances",
+  //   exact: true,
+  //   to: `#`,
+  //   iconClassName: "fa-user-check",
+  //   subMenus: [
+  //     { label: "Attendances List", to: "/attendance/lists" },
+  //     { label: "Attendances Reports", to: "/attendance/reports" },
+  //   ],
+  // },
+  // {
+  //   name: "Routine",
+  //   exact: true,
+  //   to: `#`,
+  //   iconClassName: "fa-stopwatch",
+  //   subMenus: [
+  //     { label: " Full Routine", to: "/routine/full" },
+  //     { label: " todays", to: "/routine/todays" },
+  //   ],
+  // },
+  // {
+  //   name: "Marks",
+  //   exact: true,
+  //   to: `#`,
+  //   iconClassName: "fa-clipboard",
+  //   subMenus: [
+  //     { label: "MarkSheet", to: "/marks" },
+  //     // { label: " Add Marks", to: "/marks/add" },
+  //   ],
+  // },
   {
     name: "Students",
     exact: true,
@@ -177,33 +180,33 @@ export const studentMenuItems = [
       // { label: " Courses details", to: "/course/:id" },
     ],
   },
-  {
-    name: "Attendances",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-user-check",
-    subMenus: [
-      { label: "Attendances List", to: "/attendance/lists" },
-      { label: "Attendances Reports", to: "/attendance/reports" },
-    ],
-  },
-  {
-    name: "Routine",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-stopwatch",
-    subMenus: [
-      { label: " Full Routine", to: "/routine/full" },
-      { label: " todays", to: "/routine/todays" },
-    ],
-  },
-  {
-    name: "Marks",
-    exact: true,
-    to: `#`,
-    iconClassName: "fa-clipboard",
-    subMenus: [{ label: "MarkSheet", to: "/marks" }],
-  },
+  // {
+  //   name: "Attendances",
+  //   exact: true,
+  //   to: `#`,
+  //   iconClassName: "fa-user-check",
+  //   subMenus: [
+  //     { label: "Attendances List", to: "/attendance/lists" },
+  //     { label: "Attendances Reports", to: "/attendance/reports" },
+  //   ],
+  // },
+  // {
+  //   name: "Routine",
+  //   exact: true,
+  //   to: `#`,
+  //   iconClassName: "fa-stopwatch",
+  //   subMenus: [
+  //     { label: " Full Routine", to: "/routine/full" },
+  //     { label: " todays", to: "/routine/todays" },
+  //   ],
+  // },
+  // {
+  //   name: "Marks",
+  //   exact: true,
+  //   to: `#`,
+  //   iconClassName: "fa-clipboard",
+  //   subMenus: [{ label: "MarkSheet", to: "/marks" }],
+  // },
   {
     name: "Students",
     exact: true,
