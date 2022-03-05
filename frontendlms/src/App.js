@@ -129,10 +129,6 @@ function App() {
             <PrivateRoute path={`/my-profile/edit`} exact>
               <EditProfile />
             </PrivateRoute>
-
-            <Route path={`/`}>
-              <Homelist />
-            </Route>
           </Switch>
           {/* toast */}
           <ToastContainer
@@ -152,11 +148,12 @@ function App() {
             progressClassName="toastProgress"
           />
         </Layout>
+        <Route path={`/`} exact>
+          <Homelist />
+        </Route>
       </Router>
     </div>
   );
 }
 
 export default App;
-
-

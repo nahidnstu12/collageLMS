@@ -15,6 +15,7 @@ export default function Layout({ children }) {
     "/teacher/login",
     "/student/login",
     "/super_admin/login",
+    "/",
   ];
   const routing = publicRoute.find((p) => p === pathname);
 
