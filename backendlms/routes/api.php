@@ -2,14 +2,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\api\auth\AuthController;
+use App\Http\Controllers\api\mark\MarkController;
 use App\Http\Controllers\api\auth\ForgotController;
+use App\Http\Controllers\api\course\CourseController;
+use App\Http\Controllers\api\routine\RoutineController;
 use App\Http\Controllers\api\teacher\TeacherController;
 use App\Http\Controllers\api\teacher\TeacherRoleController;
 use App\Http\Controllers\api\student\StudentManageController;
 use App\Http\Controllers\api\auth\EmailVerificationController;
-use App\Http\Controllers\api\course\CourseController;
 use App\Http\Controllers\api\teacher\TeacherPermissionController;
-use App\Models\Mark;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,12 +40,17 @@ Route::post('reset-password',[ForgotController::class,'resetPassword']);
 
 
 //         --------------------student managing-------------------
-Route::resource('students',StudentManageController::class,['only'=>['index','show','destroy']]);
+Route::resource('students',StudentManageController::class,['only'=>['index','show','destroy','store']]);
+Route::post('student/update/{s_id}',[StudentManageController::class,'update']);
+
 Route::get('unverified/students',[StudentManageController::class,'unverifiedStudent']);
-Route::get('verify/student/{id}',[StudentManageController::class,'studentVerify']);
+Route::get('verify/student/{s_id}',[StudentManageController::class,'studentVerify']);
+Route::get('students/yt/{yt}',[StudentManageController::class,'studentByYt']);
 
 //         --------------------teacher managing-------------------
 Route::apiResource('teachers',TeacherController::class);
+Route::post('teacher/update/{t_id}',[TeacherController::class,'update']);
+
 Route::apiResource('teachers/{teacher}/roles',TeacherRoleController::class,['only'=>['index','store','destroy']]);
 Route::apiResource('teachers/{teacher}/permissions',TeacherPermissionController::class,['only'=>['index','store','destroy']]);
 
@@ -52,9 +58,16 @@ Route::apiResource('teachers/{teacher}/permissions',TeacherPermissionController:
 
 Route::apiResource('courses',CourseController::class);
 Route::get('user/{user}/courses',[CourseController::class,'userWiseCourselist']);
+Route::get('course/teacher/{teacher_id}',[CourseController::class,'teacherWiseCourse']);
 // -----------------marks--------------
-Route::apiResource('marks',Mark::class);
-
+Route::apiResource('marks',MarkController::class);
+Route::get('mark/student/{s_id}',[MarkController::class,'studentWiseMark']);
+Route::get('mark/teacher/{t_id}',[MarkController::class,'teacherWiseMark']);
+Route::get('mark/course/{course_code}',[MarkController::class,'courseWiseMark']);
+Route::get('mark/yt/{yt}',[MarkController::class,'ytWiseMark']);
+Route::post('mark/batch-update',[MarkController::class,'batchUpdate']);
+// -------------routine------------
+Route::apiResource('routines',RoutineController::class);
 
 
 

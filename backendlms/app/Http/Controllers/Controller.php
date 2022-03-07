@@ -35,7 +35,6 @@ use Illuminate\Routing\Controller as BaseController;
      *      url="https://studentinfopopy.herokuapp.com/api/",
      *      description="Demo API Server"
      * )
-
      *
      *
      */

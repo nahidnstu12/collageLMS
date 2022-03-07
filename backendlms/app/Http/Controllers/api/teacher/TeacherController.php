@@ -10,6 +10,7 @@ use App\Mail\TeacherResetPasswordMail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\teacher\TeacherCreateRequest;
+use App\Models\TeacherInfo;
 
 class TeacherController extends Controller
 {
@@ -123,20 +124,43 @@ class TeacherController extends Controller
 
     public function store(TeacherCreateRequest $request)
     {
+        $request->validate([
+            'full_name'=>'required',
+            'email'=>'email|required|unique:users',
+            'phone' => 'min:11|numeric',
+            'address'=>'required',
+            'image'=>'mimes:jpeg,jpg,png',
+            't_id'=>'required|unique:teacher_infos',
+            'designation' => 'required',
+            ]);
         
         //creating new teacher
         $user=new User();
 
 
-        $data=$request->all();
-        $data['password']=Hash::make("teacher");
+        $user=new User();
+        $user->full_name=$request->full_name;
+        $user->email=$request->email;
+        $user->address=$request->address;
+        $user->password=Hash::make("teacher");
+        if($request->image) $user->image = $request->image;
+        // create teacher in database
+        $res=$user->save();
 
-        // creat teacher in database
-        $user=User::create($data);
-        $user->SendEmailVerificationNotification();
+        if($res){
+            // role assignment
+            $user->attachRole("teacher");
+            $user->SendEmailVerificationNotification();
 
-        // role assignment
-        $user->attachRole("teacher");
+            $info=new TeacherInfo();
+            $info->teacher_id = $user->id;
+            $info->t_id=$request->t_id;
+            $info->designation = $request->designation;
+            $info->save();
+
+        }
+
+
 
         // additional role assignment 
         if($request->role && is_array($request->role)) foreach($request->role as $role){
@@ -163,7 +187,6 @@ class TeacherController extends Controller
         Mail::to($request->email)->send(new TeacherResetPasswordMail($token));
 
         return $this->customResponse(["status"=>1,"msg"=>'teacher created!']);
-        return $request;
 
     }
 
@@ -216,25 +239,58 @@ class TeacherController extends Controller
      *      ),
      *  )
      */
-    public function show(User $teacher)
+    public function show($t_id)
     {
-        $teacher->teacherInfos;
-        return $this->oneResponse($teacher);
+        $teacherInfo=TeacherInfo::where(['t_id'=>$t_id])->get();
+        if(sizeof($teacherInfo)){
+            $teacherInfo[0]->teacher;
+            return $this->customResponse($teacherInfo);
+        }
+        else
+        return $this->customResponse(["message"=>"teacher not found"],404);
 
     }
 
 
    //teacher edit
-    public function update(Request $request, User $teacher)
+    public function update(Request $request, $t_id)
     {
-        if(!$teacher->hasRole("teacher"))
-        {
-            return $this->customResponse(['message'=>'this user not an teacher!']);
+        $info=TeacherInfo::where(['t_id'=>$t_id])->get();
+        if(sizeof($info)){
+            $teacher_id=$info[0]->teacher->id;
         }
-        $updatedteacher=$teacher;
+        $request->validate([
+            'email'=>'email|unique:users,email,'.$teacher_id,
+            't_id'=>'unique:teacher_infos',
+            'image'=>'mimes:jpeg,jpg,png',
+        ]);
 
-        if($request->full_name) $updatedteacher['full_name']=$request->full_name;
+        if(sizeof($info)){
+            $info=$info[0];
+            $teacher=$info->teacher;
 
+            //checker is user is teacher
+            if(!$teacher->hasRole("teacher"))
+            {
+                return $this->customResponse(['message'=>'this user not a teacher!']);
+            }
+
+                if($request->full_name)$teacher->full_name=$request->full_name;
+                if($request->email)$teacher->email=$request->email;
+                if($request->address)$teacher->address=$request->address;
+                if($request->password)$teacher->password=Hash::make($request->password);
+                if($request->image) $teacher->image=$request->image;
+                $res=$teacher->save();
+
+                if($res){
+    
+                    if($request->t_id)$info->t_id=$request->t_id;
+                    if($request->designation)$info->designation=$request->designation;
+                    $info->save();
+
+                    return $this->customResponse(["msg"=>"teacher updated"]);
+                }
+        }
 
          // additional role assignment 
          if($request->role) foreach($request->role as $role){
@@ -249,10 +305,8 @@ class TeacherController extends Controller
                 return $this->customResponse(['message'=>'permission alreaday added']);
             $teacher->attachPermission($permission);
         }
-    
-        $response=$updatedteacher->update();
         
-        if($response) return $this->customResponse(['message'=>'teacher updated']);
+        // if($response) return $this->customResponse(['message'=>'teacher updated']);
 
 
     }
@@ -260,10 +314,20 @@ class TeacherController extends Controller
 
 
     //teacher delete
-    public function destroy(User $teacher)
+    public function destroy($t_id)
     {
-        $teacher->delete();
+        $info=TeacherInfo::where(['t_id'=>$t_id])->get();
+        if(sizeof($info)){
+            $teacher=$info[0]->teacher;
 
-        return $this->customResponse(['message'=>'teacher has deleted successfully!']);
+            if($info[0] && $teacher){
+                $info[0]->delete();
+                $teacher->delete();
+                return $this->customResponse(['message'=>'teacher has deleted successfully!']);
+            }
+            $this->errorResponse('teacher not found',404);
+        }
+        else
+            return $this->errorResponse('teacher not found',404);
     }
 }

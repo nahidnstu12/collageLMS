@@ -43,19 +43,19 @@ class CourseSeeder extends Seeder
     {
         for($i=1;$i<=20;$i++)
         Course::create(['teacher_id'=> $this->faker->randomElement([1,2,5,6,8,9,4]),
-        'course_code'=>'CSTE'.$this->faker->randomElement([11,12,21,22,31,32,41,42]),
         'course_title'=>$this->faker->word(),
         'credit_hour'=>$this->faker->randomElement([2,3]),
-        'yt'=>$this->faker->randomElement([
-            'Y1-T1',
-            'Y2-T1',
-            'Y3-T1',
-            'Y4-T1',
-            'Y1-T2',
-            'Y2-T2',
-            'Y3-T2',
-            'Y4-T2',
-        ]),
+        'course_code'=>'CSTE'.substr(sha1(mt_rand()),17,6),
+            'yt'=>$this->faker->randomElement([
+                'Y1-T1',
+                'Y2-T1',
+                'Y3-T1',
+                'Y4-T1',
+                'Y1-T2',
+                'Y2-T2',
+                'Y3-T2',
+                'Y4-T2',
+            ]),
         'course_description'=>$this->faker->paragraph()]);
     }
 }

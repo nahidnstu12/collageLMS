@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Course;
+use App\Models\StudentInfo;
+use App\Models\TeacherInfo;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,12 +19,15 @@ class MarkFactory extends Factory
     {
         return [
             'student_id'=>User::whereRoleIs('student')->get()->random()->id,
-            'course_id' =>rand(1,20),
+            'course_id' =>Course::all()->random()->id,
+            's_id'=>StudentInfo::all()->random()->s_id,
+            't_id'=>TeacherInfo::all()->random()->t_id,
+            'course_code'=>Course::all()->random()->course_code,
             'ct1'=>rand(1,25),
             'ct2'=>rand(1,25),
             'ct3'=>rand(1,25),
             'attendence'=>rand(1,5),
-            'writte'=>rand(1,70),
+            'written'=>rand(1,70),
             'total'=>rand(1,100),
             'yt'=>$this->faker->randomElement([
                 'Y1-T1',
@@ -33,6 +39,21 @@ class MarkFactory extends Factory
                 'Y3-T2',
                 'Y4-T2',
                 ])
+
+    // 'student_id',
+    // 'teacher_id',
+    // 'course_id',
+    // 's_id',
+    // 't_id',
+    // 'course_code',
+    // 'ct1',
+    // 'ct2',
+    // 'ct3',
+    // 'attendence',
+    // 'written',
+    // 'total',
+    // 'yt'
+
         ];
     }
 }

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\api\auth;
 use Exception;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\StudentInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\TeacherInfo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,33 +17,62 @@ class AuthController extends Controller
 {
     // generalized register function
 
-
-
     public static function register(Request $request,$user_type='student')
     {
         $request->validate([
             'full_name'=>'required',
             'email'=>'email|required|unique:users',
             'password'=>'required|confirmed',
+            'full_name'=>'required',
+            'address'=>'required',
+            's_id'=>'required|unique:student_infos',
+            'yt'=>'required',
+            'batch'=>'required',
+            'session'=>'required',
+            'image'=>'mimes:jpeg,jpg,png',
             
         ]);
-        
         $user=new User();
 
-        $data=$request->all();
-        $data['password']=Hash::make($request->password);
-        $data['verified']=User::UNVERIFIED_USER;
-        $data['verification_token']=User::generateVerificationCode();
+        $user->full_name=$request->full_name;
+        $user->email=$request->email;
+        $user->address=$request->address;
+        $user->password=Hash::make($request->password);
+        if($request->image) $user->image = $request->image;
+        $user->verified=User::UNVERIFIED_USER;
+        $user->verification_token=User::generateVerificationCode();
+        $res=$user->save();
 
-        $user=User::create($data);
+        if($res && $user_type == 'student'){
+            // $user->attachPermission('verified_student');
+            $info=new StudentInfo();
+            $info->s_id=$request->s_id;
+            $info->student_id=$user->id;
+            $info->yt=$request->yt;
+            $info->batch=$request->batch;
+            $info->session=$request->session;
+            $info->status=$request->status;
+            $info->save();
+            // return response(["msg"=>"student created"]);
+        }
+        if($res && $user_type == 'teaceher')
+        {
+            $info =new TeacherInfo();
+            if($request->t_id)$info->t_id=$request->t_id;
+            if($request->designation)$info->designation=$request->designation;
+            $info->save();
+        }
+        //send verification email
         $user->SendEmailVerificationNotification();
-
+    
         // role assignment
         $user->attachRole($user_type);
 
         $token=$user->createToken('auth_token')->accessToken;
         
         return Response(["status"=>1,"msg"=>'registered!',"token"=>$token]);
+        
+
     }
     
 
@@ -121,6 +152,7 @@ class AuthController extends Controller
 
     public function studentRegister(Request $request)
     {
+        
         return $this->register($request,'student');
     }
 

@@ -40,7 +40,6 @@ Thumbs.db
 *.mov
 *.wmv
 /public/hot
-/public/storage
 /vendor
 .env
 .phpunit.result.cache
