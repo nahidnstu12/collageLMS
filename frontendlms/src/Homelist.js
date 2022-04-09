@@ -118,9 +118,9 @@ const userManual = {
     "Student Email: janae49@example.net password: 123",
   ],
   routes: [
-    "super admin login : http://localhost:3000/super_admin/login",
-    "Teacher login: http://localhost:3000/teacher/login",
-    "Student login: http://localhost:3000/student/login",
-    "Dahsboard: http://localhost:3000/dashboard",
+    "super admin login : https://collage-lms-nstu.netlify.app/super_admin/login",
+    "Teacher login: https://collage-lms-nstu.netlify.app/teacher/login",
+    "Student login: https://collage-lms-nstu.netlify.app/student/login",
+    "Dahsboard: https://collage-lms-nstu.netlify.app/dashboard",
   ],
 };
