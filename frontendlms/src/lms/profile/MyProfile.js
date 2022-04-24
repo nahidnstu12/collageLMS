@@ -65,23 +65,17 @@ export default function MyProfile() {
       <section className="profile-area card">
         <div className="profile-content card-body d-flex">
           <div className="user-image-wrap mr-5">
-            <img src={user?.image || studentInfo.profileImg} alt="" />
+            <img src={user?.image } alt="" />
           </div>
           <div className="user-about">
             <h2 className="text-danger">
-              {user?.full_name || studentInfo.name}
+              {user?.full_name }
             </h2>
 
-            {profile?.role === "super_admin" ? (
-              <AdminProfile user={user} adminInfo={adminInfo} />
-            ) : profile?.role === "teacher" ? (
-              <TeacherProfile user={user} />
-            ) : (
-              <StudentProfile user={user} studentInfo={studentInfo} />
-            )}
+            {profileType}
             <br />
             <br />
-            <p>Email: {user?.email || studentInfo.email} </p>
+            <p>Email: {user?.email } </p>
             <p>Phone: {user?.phone || studentInfo.phone} </p>
             <p>Address: {studentInfo.address} </p>
 
@@ -102,7 +96,7 @@ export default function MyProfile() {
     </div>
   );
 }
-const StudentProfile = ({studentInfo}) => {
+const StudentProfile = ({ studentInfo }) => {
   const [user, setProfile] = useState({});
   useEffect(async () => {
     const data = await getData("/students");
@@ -113,17 +107,17 @@ const StudentProfile = ({studentInfo}) => {
     <>
       <p>
         <strong>
-          {user?.student_infos?.s_id || studentInfo.roll} {"  |  "}{" "}
-          {user?.student_infos?.yt || studentInfo.currentYear}
+          {user?.student_infos?.s_id } {"  |  "}{" "}
+          {user?.student_infos?.yt }
         </strong>
       </p>
       <h4 className="additonal-info">Additonal Information</h4>
-      <p>Batch: {user?.student_infos?.batch || studentInfo.batch} batch</p>
-      <p>Session: {user?.student_infos?.session || studentInfo.sesseion} </p>
+      <p>Batch: {user?.student_infos?.batch } batch</p>
+      <p>Session: {user?.student_infos?.session } </p>
     </>
   );
 };
-const TeacherProfile = ({user}) => {
+const TeacherProfile = ({ user }) => {
   return (
     <>
       <p>
@@ -137,7 +131,7 @@ const TeacherProfile = ({user}) => {
     </>
   );
 };
-const AdminProfile = ({adminInfo}) => {
+const AdminProfile = ({ adminInfo }) => {
   return (
     <>
       <p>
