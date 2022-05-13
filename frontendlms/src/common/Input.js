@@ -47,6 +47,7 @@ export const Select = ({
   required,
   id,
   full,
+  selected
 }) => {
   return (
     <div className={full ? "col-lg-8 offset-lg-2 col-md-12 mb-4" : "col"}>

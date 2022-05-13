@@ -1,86 +1,127 @@
-import React, {useState} from "react";
-import { fullRoutine } from "../store/columnlevel";
+import React, { useState, useEffect } from "react";
+import { getData } from "../hooks/axios";
+import { shortName, sortedWeekdata } from "../hooks/lib";
 import Modal, { EditRoutineCellModal } from "./Modal";
+import Spinner from "./Spinner";
 
+function RoutineTable({ today  }) {
+  const [fullRoutinee, setFullRoutine] = useState([]);
+  useEffect(() => {
+    const getFullRoutine = async () => {
+      const data = await getData("/routines");
+      setFullRoutine(data);
+    };
+    getFullRoutine();
+  }, []);
 
-function RoutineTable({ customers }) {
-  const sunday = fullRoutine.filter((item) => item.day === "sunday");
-  const monday = fullRoutine.filter((item) => item.day === "monday");
-  const tuesday = fullRoutine.filter((item) => item.day === "tuesday");
-  const wednesday = fullRoutine.filter((item) => item.day === "wednesday");
-  const thursday = fullRoutine.filter((item) => item.day === "thursday");
-  // console.log(sunday);
-  return (
+  const groupWeek = fullRoutinee?.reduce((acc, curr) => {
+    const { weekday } = curr;
+    acc[weekday] = acc[weekday] ?? [];
+    // console.log("debug ->",acc[weekday]);
+
+    acc[weekday].push(curr);
+    return acc;
+  }, {});
+  console.log(groupWeek);
+
+  const sunday =
+    fullRoutinee?.length > 0 && sortedWeekdata(groupWeek["Sunday"], []);
+  const monday =
+    fullRoutinee?.length > 0 && sortedWeekdata(groupWeek["Monday"], []);
+  const tuesday =
+    fullRoutinee?.length > 0 && sortedWeekdata(groupWeek["Tuesday"], []);
+  const wednesday =
+    fullRoutinee?.length > 0 && sortedWeekdata(groupWeek["Wednesday"], []);
+  const thursday =
+    fullRoutinee?.length > 0 && sortedWeekdata(groupWeek["Thusday"], []);
+
+  
+  const today2 =
+    fullRoutinee?.length > 0 && sortedWeekdata(groupWeek[today], []);
+  console.log({ today, today2 });
+  return fullRoutinee.length === 0 ? (
+    <Spinner />
+  ) : today ? (
     <table
-      class="table table-hover table-responsive"
+      className="table table-hover table-responsive"
       style={{ fontSize: "0.7rem", display: "table" }}
     >
-      <thead class="bg-gradient">
-        <tr>
-          <th scope="col" className="tbl-head">
-            Day
-          </th>
-          <th scope="col" className="tbl-head">
-            9.00-9:45
-          </th>
-          <th scope="col" className="tbl-head">
-            10.00-10:45
-          </th>
-          <th scope="col" className="tbl-head">
-            11.00-11:45
-          </th>
-          <th scope="col" className="tbl-head">
-            12.00-12:45
-          </th>
-          <th scope="col" className="tbl-head">
-            2.00-2:45
-          </th>
-          <th scope="col" className="tbl-head">
-            3.00-3:45
-          </th>
-          <th scope="col" className="tbl-head">
-            4.00-4:45
-          </th>
-        </tr>
-      </thead>
+      <TableHead />
       <tbody>
-        {/* iterate through the customers array and render a unique Customer component for each customer object in the array */}
-
-        <RoutineBody subject={sunday} />
-        <RoutineBody subject={monday} />
-        <RoutineBody subject={tuesday} />
-        <RoutineBody subject={wednesday} />
-        <RoutineBody subject={thursday} />
+        {" "}
+        <RoutineBody subject={today2} day={today} />{" "}
+      </tbody>
+    </table>
+  ) : (
+    <table
+      className="table table-hover table-responsive"
+      style={{ fontSize: "0.7rem", display: "table" }}
+    >
+      <TableHead />
+      <tbody>
+        <RoutineBody subject={sunday} day={"Sunday"} />
+        <RoutineBody subject={monday} day={"Monday"} />
+        <RoutineBody subject={tuesday} day={"Tuesday"} />
+        <RoutineBody subject={wednesday} day={"Wednesday"} />
+        <RoutineBody subject={thursday} day={"Thursday"} />
       </tbody>
     </table>
   );
 }
-export const RoutineBody = ({ subject }) => {
+export const TableHead = () => {
+  const timeSlotArray = [
+    "9-9:45",
+    "10-10:45",
+    "11-11:45",
+    "12-12:45",
+    "2-2:45",
+    "3-3:45",
+    "4-4:45",
+  ];
+  return (
+    <thead className="bg-gradient">
+      <tr>
+        <th scope="col" className="tbl-head">
+          Day
+        </th>
+        {timeSlotArray.map((item) => (
+          <th scope="col" className="tbl-head" key={item}>
+            {item}
+          </th>
+        ))}
+      </tr>
+    </thead>
+  );
+};
+export const RoutineBody = ({ subject, day }) => {
   //   const { day, courseCode, courseTeacher, time } = subject;
-  // console.log({ subject });
+  console.log({ subject });
   return (
     <tr>
-      <td>{subject[0].day}</td>
-      {subject.map((item) => (
-        <RoutineCell
-          courseCode={item.courseCode}
-          courseTeacher={item.courseTeacher}
-        />
-      ))}
-      {/* <RoutineCell
-        courseCode={subject.courseCode}
-        courseTeacher={subject.courseTeacher}
-      /> */}
+      <td>{day}</td>
+      {subject &&
+        subject?.map((item) => (
+          <RoutineCell
+            courseCode={item?.course_code}
+            courseTeacher={shortName(item?.teacher_name || "")}
+            key={item.id}
+          />
+        ))}
     </tr>
   );
 };
 export const RoutineCell = ({ courseTeacher, courseCode }) => {
   //   const { day, courseCode, courseTeacher, time } = subject;
-   const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
   return (
     <td className="text-center" onDoubleClick={() => setShow(true)}>
       {courseCode || "X"} <br /> {courseTeacher}
-      <Modal title="My Modal" w50={true} onClose={() => setShow(false)} show={show}>
+      <Modal
+        title="My Modal"
+        w50={true}
+        onClose={() => setShow(false)}
+        show={show}
+      >
         <EditRoutineCellModal />
       </Modal>
     </td>

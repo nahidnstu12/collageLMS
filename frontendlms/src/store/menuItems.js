@@ -27,16 +27,16 @@ export const adminMenuItems = [
   //   ],
   // },
 // routine managemewnt
-  // {
-  //   name: "Routine",
-  //   exact: true,
-  //   to: `#`,
-  //   iconClassName: "fa-stopwatch",
-  //   subMenus: [
-  //     { label: " Full Routine", to: "/routine/full" },
-  //     { label: " todays", to: "/routine/todays" },
-  //   ],
-  // },
+  {
+    name: "Routine",
+    exact: true,
+    to: `#`,
+    iconClassName: "fa-stopwatch",
+    subMenus: [
+      { label: " Full Routine", to: "/routine/full" },
+      { label: " todays", to: "/routine/todays" },
+    ],
+  },
 // Marks Management
   // {
   //   name: "Marks",
@@ -110,16 +110,16 @@ export const teacherMenuItems = [
   //     { label: "Attendances Reports", to: "/attendance/reports" },
   //   ],
   // },
-  // {
-  //   name: "Routine",
-  //   exact: true,
-  //   to: `#`,
-  //   iconClassName: "fa-stopwatch",
-  //   subMenus: [
-  //     { label: " Full Routine", to: "/routine/full" },
-  //     { label: " todays", to: "/routine/todays" },
-  //   ],
-  // },
+  {
+    name: "Routine",
+    exact: true,
+    to: `#`,
+    iconClassName: "fa-stopwatch",
+    subMenus: [
+      { label: " Full Routine", to: "/routine/full" },
+      { label: " todays", to: "/routine/todays" },
+    ],
+  },
   // {
   //   name: "Marks",
   //   exact: true,
@@ -190,16 +190,16 @@ export const studentMenuItems = [
   //     { label: "Attendances Reports", to: "/attendance/reports" },
   //   ],
   // },
-  // {
-  //   name: "Routine",
-  //   exact: true,
-  //   to: `#`,
-  //   iconClassName: "fa-stopwatch",
-  //   subMenus: [
-  //     { label: " Full Routine", to: "/routine/full" },
-  //     { label: " todays", to: "/routine/todays" },
-  //   ],
-  // },
+  {
+    name: "Routine",
+    exact: true,
+    to: `#`,
+    iconClassName: "fa-stopwatch",
+    subMenus: [
+      { label: " Full Routine", to: "/routine/full" },
+      { label: " todays", to: "/routine/todays" },
+    ],
+  },
   // {
   //   name: "Marks",
   //   exact: true,

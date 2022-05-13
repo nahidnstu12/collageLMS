@@ -54,6 +54,15 @@ export default function AddTeacher() {
   }
 
   useEffect(async () => {
+    const fields = [
+      "teacher_id",
+      "full_name",
+      "t_id",
+      "email",
+      "phone",
+      "designation",
+      "address",
+    ];
     if (!isAddMode) {
       // get user and set form fields
       try {
@@ -66,23 +75,22 @@ export default function AddTeacher() {
           phone: r.phone,
           address: r.address,
         };
-        const fields = [
-          "teacher_id",
-          "full_name",
-          "t_id",
-          "email",
-          "phone",
-          "designation",
-          "address",
-        ];
+
         fields.forEach((field) => setValue(field, response[field]));
         setTeacher(response);
         console.log(response);
       } catch (err) {
         console.log(err);
       }
+    } else {
+      try {
+        fields.forEach((field) => setValue(field, ""));
+        setTeacher({});
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }, []);
+  }, [isAddMode]);
 
   return (
     <section className="es-form-area">

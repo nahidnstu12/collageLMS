@@ -1,9 +1,9 @@
 import { Input, Select } from "../../common/Input";
 import { useForm } from "react-hook-form";
-import { teacherLists, yearTerm } from "../../store/data";
+import { yearTerm } from "../../store/data";
 import { teacherlists } from "../../hooks/lib";
-import { useEffect, useMemo, useState } from "react";
-import { getData, patchData, postData, putData } from "../../hooks/axios";
+import { useEffect, useState } from "react";
+import { getData,  postData, putData } from "../../hooks/axios";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -13,34 +13,43 @@ export default function CoureseAdd(props) {
   const [course, setCourse] = useState({});
 
   const { id } = useParams();
-  // console.log(props);
-  // console.log({ id });
+
   const isAddMode = !id;
   const {
     register,
     handleSubmit,
     setValue,
-    getValues,
     reset,
     formState: { errors },
   } = useForm({ mode: "all" });
   // react hook form submit data
   const submit = async (formdata) => {
     console.log(formdata);
-    // const data = await postData("/courses", formdata);
-    // console.log(data);
+
     return isAddMode ? createCourse(formdata) : updateCourse(id, formdata);
   };
+  /**
+   * Create a course
+   * @param {object} data
+   */
   async function createCourse(data) {
     try {
       const res = await postData("/courses", data);
       console.log(res);
       toast.success(res.msg);
+      // console.log(data)
+      // toast.success("success");
+      // reset({})
     } catch (err) {
       console.log(err);
       toast.error(err.error);
     }
   }
+  /**
+   * Update a course
+   * @param {string} id
+   * @param {object} data
+   */
   async function updateCourse(id, data) {
     try {
       const res = await putData(`/courses/${id}`, data);
@@ -52,32 +61,46 @@ export default function CoureseAdd(props) {
     }
   }
   // form data feed
-  useEffect(async () => {
-    if (!isAddMode) {
-      // get user and set form fields
-      try {
-        const res = await getData(`/courses/${id}`);
-        const fields = [
-          "course_code",
-          "course_title",
-          "credit_hour",
-          "course_description",
-          "yt",
-          "teacher_id",
-        ];
-        fields.forEach((field) => setValue(field, res[field]));
-        setCourse(res);
-        console.log(res);
-      } catch (err) {
-        console.log(err);
+  useEffect(() => {
+    const fillFormData = async () => {
+      const fields = [
+        "course_code",
+        "course_title",
+        "credit_hour",
+        "course_description",
+        "yt",
+        "teacher_id",
+      ];
+      if (!isAddMode) {
+        // get user and set form fields
+        try {
+          const res = await getData(`/courses/${id}`);
+          fields.forEach((field) => setValue(field, res[field]));
+          setCourse(res);
+          console.log(res);
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        try {
+          fields.forEach((field) => setValue(field, ""));
+          setCourse({});
+        } catch (err) {
+          console.log(err);
+        }
       }
-    }
-  }, []);
-  useEffect(async () => {
-    const data = await teacherlists();
-    setLists(data);
-    console.log(data);
-  }, []);
+    };
+    fillFormData();
+  }, [isAddMode]);
+
+  useEffect(() => {
+    const getTeacher = async () => {
+      const data = await teacherlists();
+      setLists(data);
+      console.log(data);
+    };
+    getTeacher();
+  }, [isAddMode]);
 
   return (
     <section className="es-form-area">

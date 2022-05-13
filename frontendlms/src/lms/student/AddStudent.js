@@ -50,46 +50,83 @@ export default function AddStudent() {
       toast.error(err.error);
     }
   }
-  // useEffect(() => {
-  //   if (isSubmitSuccessful) {
-  //     reset({});
-  //   }
-  // }, [reset]);
-  useEffect(async () => {
-    if (!isAddMode) {
-      // get user and set form fields
-      try {
-        const res = await getData(`/students/${id}`);
-        let r = res[0].student_infos;
-        let response = {
-          ...res[0],
-          s_id: r.s_id,
-          session: r.session,
-          batch: r.batch,
-          yt: r.yt,
-        };
-        // response = response.student_infos;
-        console.log(response);
-        const fields = [
-          "full_name",
-          "s_id",
-          "email",
-          "phone",
-          "session",
-          "batch",
-          "yt",
-          "address",
-          // "image",
-        ];
-        fields.forEach((field) => setValue(field, response[field]));
-        setStudent(response);
-        // console.log(res[0]);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }, [isAddMode]);
 
+  // useEffect(() => {
+  //   const fillFormData = async () => {
+  //     const fields = [
+  //       "full_name",
+  //       "student_infos.s_id",
+  //       "email",
+  //       "phone",
+  //       "session",
+  //       "student_infos.batch",
+  //       "student_infos.yt",
+  //       "address",
+  //       // "image",
+  //     ];
+  //     if (!isAddMode) {
+  //       // get user and set form fields
+  //       try {
+  //         const res = await getData(`/students/${id}`);
+  //         fields.forEach((field) => setValue(field, res[0][field]));
+  //         setStudent(res);
+  //         console.log(res);
+  //       } catch (err) {
+  //         console.log(err);
+  //       }
+  //     } else {
+  //       try {
+  //         fields.forEach((field) => setValue(field, ""));
+  //         setStudent({});
+  //       } catch (err) {
+  //         console.log(err);
+  //       }
+  //     }
+  //   };
+  //   fillFormData();
+  // }, [isAddMode]);
+useEffect(async () => {
+   const fields = [
+     "full_name",
+     "s_id",
+     "email",
+     "phone",
+     "session",
+     "batch",
+     "yt",
+     "address",
+     // "image",
+   ];
+  if (!isAddMode) {
+    // get user and set form fields
+    try {
+      const res = await getData(`/students/${id}`);
+      let r = res[0].student_infos;
+      let response = {
+        ...res[0],
+        s_id: r.s_id,
+        session: r.session,
+        batch: r.batch,
+        yt: r.yt,
+      };
+      // response = response.student_infos;
+      console.log(response);
+     
+      fields.forEach((field) => setValue(field, response[field]));
+      setStudent(response);
+      // console.log(res[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  }else{
+     try {
+       fields.forEach((field) => setValue(field, ""));
+       setStudent({});
+     } catch (err) {
+       console.log(err);
+     }
+  }
+}, [isAddMode]);
   return (
     <section className="es-form-area">
       <div className="card">

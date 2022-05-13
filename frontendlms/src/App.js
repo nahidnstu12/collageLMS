@@ -130,27 +130,30 @@ function App() {
               <EditProfile />
             </PrivateRoute>
           </Switch>
-          {/* toast */}
-          <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            // rtl={false}
-            // pauseOnFocusLoss
-            draggable
-            // pauseOnHover
-            toastStyle={{
-              backgroundColor: "#333",
-              color: "#eee",
-            }}
-            progressClassName="toastProgress"
-          />
+         
         </Layout>
         <Route path={`/`} exact>
           <Homelist />
         </Route>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          // rtl={false}
+          // pauseOnFocusLoss
+          draggable
+          // pauseOnHover
+          toastStyle={
+            {
+              // backgroundColor: "#ff948a",
+              // color: "#efefef",
+              // background: #dd3222;
+            }
+          }
+          progressClassName="toastProgress"
+        />
       </Router>
     </div>
   );
