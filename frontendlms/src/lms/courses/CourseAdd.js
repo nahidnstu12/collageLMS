@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yearTerm } from "../../store/data";
 import { teacherlists } from "../../hooks/lib";
 import { useEffect, useState } from "react";
-import { getData,  postData, putData } from "../../hooks/axios";
+import { getData, postData, putData } from "../../hooks/axios";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -11,9 +11,16 @@ export default function CoureseAdd(props) {
   // const [placeholdar, setPlaceholder] = useState("Image File");
   const [lists, setLists] = useState([]);
   const [course, setCourse] = useState({});
-
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
-
+  const courseObj = {
+    course_code: "",
+    course_title: "",
+    credit_hour: "",
+    course_description: "",
+    yt: "",
+    teacher_id: "",
+  };
   const isAddMode = !id;
   const {
     register,
@@ -21,7 +28,9 @@ export default function CoureseAdd(props) {
     setValue,
     reset,
     formState: { errors },
-  } = useForm({ mode: "all" });
+  } = useForm({
+    mode: "all",
+  });
   // react hook form submit data
   const submit = async (formdata) => {
     console.log(formdata);
@@ -34,15 +43,18 @@ export default function CoureseAdd(props) {
    */
   async function createCourse(data) {
     try {
+      setLoading(true);
+      console.log(loading);
       const res = await postData("/courses", data);
-      console.log(res);
+      console.log(data);
       toast.success(res.msg);
-      // console.log(data)
       // toast.success("success");
-      // reset({})
+      reset({ ...courseObj });
+      setLoading(false);
     } catch (err) {
       console.log(err);
       toast.error(err.error);
+      setLoading(false);
     }
   }
   /**
@@ -52,12 +64,16 @@ export default function CoureseAdd(props) {
    */
   async function updateCourse(id, data) {
     try {
+      setLoading(true);
       const res = await putData(`/courses/${id}`, data);
-      console.log(res);
+      console.log(data);
       toast.success(res.msg);
+      reset({ ...courseObj });
+      setLoading(false);
     } catch (err) {
       console.log(err);
       toast.error(err.error);
+      setLoading(false);
     }
   }
   // form data feed
@@ -180,8 +196,14 @@ export default function CoureseAdd(props) {
               />
 
               <div className="col-lg-4 offset-lg-4 col-md-12 text-center">
-                <button className="btn btn-danger btn-block bg-gradient border-0 text-white">
-                  {isAddMode ? "Add New Course" : "Edit Course"}
+                <button
+                  disabled={loading}
+                  className="btn btn-danger btn-block bg-gradient border-0 text-white"
+                  type="submit"
+                >
+                  {isAddMode
+                    ? `Add${loading ? "ing" : ""} New Course`
+                    : `Edit${loading ? "ing" : ""} Course`}
                 </button>
               </div>
             </div>

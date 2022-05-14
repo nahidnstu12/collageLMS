@@ -4,7 +4,7 @@ import { shortName, sortedWeekdata } from "../hooks/lib";
 import Modal, { EditRoutineCellModal } from "./Modal";
 import Spinner from "./Spinner";
 
-function RoutineTable({ today  }) {
+function RoutineTable({ today }) {
   const [fullRoutinee, setFullRoutine] = useState([]);
   useEffect(() => {
     const getFullRoutine = async () => {
@@ -35,13 +35,12 @@ function RoutineTable({ today  }) {
   const thursday =
     fullRoutinee?.length > 0 && sortedWeekdata(groupWeek["Thusday"], []);
 
-  
   const today2 =
-    fullRoutinee?.length > 0 && sortedWeekdata(groupWeek[today], []);
+    today && fullRoutinee?.length > 0 && sortedWeekdata(groupWeek[today], []);
   console.log({ today, today2 });
   return fullRoutinee.length === 0 ? (
     <Spinner />
-  ) : today ? (
+  ) : today2 ? (
     <table
       className="table table-hover table-responsive"
       style={{ fontSize: "0.7rem", display: "table" }}

@@ -48,18 +48,15 @@ export default function StudentList() {
           <header className="card-header bg-gradient border-0 pt-5 pb-5 d-flex align-items-center">
             {profile?.role === "super_admin" && (
               <Link to={`/student/add`}>
-                <a
-                  href=""
-                  className="btn btn-sm btn-pill btn-outline-light ml-auto"
-                >
+                <span className="btn btn-sm btn-pill btn-outline-light ml-auto">
                   + Add New
-                </a>
+                </span>
               </Link>
             )}
           </header>
 
           <div className="card-body">
-            <FilterBatch setStudents={setStudents}/>
+            <FilterBatch setStudents={setStudents} />
             <div className="attendances-list-wrap mt-5">
               <Table
                 columns={columns}

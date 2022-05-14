@@ -64,7 +64,7 @@ export const Select = ({
       >
         {lists &&
           lists?.map((item) => (
-            <option key={item.code} value={item.code} selected>
+            <option key={item.code} value={item.code}>
               {item.title}
             </option>
           ))}
