@@ -78,6 +78,8 @@ const siteImgArray = [
   { imgUrl: "course lists.png", label: "Course Lists" },
   { imgUrl: "course add.png", label: "Course Add" },
   { imgUrl: "course edit.png", label: "Course Edit" },
+  { imgUrl: "full routine.png", label: "Full Routien" },
+  { imgUrl: "todays routine.png", label: "Today's Routine" },
   { imgUrl: "student list.png", label: "Student Lists" },
   { imgUrl: "verified student list.png", label: "Verified Student Lists" },
   { imgUrl: "teacher lists.png", label: "Teacher Lists" },

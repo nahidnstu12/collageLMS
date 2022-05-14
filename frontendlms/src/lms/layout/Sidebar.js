@@ -43,8 +43,7 @@ export default function Sidebar() {
         removeActiveClassFromSubMenu();
         menuItems.forEach((el) => el.classList.remove("active"));
         el.classList.toggle("active");
-        //  console.log(next);
-        //  console.log(el);
+       
         if (next !== null) {
           next.classList.toggle("active");
         }

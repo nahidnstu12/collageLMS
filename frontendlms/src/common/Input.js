@@ -47,6 +47,7 @@ export const Select = ({
   required,
   id,
   full,
+  selected
 }) => {
   return (
     <div className={full ? "col-lg-8 offset-lg-2 col-md-12 mb-4" : "col"}>
@@ -63,7 +64,7 @@ export const Select = ({
       >
         {lists &&
           lists?.map((item) => (
-            <option key={item.code} value={item.code} selected>
+            <option key={item.code} value={item.code}>
               {item.title}
             </option>
           ))}
