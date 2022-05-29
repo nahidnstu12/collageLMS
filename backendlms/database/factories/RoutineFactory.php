@@ -17,7 +17,7 @@ class RoutineFactory extends Factory
     {
         return [
             'timeslot'=>$this->faker->randomElement(['9-9:45','10-10:45','11-11:45','12-12:45','2-2:245','3-3:45','4-4:45']),
-            'weekday'=>$this->faker->randomElement(['Saturday','Sunday','Monday','Tuesday','Wednesday','Thusday','Friday']),
+            'weekday'=>$this->faker->randomElement(['Sunday','Monday','Tuesday','Wednesday','Thusday']),
             'course_code'=>Course::all()->random()->course_code,
             'course_name'=>$this->faker->word,
             't_id'=>TeacherInfo::all()->random()->t_id,

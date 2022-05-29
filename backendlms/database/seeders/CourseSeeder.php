@@ -10,7 +10,7 @@ use Illuminate\Container\Container;
 class CourseSeeder extends Seeder
 {
      // ===============using faker in seeder ===============
-    // 1. makeing a container(Illuminate) instance with Generator(faker)
+    // 1. making a container(Illuminate) instance with Generator(faker)
     // 2. use $this->faker to access Faker Factory
 
     /**
