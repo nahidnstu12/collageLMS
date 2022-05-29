@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api\routine;
 
 use App\Models\Routine;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class RoutineController extends Controller
@@ -68,18 +70,14 @@ class RoutineController extends Controller
      */
     public function update(Request $request, Routine $routine)
     {
-        // //course code
-        // $course=Course::where(['course_code'=>$request->course_code])->get();
-        // if(sizeof($course)) $course=$course[0];
-
-        $request->validate([
-            'course_code'=>'course_code|unique:routines,course_code,'.$routine->course_code,
-            't_id'=>'t_id|unique:routines,t_id,',
-        ]);
-
-        // $routine=Routine::find($id);
-        if($request->timeslot) $routine->timeslot=$request->timeslot;
-        if($request->weekday) $routine->weekday=$request->weekday;
+        // $request->validate([
+        //     'course_code'=>[Rule::unique('routines')->ignore($routine->id)],
+        //     't_id'=>[Rule::unique('routines')->ignore($routine->id)]
+        // ]);
+        if(!DB::table('teacher_infos')->where('t_id',$request->t_id)->first()) 
+            return $this->customResponse(['msg'=>'No Teacher found with '.$request->t_id]);
+        if(!DB::table('courses')->where('course_code',$request->course_code)->first()) 
+            return $this->customResponse(['msg'=>'No course found with '.$request->course_code]);        
         if($request->course_code) $routine->course_code=$request->course_code;
         if($request->course_name) $routine->course_name=$request->course_name;
         if($request->t_id) $routine->t_id=$request->t_id;
